@@ -36,6 +36,8 @@ jobs:
         with:
           name: hristov.dev
           path: .
+          
+      - run: ls
 
       - uses: horochx/deploy-via-scp@master
         with:
