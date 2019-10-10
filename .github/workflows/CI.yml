@@ -34,13 +34,13 @@ jobs:
     steps:
       - uses: actions/download-artifact@master
         with:
-          name: build
+          name: hristov.dev
           path: .
 
       - name: Deploy
         uses: garygrossgarten/github-action-ssh@release
         with:
-          command: scp /build deployment@${{ secrets.HOST }}:/var/www/hristov.dev/
+          command: scp /build deployment@${{ secrets.HOST }}:/var/www/
           host: ${{ secrets.HOST }}
           username: deployment
           passphrase: ${{ secrets.PASSPHRASE }}
