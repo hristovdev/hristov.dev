@@ -39,7 +39,7 @@ jobs:
 
       - uses: horochx/deploy-via-scp@master
         with:
-          local: hristov.dev
+          local: /home/runner/work/hristov.dev/hristov.dev
           remote: ${{ secrets.SSH_REMOTE_DIR }}
           host: ${{ secrets.SSH_HOST }}
           port: ${{ secrets.SSH_PORT }}
