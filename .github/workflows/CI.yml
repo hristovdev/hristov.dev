@@ -37,11 +37,11 @@ jobs:
           name: hristov.dev
           path: .
 
-      - name: Deploy
-        uses: garygrossgarten/github-action-ssh@release
+      - uses: horochx/deploy-via-scp@master
         with:
-          command: scp /build deployment@${{ secrets.HOST }}:/var/www/
-          host: ${{ secrets.HOST }}
-          username: deployment
-          passphrase: ${{ secrets.PASSPHRASE }}
-          privateKey: ${{ secrets.PRIVATE_KEY}}
+          local: hristov.dev
+          remote: ${{ secrets.SSH_REMOTE_DIR }}
+          host: ${{ secrets.SSH_HOST }}
+          port: ${{ secrets.SSH_PORT }}
+          user: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
