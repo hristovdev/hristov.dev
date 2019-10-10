@@ -32,5 +32,16 @@ jobs:
     needs: build
 
     steps:
-      - name: test
-        run: echo test
+      - uses: actions/download-artifact@master
+        with:
+          name: build
+          path: .
+
+      - name: ls -a via ssh
+        uses: garygrossgarten/github-action-ssh@release
+        with:
+          command: ls -a
+          host: ${{ secrets.HOST }}
+          username: deployment
+          passphrase: ${{ secrets.PASSPHRASE }}
+          privateKey: ${{ secrets.PRIVATE_KEY}}
