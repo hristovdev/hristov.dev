@@ -44,5 +44,6 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.SSH_PORT }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: "*"
           target: ${{ secrets.SSH_REMOTE_DIR }}
