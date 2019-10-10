@@ -37,10 +37,10 @@ jobs:
           name: build
           path: .
 
-      - name: ls -a via ssh
+      - name: Deploy
         uses: garygrossgarten/github-action-ssh@release
         with:
-          command: ls -a
+          command: scp /build deployment@${{ secrets.HOST }}:/var/www/hristov.dev/
           host: ${{ secrets.HOST }}
           username: deployment
           passphrase: ${{ secrets.PASSPHRASE }}
