@@ -23,9 +23,9 @@ jobs:
         env:
           CI: true
       - uses: actions/upload-artifact@master
-    with:
-      name: build
-      path: dist
+        with:
+          name: build
+          path: dist
 
   deploy:
     runs-on: ubuntu-latest
