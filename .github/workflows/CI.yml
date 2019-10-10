@@ -24,7 +24,7 @@ jobs:
           CI: true
       - uses: actions/upload-artifact@master
         with:
-          name: build
+          name: hristov.dev
           path: dist
 
   deploy:
