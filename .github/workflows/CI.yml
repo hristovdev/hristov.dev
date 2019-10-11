@@ -47,3 +47,13 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: "*"
           target: ${{ secrets.SSH_REMOTE_DIR }}
+        
+      - name: Deploy to Staging server
+        uses: easingthemes/ssh-deploy@v2.0.2
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
+          ARGS: "-rltgoDzvO"
+          SOURCE: "/"
+          REMOTE_HOST: ${{ secrets.SSH_HOST }}
+          REMOTE_USER: ${{ secrets.SSH_USER }}
+          TARGET: ${{ secrets.SSH_REMOTE_DIR }}
