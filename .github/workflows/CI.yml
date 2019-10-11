@@ -38,12 +38,8 @@ jobs:
           name: hristov.dev
           path: .
         
-      - name: Deploy to Staging server
-        uses: easingthemes/ssh-deploy@v2.0.2
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
-          ARGS: "-rltgoDzvO"
-          SOURCE: "/"
-          REMOTE_HOST: ${{ secrets.SSH_HOST }}
-          REMOTE_USER: ${{ secrets.SSH_USER }}
-          TARGET: ${{ secrets.SSH_REMOTE_DIR }}
+      - name: rsync deployments
+        uses: contention/rsync-deployments@v1.0.0
+        with:
+          secrets: ${{ SSH_PRIVATE_KEY }}
+          args: "-avzr --delete ${{ SSH_USER }}@${{ SSH_HOST }}:${{ SSH_REMOTE_DIR }}"
