@@ -38,11 +38,13 @@ jobs:
           name: hristov.dev
           path: .
         
-      - name: rsync deployments
-        uses: contention/rsync-deployments@v1.0.0
-        env:          
-          secrets: ${{ secrets.SSH_PRIVATE_KEY }}
-          args: "-avzr --delete ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.SSH_REMOTE_DIR }}"
+      - name: copy file via ssh key
+        uses: appleboy/scp-action@master
+        env:
+          HOST: ${{ secrets.SSH_HOST }}
+          USERNAME: ${{ secrets.SSH_USER }}
+          PORT: ${{ secrets.SSH_PORT }}
+          KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         with:
-          secrets: ${{ secrets.SSH_PRIVATE_KEY }}
-          args: "-avzr --delete ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.SSH_REMOTE_DIR }}"
+          source: "*"
+          target: ${{ secrets.SSH_REMOTE_DIR }}
