@@ -11,11 +11,11 @@
   "author": "Hristo Hristov",
   "license": "ISC",
   "dependencies": {
-    "@types/react": "^16.9.6",
+    "@types/react": "^16.9.10",
     "@types/react-dom": "^16.9.2",
     "@types/styled-components": "^4.1.19",
     "react": "^16.11.0",
-    "react-dom": "^16.10.2",
+    "react-dom": "^16.11.0",
     "styled-components": "^4.4.0"
   },
   "devDependencies": {
