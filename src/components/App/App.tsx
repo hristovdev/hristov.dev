@@ -1,5 +1,7 @@
 import React from "react";
-import styled, { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
+import Home from "../Home";
+import Navigation from "../Navigation";
 
 const GlobalStyles = createGlobalStyle`
   * {
@@ -10,6 +12,27 @@ const GlobalStyles = createGlobalStyle`
 
   body {
     font-family: 'Open Sans', sans-serif;
+  }
+
+  a {
+    color: white;
+    text-decoration: none;
+
+    &:hover {
+      color: red;
+    }
+  }
+
+  ul {
+    list-style: none;
+  }
+
+  h2 {
+    font-size: 3.5em;
+  }
+
+  h4 {
+    font-size: 1.5em;
   }
 `;
 
@@ -24,12 +47,27 @@ const Container = styled.div`
   color: #fff;
 `;
 
+const theme = {
+  color: {
+    primary: "red",
+    secondary: ""
+  },
+  spacing: {
+    small: "10px",
+    medium: "20px",
+    large: "30px"
+  }
+};
+
 const App: React.FC = () => {
   return (
-    <Container>
-      <GlobalStyles />
-      <h1>UNDER CONSTRUCTION</h1>
-    </Container>
+    <ThemeProvider theme={theme}>
+      <Container>
+        <GlobalStyles />
+        <Navigation />
+        <Home />
+      </Container>
+    </ThemeProvider>
   );
 };
 
