@@ -8,7 +8,7 @@ const Container = styled.main`
   display: flex;
   flex-direction: row;
   align-items: center;
-  max-width: 900px;
+  max-width: 1000px;
   width: 100%;
   justify-content: space-between;
 
@@ -37,6 +37,7 @@ const PictureBlock = styled.div`
   max-width: 440px;
   max-height: 440px;
   padding: 30px;
+  pointer-events: none;
 `;
 
 const ImageBorder = styled.div`
@@ -93,6 +94,18 @@ const SocialList = styled.ul`
   }
 `;
 
+const SocialLink = styled.a`
+  display: block;
+  padding: 5px;
+  line-height: 0;
+  border-radius: 5%;
+
+  &:hover {
+    background: ${({ theme }) => theme.color.primary};
+    color: white;
+  }
+`;
+
 const Home: React.FC = () => {
   return (
     <Container>
@@ -129,27 +142,31 @@ const Home: React.FC = () => {
         </ContactList>
         <SocialList>
           <li>
-            <a
+            <SocialLink
               href="https://www.facebook.com/xploadz"
               target="_blank"
               rel="noopener"
             >
               <FaFacebookF size="25px" />
-            </a>
+            </SocialLink>
           </li>
           <li>
-            <a href="https://github.com/Xpload" target="_blank" rel="noopener">
+            <SocialLink
+              href="https://github.com/Xpload"
+              target="_blank"
+              rel="noopener"
+            >
               <FaGithub size="25px" />
-            </a>
+            </SocialLink>
           </li>
           <li>
-            <a
+            <SocialLink
               href="https://www.linkedin.com/in/hvhristov/"
               target="_blank"
               rel="noopener"
             >
               <FaLinkedinIn size="25px" />
-            </a>
+            </SocialLink>
           </li>
         </SocialList>
       </InfoBlock>

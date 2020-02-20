@@ -2,6 +2,7 @@ import React from "react";
 import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
 import Home from "../Home";
 import Navigation from "../Navigation";
+import Header from "../Header";
 
 const GlobalStyles = createGlobalStyle`
   * {
@@ -12,12 +13,14 @@ const GlobalStyles = createGlobalStyle`
 
   body {
     font-family: 'Open Sans', sans-serif;
+    letter-spacing: 0.1em;
     background: #1c1e1f;
   }
 
   a {
     color: white;
     text-decoration: none;
+    transition: all 250ms ease-in-out;
 
     &:hover {
       color: red;
@@ -64,7 +67,7 @@ const App: React.FC = () => {
     <ThemeProvider theme={theme}>
       <GlobalStyles />
       <Container>
-        <Navigation />
+        {/* <Header /> */}
         <Home />
       </Container>
     </ThemeProvider>
