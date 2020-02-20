@@ -12,9 +12,9 @@ const GlobalStyles = createGlobalStyle`
   }
 
   body {
-    font-family: 'Open Sans', sans-serif;
-    letter-spacing: 0.1em;
+    font-family: 'Roboto', sans-serif;
     background: #1c1e1f;
+    font-size: 0.9em;
   }
 
   a {

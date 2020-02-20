@@ -73,6 +73,10 @@ const ContactList = styled.ul`
 `;
 
 const ContactListItem = styled.li`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
   > * + * {
     margin-left: ${({ theme }) => theme.spacing.medium};
   }
