@@ -24,17 +24,17 @@ const Left = styled.div`
 `;
 
 const ImageBorder = styled.div`
-  width: 350px;
-  height: 350px;
+  width: 400px;
+  height: 400px;
   border-radius: 50%;
-  border: 20px solid rgba(0, 0, 0, 0.15);
+  border: 30px solid rgba(0, 0, 0, 0.15);
 `;
 
 const Image = styled.img`
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  border: 20px solid rgba(0, 0, 0, 0.25);
+  border: 30px solid rgba(0, 0, 0, 0.25);
 `;
 
 const Greeting = styled.span`
