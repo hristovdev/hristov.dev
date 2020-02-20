@@ -12,27 +12,48 @@ const Container = styled.main`
   width: 100%;
   justify-content: space-between;
 
-  > * + * {
-    margin-left: 40px;
+  @media only screen and (max-width: 800px) {
+    flex-direction: column;
+  }
+
+  @media only screen and (min-width: 801px) {
+    flex-direction: row-reverse;
+
+    > * + * {
+      margin-right: 40px;
+    }
   }
 `;
 
-const Left = styled.div`
+const InfoBlock = styled.div`
+  padding: 30px;
+
   > * + * {
     margin-top: 40px;
   }
 `;
 
+const PictureBlock = styled.div`
+  max-width: 440px;
+  max-height: 440px;
+  padding: 30px;
+`;
+
 const ImageBorder = styled.div`
-  width: 400px;
-  height: 400px;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
   border-radius: 50%;
   border: 30px solid rgba(0, 0, 0, 0.15);
 `;
 
 const Image = styled.img`
-  width: 100%;
-  height: 100%;
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
   border-radius: 50%;
   border: 30px solid rgba(0, 0, 0, 0.25);
 `;
@@ -40,7 +61,8 @@ const Image = styled.img`
 const Greeting = styled.span`
   background: ${({ theme }) => theme.color.primary};
   border-radius: 15px 15px 15px 0;
-  padding: ${({ theme }) => theme.spacing.small} ${({ theme }) => theme.spacing.medium};
+  padding: ${({ theme }) => theme.spacing.small}
+    ${({ theme }) => theme.spacing.medium};
 `;
 
 const ContactList = styled.ul`
@@ -74,7 +96,12 @@ const SocialList = styled.ul`
 const Home: React.FC = () => {
   return (
     <Container>
-      <Left>
+      <PictureBlock>
+        <ImageBorder>
+          <Image src="./20170120_150031.png" />
+        </ImageBorder>
+      </PictureBlock>
+      <InfoBlock>
         <Greeting>Hello I'm</Greeting>
         <div>
           <h2>Hristo Hristov</h2>
@@ -125,12 +152,7 @@ const Home: React.FC = () => {
             </a>
           </li>
         </SocialList>
-      </Left>
-      <div>
-        <ImageBorder>
-          <Image src="./20170120_150031.png" />
-        </ImageBorder>
-      </div>
+      </InfoBlock>
     </Container>
   );
 };

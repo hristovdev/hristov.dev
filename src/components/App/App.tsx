@@ -62,8 +62,8 @@ const theme = {
 const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
+      <GlobalStyles />
       <Container>
-        <GlobalStyles />
         <Navigation />
         <Home />
       </Container>
