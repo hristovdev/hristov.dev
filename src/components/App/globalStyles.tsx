@@ -8,6 +8,7 @@ const GlobalStyles = createGlobalStyle`
   }
 
   body {
+    color: #fff;
     font-family: 'Roboto', sans-serif;
     background: #1c1e1f;
     font-size: ${({ theme }) => theme.fontSizes.text};

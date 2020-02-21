@@ -1,12 +1,13 @@
 import styled from "styled-components";
 
 export default {
-  Container: styled.main`
+  Container: styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
     max-width: 1000px;
     width: 100%;
+    height: 100%;
     justify-content: space-between;
 
     @media only screen and (max-width: 800px) {
