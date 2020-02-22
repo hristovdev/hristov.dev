@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useMemo } from "react";
+import React, { useRef, useEffect, useMemo, Suspense } from "react";
 import { useTransition, animated } from "react-spring";
 import {
   withRouter,
@@ -19,8 +19,7 @@ const findMenuItemIndexFromPath = (
   path: string,
   itemsArr: IndexedMenuItemModel[]
 ): number => {
-  const results = itemsArr.filter(x => x.route === path);
-  const item = results.length > 0 ? results[0] : undefined;
+  const item = itemsArr.find(x => x.route === path);
 
   if (item) {
     return item.index;
@@ -71,16 +70,18 @@ const Viewport: React.FC<RouteComponentProps> = ({ location }) => {
           <S.AnimationWrapper key={key} style={props}>
             <Scrollbars autoHide>
               <S.MainContainer>
-                <Switch location={item}>
-                  {indexedMenuItems.map(x => (
-                    <Route
-                      key={x.title}
-                      path={x.route}
-                      exact
-                      component={x.component}
-                    />
-                  ))}
-                </Switch>
+                <Suspense fallback={<div>Loading...</div>}>
+                  <Switch location={item}>
+                    {indexedMenuItems.map(x => (
+                      <Route
+                        key={x.title}
+                        path={x.route}
+                        exact
+                        component={x.component}
+                      />
+                    ))}
+                  </Switch>
+                </Suspense>
               </S.MainContainer>
               <S.Footer />
             </Scrollbars>

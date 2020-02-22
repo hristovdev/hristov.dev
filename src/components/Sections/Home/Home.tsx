@@ -9,7 +9,7 @@ const Home: React.FC = () => {
     <S.Container>
       <S.PictureBlock>
         <S.ImageBorder>
-          <S.Image src="./20170120_150031.png" />
+          <S.Image src="./20170120_150031.png" alt="Hristo Hristov" />
         </S.ImageBorder>
       </S.PictureBlock>
       <S.InfoBlock>

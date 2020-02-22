@@ -24,6 +24,7 @@ const Navigation: React.FC = () => {
         ))}
       </S.NavigationList>
       <S.MenuTogglerButton
+        aria-label="Toggle menu"
         onClick={() => {
           setToggled(!toggled);
         }}
