@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useMemo, Suspense } from "react";
-import { useTransition, animated } from "react-spring";
+import { useTransition } from "react-spring";
 import {
   withRouter,
   RouteComponentProps,
@@ -10,6 +10,7 @@ import { Scrollbars } from "react-custom-scrollbars";
 import S from "./styles";
 import Header from "../Header";
 import menuItems, { MenuItemModel } from "../../menuConfuration";
+import ErrorBoundary from "./ErrorBoundary";
 
 interface IndexedMenuItemModel extends MenuItemModel {
   index: number;
@@ -70,18 +71,20 @@ const Viewport: React.FC<RouteComponentProps> = ({ location }) => {
           <S.AnimationWrapper key={key} style={props}>
             <Scrollbars autoHide>
               <S.MainContainer>
-                <Suspense fallback={<div>Loading...</div>}>
-                  <Switch location={item}>
-                    {indexedMenuItems.map(x => (
-                      <Route
-                        key={x.title}
-                        path={x.route}
-                        exact
-                        component={x.component}
-                      />
-                    ))}
-                  </Switch>
-                </Suspense>
+                <ErrorBoundary fallback={<div>An error has occurred.</div>}>
+                  <Suspense fallback={<div>Loading...</div>}>
+                    <Switch location={item}>
+                      {indexedMenuItems.map(x => (
+                        <Route
+                          key={x.title}
+                          path={x.route}
+                          exact
+                          component={x.component}
+                        />
+                      ))}
+                    </Switch>
+                  </Suspense>
+                </ErrorBoundary>
               </S.MainContainer>
               <S.Footer />
             </Scrollbars>
