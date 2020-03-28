@@ -8,19 +8,19 @@ const GlobalStyles = createGlobalStyle`
   }
 
   body {
-    color: #fff;
-    font-family: "Roboto", sans-serif;
-    background: #1c1e1f;
-    font-size: ${({ theme }) => theme.fontSizes.text};
+    color: ${({ theme }): string => theme.colors.text.primary};
+    font-family: ${({ theme }): string => theme.font};
+    background: ${({ theme }): string => theme.colors.pageBackground};
+    font-size: ${({ theme }): string => theme.fontSizes.text};
   }
 
   a {
-    color: white;
+    color: ${({ theme }): string => theme.colors.text.primary};;
     text-decoration: none;
     transition: all 250ms ease-in-out;
 
     &:hover {
-      color: red;
+      color: ${({ theme }): string => theme.colors.primary};;
     }
   }
 
@@ -29,27 +29,27 @@ const GlobalStyles = createGlobalStyle`
   }
 
   h1 {
-    font-size: ${({ theme }) => theme.fontSizes.heading[5]};
+    font-size: ${({ theme }): string => theme.fontSizes.heading[5]};
   }
 
   h2 {
-    font-size: ${({ theme }) => theme.fontSizes.heading[4]};
+    font-size: ${({ theme }): string => theme.fontSizes.heading[4]};
   }
 
   h3 {
-    font-size: ${({ theme }) => theme.fontSizes.heading[3]};;
+    font-size: ${({ theme }): string => theme.fontSizes.heading[3]};;
   }
 
   h4 {
-    font-size: ${({ theme }) => theme.fontSizes.heading[2]};;
+    font-size: ${({ theme }): string => theme.fontSizes.heading[2]};;
   }
 
   h5 {
-    font-size: ${({ theme }) => theme.fontSizes.heading[1]};;
+    font-size: ${({ theme }): string => theme.fontSizes.heading[1]};;
   }
 
   h6 {
-    font-size: ${({ theme }) => theme.fontSizes.heading[0]};;
+    font-size: ${({ theme }): string => theme.fontSizes.heading[0]};;
   }
 `;
 

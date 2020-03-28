@@ -1,23 +1,29 @@
 import React from "react";
 
+interface State {
+  hasError: boolean;
+  error: Error | null;
+}
+
 interface Props {
   fallback: JSX.Element;
 }
 
 class ErrorBoundary extends React.Component<Props> {
-  state = { hasError: false, error: null };
+  state: State = { hasError: false, error: null };
 
-  static getDerivedStateFromError(error: Error) {
+  static getDerivedStateFromError(error: Error): State {
     return {
       hasError: true,
-      error
+      error,
     };
   }
 
-  render() {
+  render(): React.ReactNode {
     if (this.state.hasError) {
       return this.props.fallback;
     }
+
     return this.props.children;
   }
 }

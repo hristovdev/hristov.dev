@@ -23,18 +23,18 @@ export default {
       justify-content: center;
       align-items: flex-start;
       padding: 30px;
-      display: ${({ toggled }) => (toggled ? "flex" : "none")};
+      display: ${({ toggled }): string => (toggled ? "flex" : "none")};
     }
   `,
 
   NavigationListItem: styled.li`
     display: flex;
-    padding: ${({ theme }) => `${theme.spacing[0]} ${theme.spacing[3]}`};
+    padding: ${({ theme }): string => `${theme.spacing[0]} ${theme.spacing[3]}`};
     letter-spacing: 0.1em;
   `,
 
   NavLink: styled(RouterNavLink)`
-    padding: ${({ theme }) => `${theme.spacing[3]} ${theme.spacing[0]}`};
+    padding: ${({ theme }): string => `${theme.spacing[3]} ${theme.spacing[0]}`};
     border-bottom: 2px solid transparent;
 
     &.active {
@@ -56,7 +56,7 @@ export default {
     transition: all 250ms ease-in-out;
 
     &:hover {
-      color: red;
+      color: ${({ theme }): string => theme.colors.primary};
     }
 
     &:focus {
@@ -66,5 +66,5 @@ export default {
     @media only screen and (max-width: 800px) {
       display: block;
     }
-  `
+  `,
 };

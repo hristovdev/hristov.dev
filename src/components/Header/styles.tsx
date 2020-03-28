@@ -1,7 +1,8 @@
 import styled from "styled-components";
+import { animated } from "react-spring";
 
 export default {
-  Header: styled.header`
+  Header: animated(styled.header`
     width: 100%;
     position: fixed;
     top: 0;
@@ -10,7 +11,7 @@ export default {
     display: flex;
     justify-content: center;
     z-index: 100;
-  `,
+  `),
 
   Container: styled.div`
     width: 100%;
@@ -24,12 +25,12 @@ export default {
   `,
 
   LogoContainer: styled.div`
-    background: red;
+    background: ${({ theme }): string => theme.colors.primary};
     padding: 0 5px;
     border-radius: 3px;
     opacity: 0.75;
     font-weight: 800;
     pointer-events: none;
     letter-spacing: 2px;
-  `
+  `,
 };

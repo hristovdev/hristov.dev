@@ -1,6 +1,15 @@
 import styled from "styled-components";
 
 export default {
+  MainContainer: styled.main`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: calc(100% - 80px);
+  `,
+
   Container: styled.div`
     display: flex;
     flex-direction: row;
@@ -18,23 +27,23 @@ export default {
       flex-direction: row-reverse;
 
       > * + * {
-        margin-right: ${({ theme }) => theme.spacing[5]};
+        margin-right: ${({ theme }): string => theme.spacing[7]};
       }
     }
   `,
 
   InfoBlock: styled.div`
-    padding: ${({ theme }) => theme.spacing[5]};
+    padding: ${({ theme }): string => theme.spacing[7]};
 
     > * + * {
-      margin-top: ${({ theme }) => theme.spacing[5]};
+      margin-top: ${({ theme }): string => theme.spacing[7]};
     }
   `,
 
   PictureBlock: styled.div`
     max-width: 440px;
     max-height: 440px;
-    padding: ${({ theme }) => theme.spacing[5]};
+    padding: ${({ theme }): string => theme.spacing[5]};
     pointer-events: none;
   `,
 
@@ -44,7 +53,7 @@ export default {
     width: auto;
     height: auto;
     border-radius: 50%;
-    border: ${({ theme }) => theme.spacing[5]} solid rgba(0, 0, 0, 0.15);
+    border: ${({ theme }): string => theme.spacing[5]} solid rgba(255, 255, 255, 0.05);
   `,
 
   Image: styled.img`
@@ -54,19 +63,19 @@ export default {
     max-width: 100%;
     max-height: 100%;
     border-radius: 50%;
-    border: ${({ theme }) => theme.spacing[5]} solid rgba(0, 0, 0, 0.25);
+    border: ${({ theme }): string => theme.spacing[5]} solid rgba(255, 255, 255, 0.1);
   `,
 
   Greeting: styled.span`
-    background: ${({ theme }) => theme.colors.primary};
-    border-radius: ${({ theme }) =>
+    background: ${({ theme }): string => theme.colors.primary};
+    border-radius: ${({ theme }): string =>
       `${theme.spacing[3]} ${theme.spacing[3]} ${theme.spacing[3]} ${theme.spacing[0]}`};
-    padding: ${({ theme }) => `${theme.spacing[2]} ${theme.spacing[4]}`};
+    padding: ${({ theme }): string => `${theme.spacing[2]} ${theme.spacing[4]}`};
   `,
 
   ContactList: styled.ul`
     > * + * {
-      margin-top: ${({ theme }) => theme.spacing[3]};
+      margin-top: ${({ theme }): string => theme.spacing[5]};
     }
   `,
 
@@ -76,14 +85,14 @@ export default {
     align-items: center;
 
     > * + * {
-      margin-left: ${({ theme }) => theme.spacing[4]};
+      margin-left: ${({ theme }): string => theme.spacing[4]};
     }
   `,
 
   ContactLink: styled.a`
     &:hover {
       > :first-child {
-        color: ${({ theme }) => theme.colors.primary};
+        color: ${({ theme }): string => theme.colors.primary};
       }
     }
   `,
@@ -92,19 +101,19 @@ export default {
     display: flex;
 
     > * + * {
-      margin-left: ${({ theme }) => theme.spacing[4]};
+      margin-left: ${({ theme }): string => theme.spacing[4]};
     }
   `,
 
   SocialLink: styled.a`
     display: block;
-    padding: ${({ theme }) => theme.spacing[1]};
+    padding: ${({ theme }): string => theme.spacing[1]};
     line-height: 0;
     border-radius: 5%;
 
     &:hover {
-      background: ${({ theme }) => theme.colors.primary};
+      background: ${({ theme }): string => theme.colors.primary};
       color: white;
     }
-  `
+  `,
 };

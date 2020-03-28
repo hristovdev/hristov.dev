@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "module": "ESNext",
+    "module": "ES2020",
     "strict": true,
     "jsx": "react",
     "lib": ["esnext", "dom"],
@@ -21,7 +21,5 @@
     "baseUrl": "./src/",
     "skipLibCheck": true,
     "removeComments": true
-  },
-  "include": ["./src/**/*"],
-  "exclude": ["node_modules"]
+  }
 }

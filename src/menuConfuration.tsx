@@ -1,4 +1,9 @@
 import React from "react";
+import Home from "./components/Sections/Home";
+import About from "./components/Sections/About";
+import Skills from "./components/Sections/Skills";
+import Experience from "./components/Sections/Experience";
+import ContactMe from "./components/Sections/ContactMe";
 
 export interface MenuItemModel {
   title: string;
@@ -10,28 +15,28 @@ const menuItems: MenuItemModel[] = [
   {
     title: "Home",
     route: "/",
-    component: React.lazy(() => import("./components/Sections/Home"))
+    component: Home,
   },
   {
     title: "About",
     route: "/about",
-    component: React.lazy(() => import("./components/Sections/About"))
+    component: About,
   },
   {
     title: "Skills",
     route: "/skills",
-    component: React.lazy(() => import("./components/Sections/Skills"))
+    component: Skills,
   },
   {
     title: "Experience",
     route: "/experience",
-    component: React.lazy(() => import("./components/Sections/Experience"))
+    component: Experience,
   },
   {
     title: "Contact",
     route: "/contact",
-    component: React.lazy(() => import("./components/Sections/ContactMe"))
-  }
+    component: ContactMe,
+  },
 ];
 
 export default menuItems;

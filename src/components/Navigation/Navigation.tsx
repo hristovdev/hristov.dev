@@ -9,11 +9,11 @@ const Navigation: React.FC = () => {
   return (
     <>
       <S.NavigationList toggled={toggled}>
-        {menuItems.map(x => (
+        {menuItems.map((x) => (
           <S.NavigationListItem key={x.title}>
             <S.NavLink
               to={x.route}
-              onClick={() => {
+              onClick={(): void => {
                 setToggled(false);
               }}
               exact
@@ -25,7 +25,7 @@ const Navigation: React.FC = () => {
       </S.NavigationList>
       <S.MenuTogglerButton
         aria-label="Toggle menu"
-        onClick={() => {
+        onClick={(): void => {
           setToggled(!toggled);
         }}
       >

@@ -10,6 +10,11 @@ export default {
     overflow: hidden;
   `,
 
+  ScrollContent: styled.div`
+    display: flex;
+    flex-direction: column;
+  `,
+
   AnimationWrapper: styled(animated.div)`
     height: 100%;
     width: 100%;
@@ -17,15 +22,7 @@ export default {
     position: absolute;
   `,
 
-  MainContainer: styled.main`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    min-height: calc(100% - 80px);
-  `,
-
   Footer: styled.footer`
     height: 80px;
-  `
+  `,
 };
