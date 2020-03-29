@@ -1,12 +1,13 @@
-import React, { Suspense, useCallback, useMemo, useRef, useState } from "react";
+import React, { Suspense, useCallback, useMemo, useRef, useState, useEffect } from "react";
 import { positionValues, Scrollbars } from "react-custom-scrollbars";
-import { RouteComponentProps, withRouter, useRouteMatch } from "react-router-dom";
+import { RouteComponentProps, useParams, useRouteMatch, withRouter } from "react-router-dom";
+import { config, useSpring } from "react-spring";
 import menuItems, { MenuItemModel } from "../../menuConfuration";
+import { RootRouteParams } from "../App";
 import Section from "../Common/Section";
 import Header from "../Header";
 import ErrorBoundary from "./ErrorBoundary";
 import S from "./styles";
-import { useSpring, config } from "react-spring";
 
 interface IndexedMenuItemModel extends MenuItemModel {
   index: number;
@@ -16,6 +17,24 @@ const Viewport: React.FC<RouteComponentProps> = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const scrollRef = useRef<Scrollbars>(null);
   const { url } = useRouteMatch();
+  const { section } = useParams<RootRouteParams>();
+
+  // const [, setY] = useSpring(() => ({
+  //   y: 0,
+  //   immediate: false,
+  //   onFrame: ({ y }: any): void => {
+  //     scrollRef.current?.scrollTop(y.x);
+  //   },
+  // }));
+
+  // useEffect(() => {
+  //   setY({
+  //     y: 0,
+  //     reset: true,
+  //     from: { y: scrollRef.current?.getScrollTop() },
+  //     onFrame: (props) => scrollRef.current?.scrollTop(props.y),
+  //   });
+  // }, [setY, section]);
 
   const indexedMenuItems = useMemo((): IndexedMenuItemModel[] => menuItems.map((x, index) => ({ ...x, index })), []);
 
@@ -53,10 +72,21 @@ const Viewport: React.FC<RouteComponentProps> = () => {
     []
   );
 
-  const backgroundProps = useSpring({
-    backgroundPositionX: `${indexOfCurrentMenuItem * (100 / indexedMenuItems.length)}%`,
-    config: config.slow,
-  });
+  const backgroundProps = useSpring(
+    {
+      from: { backgroundPositionX: "0%" },
+      to: async (next: any) => {
+        while (true) {
+          await next({ backgroundPositionX: "100%", config: { duration: 360000 }, immediate: false });
+          await next({ backgroundPositionX: "0%", config: { duration: 360000 }, immediate: false });
+        }
+      },
+    }
+    //   {
+    //   backgroundPositionX: `${indexOfCurrentMenuItem * (100 / indexedMenuItems.length)}%`,
+    //   config: { ...config.molasses, friction: 500 },
+    // }
+  );
 
   return (
     <>
@@ -73,7 +103,12 @@ const Viewport: React.FC<RouteComponentProps> = () => {
             <ErrorBoundary fallback={<div>An error has occurred.</div>}>
               <Suspense fallback={<div>Loading...</div>}>
                 {indexedMenuItems.map((x) => (
-                  <Section key={x.index} isFullHeight={x.index === 0} route={x.route}>
+                  <Section
+                    key={x.index}
+                    isFullHeight={x.index === 0}
+                    route={x.route}
+                    header={x.index > 0 ? x.title : undefined}
+                  >
                     <x.component />
                   </Section>
                 ))}

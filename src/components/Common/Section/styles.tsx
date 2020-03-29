@@ -14,27 +14,30 @@ export default {
     padding: ${({ isFullHeight, theme }): string =>
       isFullHeight ? `0 0 ${theme.sizes.headerHeight} 0` : `${theme.spacing[8]} 0`};
     min-height: ${({ isFullHeight, theme }): string =>
-      isFullHeight ? `calc(100vh - 2 * ${theme.sizes.headerHeight})` : "50vh"};
+      isFullHeight ? `calc(100vh - ${theme.sizes.headerHeight})` : "50vh"};
   `,
 
   Content: animated(styled.div`
     position: relative;
     display: flex;
-    flex-direction: row;
     align-items: center;
     max-width: 1000px;
     justify-content: space-between;
-
-    @media only screen and (max-width: 800px) {
-      flex-direction: column;
-    }
-
-    @media only screen and (min-width: 801px) {
-      flex-direction: row-reverse;
-
-      > * + * {
-        margin-right: ${({ theme }): string => theme.spacing[7]};
-      }
-    }
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
   `),
+
+  Header: styled.div`
+    margin-bottom: ${({ theme }): string => theme.spacing[7]};
+
+    &:after {
+      content: "";
+      display: block;
+      height: 1px;
+      width: 50%;
+      background: white;
+      margin-top: ${({ theme }): string => theme.spacing[3]};
+    }
+  `,
 };

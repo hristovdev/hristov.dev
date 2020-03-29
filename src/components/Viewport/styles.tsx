@@ -16,7 +16,7 @@ export default {
     flex-direction: column;
     width: 100vw;
     overflow: hidden;
-    background: url(${worldMap}) no-repeat;
+    background: url(${worldMap}) repeat-x;
     background-size: cover;
   `),
 

@@ -6,11 +6,13 @@ import { useHistory } from "react-router-dom";
 
 interface Props {
   isFullHeight?: boolean;
+  header?: string;
   route: string;
 }
 
-const Section: React.FC<PropsWithChildren<Props>> = ({ children, route, isFullHeight = false }) => {
+const Section: React.FC<PropsWithChildren<Props>> = ({ children, route, header, isFullHeight = false }) => {
   const ref = useRef<HTMLDivElement>(null);
+  const wasInViewportRef = useRef(false);
   const { push } = useHistory();
 
   const { isInViewport } = useViewportDetection({
@@ -20,6 +22,12 @@ const Section: React.FC<PropsWithChildren<Props>> = ({ children, route, isFullHe
     },
   });
 
+  useEffect(() => {
+    wasInViewportRef.current = isInViewport;
+  });
+
+  const wasInViewport = wasInViewportRef.current;
+
   const animationProps = useSpring({
     opacity: isInViewport ? 1 : 0,
     top: isInViewport ? "0vh" : "5vh",
@@ -27,14 +35,21 @@ const Section: React.FC<PropsWithChildren<Props>> = ({ children, route, isFullHe
   });
 
   useEffect(() => {
-    if (isInViewport) {
+    if (!wasInViewport && isInViewport) {
       push(route);
     }
-  }, [push, route, isInViewport]);
+  }, [push, route, isInViewport, wasInViewport]);
 
   return (
     <S.Container isFullHeight={isFullHeight} ref={ref}>
-      <S.Content style={animationProps}>{children}</S.Content>
+      <S.Content style={animationProps}>
+        {header && (
+          <S.Header>
+            <h3>{header}</h3>
+          </S.Header>
+        )}
+        {children}
+      </S.Content>
     </S.Container>
   );
 };

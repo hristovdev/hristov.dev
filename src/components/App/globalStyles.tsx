@@ -5,22 +5,22 @@ const GlobalStyles = createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: ${({ theme }): string => theme.font};
   }
 
   body {
     color: ${({ theme }): string => theme.colors.text.primary};
-    font-family: ${({ theme }): string => theme.font};
     background: ${({ theme }): string => theme.colors.pageBackground};
     font-size: ${({ theme }): string => theme.fontSizes.text};
   }
 
   a {
-    color: ${({ theme }): string => theme.colors.text.primary};;
+    color: ${({ theme }): string => theme.colors.text.primary};
     text-decoration: none;
     transition: all 250ms ease-in-out;
 
     &:hover {
-      color: ${({ theme }): string => theme.colors.primary};;
+      color: ${({ theme }): string => theme.colors.primary};
     }
   }
 
@@ -37,19 +37,19 @@ const GlobalStyles = createGlobalStyle`
   }
 
   h3 {
-    font-size: ${({ theme }): string => theme.fontSizes.heading[3]};;
+    font-size: ${({ theme }): string => theme.fontSizes.heading[3]};
   }
 
   h4 {
-    font-size: ${({ theme }): string => theme.fontSizes.heading[2]};;
+    font-size: ${({ theme }): string => theme.fontSizes.heading[2]};
   }
 
   h5 {
-    font-size: ${({ theme }): string => theme.fontSizes.heading[1]};;
+    font-size: ${({ theme }): string => theme.fontSizes.heading[1]};
   }
 
   h6 {
-    font-size: ${({ theme }): string => theme.fontSizes.heading[0]};;
+    font-size: ${({ theme }): string => theme.fontSizes.heading[0]};
   }
 `;
 

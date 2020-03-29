@@ -5,6 +5,10 @@ import GlobalStyles from "./globalStyles";
 import theme from "./theme";
 import Viewport from "../Viewport";
 
+export interface RootRouteParams {
+  section?: string;
+}
+
 const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
