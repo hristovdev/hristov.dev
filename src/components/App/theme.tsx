@@ -26,6 +26,10 @@ const letterSpacing = {
 
 const lineHeights = [1, 1.125, 1.25, 1.5];
 
+const sizes = {
+  headerHeight: "80px",
+};
+
 const theme = {
   font,
   breakpoints,
@@ -34,6 +38,7 @@ const theme = {
   fontSizes,
   letterSpacing,
   lineHeights,
+  sizes,
 };
 
 export type ThemeModel = typeof theme;

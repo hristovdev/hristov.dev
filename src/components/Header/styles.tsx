@@ -2,16 +2,16 @@ import styled from "styled-components";
 import { animated } from "react-spring";
 
 export default {
-  Header: animated(styled.header`
+  Header: styled(animated.header)`
     width: 100%;
     position: fixed;
     top: 0;
     left: 0;
-    height: 80px;
+    height: ${({ theme }): string => theme.sizes.headerHeight};
     display: flex;
     justify-content: center;
     z-index: 100;
-  `),
+  `,
 
   Container: styled.div`
     width: 100%;

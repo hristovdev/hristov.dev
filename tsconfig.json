@@ -21,5 +21,6 @@
     "baseUrl": "./src/",
     "skipLibCheck": true,
     "removeComments": true
-  }
+  },
+  "exclude": ["node_modules"]
 }

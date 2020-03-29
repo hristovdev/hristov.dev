@@ -1,19 +1,24 @@
 import styled from "styled-components";
 import { animated } from "react-spring";
+import worldMap from "../../world_map.svg";
 
 export default {
   Container: styled.div`
-    margin-top: 80px;
+    top: ${({ theme }): string => theme.sizes.headerHeight};
     height: calc(100vh - 80px);
     width: 100vw;
     position: relative;
     overflow: hidden;
   `,
 
-  ScrollContent: styled.div`
+  Main: animated(styled.main`
     display: flex;
     flex-direction: column;
-  `,
+    width: 100vw;
+    overflow: hidden;
+    background: url(${worldMap}) no-repeat;
+    background-size: cover;
+  `),
 
   AnimationWrapper: styled(animated.div)`
     height: 100%;
@@ -23,6 +28,11 @@ export default {
   `,
 
   Footer: styled.footer`
-    height: 80px;
+    height: ${({ theme }): string => theme.sizes.headerHeight};
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
   `,
 };

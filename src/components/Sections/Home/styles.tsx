@@ -1,13 +1,13 @@
 import styled from "styled-components";
 
 export default {
-  MainContainer: styled.main`
+  Wrapper: styled.section`
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
-    min-height: calc(100% - 80px);
+    min-height: calc(100vh - ${({ theme }): string => theme.sizes.headerHeight});
   `,
 
   Container: styled.div`
