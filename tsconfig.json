@@ -1,15 +1,14 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "module": "ES2020",
+    "module": "ES6",
     "strict": true,
     "jsx": "react",
-    "lib": ["esnext", "dom"],
+    "lib": ["ES2015", "dom"],
     "esModuleInterop": true,
-    "sourceMap": true,
+    "sourceMap": false,
     "moduleResolution": "node",
     "rootDir": "src",
-    "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "noImplicitAny": true,
@@ -20,8 +19,12 @@
     "experimentalDecorators": true,
     "baseUrl": "./src/",
     "skipLibCheck": true,
-    "removeComments": true
+    "removeComments": true,
+    "checkJs": false,
+    "importHelpers": true,
+    "skipDefaultLibCheck": true
   },
+  "files": ["./src/index.tsx"],
   "include": ["./src/"],
-  "exclude": ["node_modules"]
+  "exclude": ["**/node_modules"]
 }
