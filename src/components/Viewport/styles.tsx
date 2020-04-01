@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { animated } from "react-spring";
-import worldMap from "../../world_map.svg";
 
 export default {
   Container: styled.div`
@@ -11,14 +10,13 @@ export default {
     overflow: hidden;
   `,
 
-  Main: animated(styled.main`
+  Main: styled.main`
     display: flex;
     flex-direction: column;
     width: 100vw;
+    position: relative;
     overflow: hidden;
-    background: url(${worldMap}) repeat-x;
-    background-size: cover;
-  `),
+  `,
 
   AnimationWrapper: styled(animated.div)`
     height: 100%;

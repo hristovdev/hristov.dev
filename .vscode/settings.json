@@ -2,5 +2,5 @@
     "eslint.enable": true,
     "typescript.tsdk": "node_modules\\typescript\\lib",
     "typescript.tsserver.experimental.enableProjectDiagnostics": true,
-    "typescript.tsserver.log": "normal"
+    "typescript.tsserver.log": "verbose"
 }

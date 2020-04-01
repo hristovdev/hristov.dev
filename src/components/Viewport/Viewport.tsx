@@ -1,47 +1,70 @@
-import React, { Suspense, useCallback, useMemo, useRef, useState, useEffect } from "react";
+import React, { createRef, RefObject, Suspense, useCallback, useMemo, useRef, useState, useEffect } from "react";
 import { positionValues, Scrollbars } from "react-custom-scrollbars";
-import { RouteComponentProps, useParams, useRouteMatch, withRouter } from "react-router-dom";
-import { config, useSpring } from "react-spring";
+import { RouteComponentProps, withRouter, useParams } from "react-router-dom";
+import { useSpring } from "react-spring";
 import menuItems, { MenuItemModel } from "../../menuConfuration";
-import { RootRouteParams } from "../App";
 import Section from "../Common/Section";
 import Header from "../Header";
+import AnimatedBackground from "./AnimatedBackground";
 import ErrorBoundary from "./ErrorBoundary";
 import S from "./styles";
+import { RootRouteParams } from "../App";
 
-interface IndexedMenuItemModel extends MenuItemModel {
-  index: number;
-}
-
-const Viewport: React.FC<RouteComponentProps> = () => {
+const Viewport: React.FC<RouteComponentProps> = ({ history }) => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isInititialized, setIsInititialized] = useState(false);
+
+  const sectionsRefs = useRef<RefObject<HTMLDivElement>[]>(menuItems.map(() => createRef<HTMLDivElement>()));
+  const containerRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<Scrollbars>(null);
-  const { url } = useRouteMatch();
+
   const { section } = useParams<RootRouteParams>();
 
-  // const [, setY] = useSpring(() => ({
-  //   y: 0,
-  //   immediate: false,
-  //   onFrame: ({ y }: any): void => {
-  //     scrollRef.current?.scrollTop(y.x);
-  //   },
-  // }));
+  const [, setY] = useSpring(() => ({
+    y: 0,
+    immediate: false,
+    onFrame: ({ y }: any): void => undefined,
+  }));
 
-  // useEffect(() => {
-  //   setY({
-  //     y: 0,
-  //     reset: true,
-  //     from: { y: scrollRef.current?.getScrollTop() },
-  //     onFrame: (props) => scrollRef.current?.scrollTop(props.y),
-  //   });
-  // }, [setY, section]);
+  const scrollToSection = useCallback(
+    (sectionTitle: string, isInstant = false): void => {
+      const sectionIndex = menuItems.findIndex((x) => x.title.toLowerCase() === sectionTitle.toLowerCase());
+      const scrollTargetSectionTop =
+        sectionsRefs.current[sectionIndex !== -1 ? sectionIndex : 0].current?.getBoundingClientRect().top || 0;
+      const targetScrollTop =
+        (scrollRef.current?.getScrollTop() || 0) -
+        (containerRef.current?.getBoundingClientRect().top || 0) +
+        scrollTargetSectionTop;
 
-  const indexedMenuItems = useMemo((): IndexedMenuItemModel[] => menuItems.map((x, index) => ({ ...x, index })), []);
+      if (isInstant) {
+        scrollRef.current?.scrollTop(targetScrollTop);
+        return;
+      }
 
-  const indexOfCurrentMenuItem = useMemo(
-    (): number => indexedMenuItems.slice(1).find((x) => url.indexOf(x.route) !== -1)?.index || 0,
-    [indexedMenuItems, url]
+      setY({
+        y: targetScrollTop,
+        reset: true,
+        from: { y: scrollRef.current?.getScrollTop() || 0 },
+        onFrame: (props) => {
+          scrollRef.current?.scrollTop(props.y);
+        },
+        config: { duration: 1000 },
+      });
+    },
+    [setY]
   );
+
+  useEffect(() => {
+    if (isInititialized) {
+      return;
+    }
+
+    if (section) {
+      scrollToSection(section, true);
+    }
+
+    setIsInititialized(true);
+  }, [section, isInititialized, scrollToSection]);
 
   const handleScrollUpdate = useCallback(
     (values: positionValues) => {
@@ -72,26 +95,40 @@ const Viewport: React.FC<RouteComponentProps> = () => {
     []
   );
 
-  const backgroundProps = useSpring(
-    {
-      from: { backgroundPositionX: "0%" },
-      to: async (next: any) => {
-        while (true) {
-          await next({ backgroundPositionX: "100%", config: { duration: 360000 }, immediate: false });
-          await next({ backgroundPositionX: "0%", config: { duration: 360000 }, immediate: false });
-        }
-      },
-    }
-    //   {
-    //   backgroundPositionX: `${indexOfCurrentMenuItem * (100 / indexedMenuItems.length)}%`,
-    //   config: { ...config.molasses, friction: 500 },
-    // }
-  );
+  const content = useMemo(() => {
+    return (
+      <>
+        <ErrorBoundary fallback={<div>An error has occurred.</div>}>
+          <Suspense fallback={<div>Loading...</div>}>
+            {menuItems.map((x, i) => (
+              <Section
+                key={i}
+                isFullHeight={i === 0}
+                onFocused={(): void => {
+                  if (isInititialized) history.push(x.route);
+                }}
+                header={i > 0 ? x.title : undefined}
+                ref={sectionsRefs.current[i]}
+              >
+                <x.component />
+              </Section>
+            ))}
+          </Suspense>
+        </ErrorBoundary>
+        <S.Footer>hristov.dev &copy; 2020. All Right Reserved</S.Footer>
+      </>
+    );
+  }, [history, isInititialized]);
 
   return (
     <>
-      <Header hasBackground={isScrolled} />
-      <S.Container>
+      <Header
+        hasBackground={isScrolled}
+        onMenuItemClicked={(x: MenuItemModel): void => {
+          scrollToSection(x.title);
+        }}
+      />
+      <S.Container ref={containerRef}>
         <Scrollbars
           ref={scrollRef}
           autoHide
@@ -99,22 +136,9 @@ const Viewport: React.FC<RouteComponentProps> = () => {
           renderThumbHorizontal={customTrack("thumb-horizontal")}
           renderThumbVertical={customTrack("thumb-horizontal")}
         >
-          <S.Main style={backgroundProps}>
-            <ErrorBoundary fallback={<div>An error has occurred.</div>}>
-              <Suspense fallback={<div>Loading...</div>}>
-                {indexedMenuItems.map((x) => (
-                  <Section
-                    key={x.index}
-                    isFullHeight={x.index === 0}
-                    route={x.route}
-                    header={x.index > 0 ? x.title : undefined}
-                  >
-                    <x.component />
-                  </Section>
-                ))}
-              </Suspense>
-            </ErrorBoundary>
-            <S.Footer>hristov.dev &copy; 2020. All Right Reserved</S.Footer>
+          <S.Main>
+            <AnimatedBackground />
+            {content}
           </S.Main>
         </Scrollbars>
       </S.Container>

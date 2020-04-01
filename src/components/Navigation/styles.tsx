@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { NavLink as RouterNavLink } from "react-router-dom";
 
 interface NavigationListProps {
   toggled: boolean;
@@ -33,9 +32,10 @@ export default {
     letter-spacing: 0.1em;
   `,
 
-  NavLink: styled(RouterNavLink)`
+  NavLink: styled.a`
     padding: ${({ theme }): string => `${theme.spacing[3]} ${theme.spacing[0]}`};
     border-bottom: 2px solid transparent;
+    cursor: pointer;
 
     &.active {
       border-bottom: 2px solid white;

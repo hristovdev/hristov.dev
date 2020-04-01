@@ -1,10 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { FiMenu } from "react-icons/fi";
 import S from "./styles";
-import menuItems from "../../menuConfuration";
+import menuItems, { MenuItemModel } from "../../menuConfuration";
+import { useParams } from "react-router-dom";
+import { RootRouteParams } from "../App";
 
-const Navigation: React.FC = () => {
+interface Props {
+  onItemClicked: (item: MenuItemModel) => void;
+}
+
+const Navigation: React.FC<Props> = ({ onItemClicked }) => {
   const [toggled, setToggled] = useState(false);
+  const { section } = useParams<RootRouteParams>();
+
+  const isItemActive = useCallback(
+    (x: MenuItemModel): boolean => {
+      if (!section && x.title === menuItems[0].title) return true;
+
+      return section ? x.route.indexOf(section) !== -1 : false;
+    },
+    [section]
+  );
 
   return (
     <>
@@ -12,11 +28,11 @@ const Navigation: React.FC = () => {
         {menuItems.map((x) => (
           <S.NavigationListItem key={x.title}>
             <S.NavLink
-              to={x.route}
               onClick={(): void => {
                 setToggled(false);
+                onItemClicked(x);
               }}
-              exact
+              className={isItemActive(x) ? "active" : undefined}
             >
               {x.title}
             </S.NavLink>
