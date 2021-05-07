@@ -1,9 +1,8 @@
 import React from "react";
-import Home from "./components/Sections/Home";
-import About from "./components/Sections/About";
-import Skills from "./components/Sections/Skills";
-import Experience from "./components/Sections/Experience";
-import ContactMe from "./components/Sections/ContactMe";
+import About from "./components/sections/About";
+import ContactMe from "./components/sections/ContactMe";
+import Home from "./components/sections/Home";
+import Resume from "./components/sections/Resume";
 
 export interface MenuItemModel {
   title: string;
@@ -23,14 +22,9 @@ const menuItems: MenuItemModel[] = [
     component: About,
   },
   {
-    title: "Skills",
-    route: "/skills",
-    component: Skills,
-  },
-  {
-    title: "Experience",
-    route: "/experience",
-    component: Experience,
+    title: "Resume",
+    route: "/resume",
+    component: Resume,
   },
   {
     title: "Contact",

@@ -1,5 +1,5 @@
 import "styled-components";
-import type { ThemeModel } from "./components/App/theme";
+import type { ThemeModel } from "./theme";
 
 /* eslint-disable @typescript-eslint/no-empty-interface */
 

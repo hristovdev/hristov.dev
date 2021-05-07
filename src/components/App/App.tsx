@@ -1,9 +1,9 @@
 import React from "react";
 import { ThemeProvider } from "styled-components";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import GlobalStyles from "./globalStyles";
-import theme from "./theme";
-import Viewport from "../Viewport";
+import GlobalStyle from "./GlobalStyle";
+import theme from "../../theme";
+import Layout from "./Layout";
 
 export interface RootRouteParams {
   section?: string;
@@ -13,8 +13,8 @@ const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <Router>
-        <GlobalStyles />
-        <Route path="/:section?" component={Viewport} />
+        <GlobalStyle />
+        <Route path="/:section?" component={Layout} />
       </Router>
     </ThemeProvider>
   );

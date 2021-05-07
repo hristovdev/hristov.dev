@@ -1,5 +1,5 @@
 import React from "react";
-import S from "./styles";
+import S from "./styled";
 
 const ContactMe: React.FC = () => {
   return (

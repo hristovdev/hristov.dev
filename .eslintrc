@@ -5,12 +5,14 @@
     "plugin:react-hooks/recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended",
-    "prettier/@typescript-eslint"
+    "prettier"
   ],
   "plugins": ["react-hooks"],
   "rules": {
     "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn"
+    "react-hooks/exhaustive-deps": "warn",
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off"
   },
   "env": {
     "browser": true,
@@ -29,7 +31,7 @@
   },
   "overrides": [
     {
-      "files": ["**/*.tsx"],
+      "files": ["src/**/*.tsx"],
       "rules": {
         "react/prop-types": "off"
       }
