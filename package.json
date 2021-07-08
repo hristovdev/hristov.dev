@@ -12,7 +12,7 @@
   "author": "Hristo Hristov",
   "license": "ISC",
   "dependencies": {
-    "@types/react": "^16.9.22",
+    "@types/react": "^17.0.14",
     "@types/react-custom-scrollbars": "^4.0.6",
     "@types/react-dom": "^16.9.5",
     "@types/react-router-dom": "^5.1.3",
