@@ -11,7 +11,7 @@ interface Props {
 
 const Navigation: React.FC<Props> = ({ onItemClicked }) => {
   const [toggled, setToggled] = useState(false);
-  const { section } = useParams<RootRouteParams>();
+  const { section } = useParams<keyof RootRouteParams>();
 
   const isItemActive = useCallback(
     (x: MenuItemModel): boolean => {

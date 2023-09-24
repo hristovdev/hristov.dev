@@ -1,6 +1,6 @@
 import React, { createRef, RefObject, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { positionValues, Scrollbars } from "react-custom-scrollbars";
-import { useHistory, useParams } from "react-router-dom";
+import { ScrollValues, Scrollbars } from "rc-scrollbars";
+import { useParams } from "react-router-dom";
 import { useSpring } from "react-spring";
 import { RootRouteParams } from "..";
 import menuItems, { MenuItemModel } from "../../../menuConfuration";
@@ -13,8 +13,6 @@ import ScrollSnapContainer from "./ScrollSnapContainer";
 import S from "./styled";
 
 const Layout: React.FC = () => {
-  const history = useHistory();
-
   const [isScrolled, setIsScrolled] = useState(false);
   const [isInititialized, setIsInititialized] = useState(false);
 
@@ -22,7 +20,7 @@ const Layout: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<Scrollbars>(null);
 
-  const { section } = useParams<RootRouteParams>();
+  const { section } = useParams<keyof RootRouteParams>();
 
   const [, api] = useSpring(() => ({
     y: 0,
@@ -69,18 +67,18 @@ const Layout: React.FC = () => {
     [api, scrollToSectionByIndex]
   );
 
-  useEffect(() => {
-    const listener = history.listen((location, action) => {
-      if (action === "POP" && section) {
-        console.log("back to: ", location);
-        scrollToSectionByTitle(location.pathname.slice(1));
-      }
-    });
+  // useEffect(() => {
+  //   const listener = history.listen((location, action) => {
+  //     if (action === "POP" && section) {
+  //       console.log("back to: ", location);
+  //       scrollToSectionByTitle(location.pathname.slice(1));
+  //     }
+  //   });
 
-    return (): void => {
-      listener();
-    };
-  }, [history, scrollToSectionByTitle, section]);
+  //   return (): void => {
+  //     listener();
+  //   };
+  // }, [history, scrollToSectionByTitle, section]);
 
   useEffect(() => {
     if (isInititialized) {
@@ -95,7 +93,7 @@ const Layout: React.FC = () => {
   }, [section, isInititialized, scrollToSectionByTitle]);
 
   const handleScrollUpdate = useCallback(
-    (values: positionValues) => {
+    (values: ScrollValues) => {
       if (values.scrollTop >= 1 && !isScrolled) {
         setIsScrolled(true);
 
@@ -109,6 +107,7 @@ const Layout: React.FC = () => {
     [isScrolled, setIsScrolled]
   );
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleSectionFocus = useCallback(
     (callback: () => void): void => {
       if (isInititialized) {
@@ -125,7 +124,8 @@ const Layout: React.FC = () => {
           <React.Fragment key={index}>
             <Section
               isFullHeight={index === 0}
-              onFocused={() => handleSectionFocus(() => history.push(menuItem.route))}
+              // onFocused={() => handleSectionFocus(() => history.push(menuItem.route))}
+              onFocused={() => {}}
               header={index > 0 ? menuItem.title : undefined}
               ref={sectionsRefs.current[index]}
             >
@@ -140,7 +140,7 @@ const Layout: React.FC = () => {
         ))}
       </>
     );
-  }, [handleSectionFocus, history, isScrolled, scrollToSectionByIndex]);
+  }, [isScrolled, scrollToSectionByIndex]);
 
   return (
     <>
@@ -150,23 +150,25 @@ const Layout: React.FC = () => {
         autoHide
         onUpdate={handleScrollUpdate}
         renderView={(props) => <ScrollSnapContainer style={props.style} />}
-        renderThumbHorizontal={CustomScrollTrack}
-        renderThumbVertical={CustomScrollTrack}
+        renderThumbHorizontal={() => <CustomScrollTrack />}
+        renderThumbVertical={() => <CustomScrollTrack />}
       >
-        <PageHeader
-          hasBackground={isScrolled}
-          onMenuItemClicked={(x: MenuItemModel): void => {
-            scrollToSectionByTitle(x.title);
-          }}
-        />
+        <>
+          <PageHeader
+            hasBackground={isScrolled}
+            onMenuItemClicked={(x: MenuItemModel): void => {
+              scrollToSectionByTitle(x.title);
+            }}
+          />
 
-        {content}
-        <S.Footer>
-          <Group direction="column" align="center">
-            <p>hristov.dev &copy; 2020. All Right Reserved</p>
-            <p>Designed by Hristo Hristov</p>
-          </Group>
-        </S.Footer>
+          {content}
+          <S.Footer>
+            <Group direction="column" align="center">
+              <p>hristov.dev &copy; 2020. All Right Reserved</p>
+              <p>Designed by Hristo Hristov</p>
+            </Group>
+          </S.Footer>
+        </>
       </Scrollbars>
     </>
   );

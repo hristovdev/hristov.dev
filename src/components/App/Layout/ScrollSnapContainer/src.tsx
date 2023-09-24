@@ -1,4 +1,4 @@
-import { forwardRef, CSSProperties, useState, useCallback, useEffect } from "react";
+import { forwardRef, CSSProperties, useState, useCallback, useEffect, PropsWithChildren } from "react";
 import ScrollSnap from "scroll-snap";
 import S from "./styled";
 
@@ -10,7 +10,7 @@ interface Props {
   style: CSSProperties;
 }
 
-const ScrollSnapContainer = forwardRef<HTMLDivElement, Props>(({ children, style }, ref) => {
+const ScrollSnapContainer = forwardRef<HTMLDivElement, PropsWithChildren<Props>>(({ children, style }, ref) => {
   const [element, setElement] = useState<HTMLDivElement | null>(null);
 
   const onRefChange = useCallback((instance: HTMLDivElement | null) => {

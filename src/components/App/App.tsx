@@ -14,7 +14,7 @@ const App: React.FC = () => {
     <ThemeProvider theme={theme}>
       <Router>
         <GlobalStyle />
-        <Route path="/:section?" component={Layout} />
+        <Route path="/:section?" Component={Layout} />
       </Router>
     </ThemeProvider>
   );

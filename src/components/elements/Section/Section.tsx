@@ -42,9 +42,17 @@ const Section = forwardRef<HTMLDivElement, PropsWithChildren<Props>>(
           )}
           {children}
         </S.Content>
+
+        <S.BottomEffect>
+          <svg x="0px" y="0px" viewBox="0 186.5 1920 113.5">
+            <polygon points="0,300 655.167,210.5 1432.5,300 1920,198.5 1920,300 "></polygon>
+          </svg>
+        </S.BottomEffect>
       </S.Container>
     );
   }
 );
+
+Section.displayName = "Section";
 
 export default Section;
