@@ -1,5 +1,5 @@
 import DefaultPageHandler from "@/components/DefaultPageHandler";
-import Markdown, { frontmatter } from "@/content/home.mdx";
+import Markdown, { frontmatter } from "@/content/skills-and-tools.mdx";
 
 export default () => {
   return (

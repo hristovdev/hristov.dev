@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "cross-env NODE_OPTIONS='--inspect' PORT=4000 next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -12,18 +12,27 @@
     "@mdx-js/loader": "^2.3.0",
     "@mdx-js/react": "^2.3.0",
     "@next/mdx": "^13.5.3",
+    "front-matter": "^4.0.2",
     "next": "latest",
     "react": "latest",
-    "react-dom": "latest"
+    "react-dom": "latest",
+    "remark-frontmatter": "^5.0.0",
+    "remark-mdx-frontmatter": "^3.0.0"
   },
   "devDependencies": {
     "@types/node": "latest",
     "@types/react": "latest",
     "@types/react-dom": "latest",
     "autoprefixer": "latest",
-    "eslint": "latest",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.50.0",
     "eslint-config-next": "latest",
+    "eslint-config-node": "^4.1.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^5.0.0",
     "postcss": "latest",
+    "prettier": "^3.0.3",
     "tailwindcss": "latest",
     "typescript": "latest"
   }

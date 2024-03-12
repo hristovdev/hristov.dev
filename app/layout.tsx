@@ -1,23 +1,25 @@
-import { MDXProvider } from "@mdx-js/react";
-import "./globals.css";
-import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import Link from "next/link";
+import React from "react";
+import "./globals.css";
+import SiteFooter from "@/components/SiteFooter";
+import SiteHeader from "@/components/SiteHeader";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata: Metadata = {
-  title: "Hristov.DEV",
-  description: "IT Solutions and consulting",
-};
-
 export default function RootLayout({
   children,
+  ...a
 }: {
   children: React.ReactNode;
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <SiteHeader />
+        <main>{children}</main>
+        <SiteFooter />
+      </body>
     </html>
   );
 }
