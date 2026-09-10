@@ -1,0 +1,278 @@
+{
+  "meta": {
+    "home": {
+      "title": "Hristo Hristov — Freelance Full-Stack Developer",
+      "description": "Freelance full-stack developer based in Sofia, Bulgaria, specializing in React and TypeScript. Clean code, close collaboration and pixel-level polish for product teams across Europe and the US."
+    },
+    "about": {
+      "title": "About",
+      "description": "Resume of Hristo Hristov — 10+ years of building web products with React, TypeScript and Node.js. Experience, skills, education and how I like to work."
+    },
+    "contact": {
+      "title": "Contact",
+      "description": "Start a project with Hristo Hristov — freelance full-stack developer in Sofia, Bulgaria. B2B contracts or full-time roles, working across European and US time zones."
+    },
+    "ogRole": "Freelance Full-Stack Developer"
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "contact": "Contact",
+    "openMenu": "Open menu",
+    "menuTitle": "Menu"
+  },
+  "theme": {
+    "label": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
+  "locale": {
+    "label": "Language",
+    "en": "English",
+    "bg": "Български"
+  },
+  "hero": {
+    "availability": "Available for new projects",
+    "eyebrow": "Freelance full-stack developer",
+    "tagline": "I build fast, polished React apps that work as good as they look.",
+    "intro": "Full-stack developer from Sofia with 10+ years of experience and a frontend heart. I help product teams ship clean, maintainable TypeScript — working closely with you and sweating every detail until it feels right.",
+    "ctaContact": "Start a project",
+    "ctaAbout": "More about me",
+    "photoAlt": "Portrait of Hristo Hristov",
+    "location": "Sofia, Bulgaria · EET (UTC+2)"
+  },
+  "stats": {
+    "years": "Years of experience",
+    "projects": "Projects delivered",
+    "industries": "Industries served",
+    "response": "Typical reply time"
+  },
+  "skills": {
+    "eyebrow": "Toolbox",
+    "title": "What I work with",
+    "subtitle": "A modern, dependable stack — mastered in depth, not just listed on a CV.",
+    "groups": {
+      "frontend": {
+        "title": "Frontend",
+        "description": "My home turf — component architecture, state management, performance and pixel-perfect UI."
+      },
+      "backend": {
+        "title": "Backend",
+        "description": "Solid APIs and data layers that keep the frontend honest."
+      },
+      "devops": {
+        "title": "DevOps & Tooling",
+        "description": "From git push to production — containers, pipelines, monitoring."
+      },
+      "testing": {
+        "title": "Testing & Quality",
+        "description": "Confidence to ship — from unit to end-to-end, automated in CI."
+      }
+    }
+  },
+  "approach": {
+    "eyebrow": "Principles",
+    "title": "How I work",
+    "subtitle": "Four habits that quietly decide whether software is a joy or a liability.",
+    "items": {
+      "clean": {
+        "title": "Clean code, always",
+        "text": "Readable, tested, maintainable TypeScript — the kind of codebase your next developer will thank you for."
+      },
+      "collab": {
+        "title": "Close collaboration",
+        "text": "Short feedback loops, honest estimates and proactive communication. You always know where things stand."
+      },
+      "polish": {
+        "title": "Polish in every detail",
+        "text": "Micro-interactions, loading states, empty states, edge cases — the last 10% that separates good from great."
+      },
+      "ownership": {
+        "title": "Ownership, end to end",
+        "text": "From architecture to deployment and monitoring, I take responsibility for making it work in production."
+      }
+    }
+  },
+  "engagement": {
+    "eyebrow": "Availability",
+    "title": "Let's work together",
+    "subtitle": "Two simple ways to engage — pick what fits your team.",
+    "b2b": {
+      "title": "B2B contract",
+      "text": "Flexible hours through my registered Bulgarian company — ideal for product teams that want senior help without hiring overhead."
+    },
+    "fulltime": {
+      "title": "Full-time role",
+      "text": "Open to joining a product team I can grow with — remote-first, with occasional on-site visits."
+    },
+    "timezone": {
+      "title": "Time zones are not a problem",
+      "text": "Based in Sofia, Bulgaria — my working day matches the whole of Europe and comfortably overlaps with US mornings for calls, planning and pair programming.",
+      "chips": ["EET (UTC+2)", "Europe: full overlap", "US East: mornings"]
+    }
+  },
+  "cta": {
+    "title": "Have a project in mind?",
+    "text": "Tell me what you're building — I reply within 24 hours.",
+    "button": "Get in touch",
+    "or": "or email me directly at"
+  },
+  "about": {
+    "eyebrow": "About me",
+    "role": "Freelance full-stack developer — React & TypeScript",
+    "downloadCv": "Download CV",
+    "summary": [
+      "I'm Hristo — a full-stack developer from Sofia with more than a decade of shipping web software, the last several years as an independent contractor for product companies across Europe and the US. My center of gravity is the frontend: React, TypeScript and the craft of interfaces that are fast, accessible and pleasant to use.",
+      "What sets my work apart is the combination of engineering depth and product care. I have built and operated APIs, databases, CI/CD pipelines and test suites, so the frontends I deliver are not just pretty — they are observable, testable and cheap to change. I work best embedded in a team, communicating openly and often.",
+      "If you are looking for someone who treats your product like their own — from the architecture diagram to the last hover state — we will get along great."
+    ],
+    "facts": {
+      "title": "Quick facts",
+      "location": { "label": "Location", "value": "Sofia, Bulgaria" },
+      "timezone": { "label": "Time zone", "value": "EET (UTC+2)" },
+      "experience": { "label": "Experience", "value": "10+ years" },
+      "availability": { "label": "Availability", "value": "Open to new projects" },
+      "engagement": { "label": "Engagement", "value": "B2B contract or full-time" },
+      "languages": { "label": "Languages", "value": "Bulgarian, English" }
+    },
+    "experience": {
+      "title": "Experience",
+      "items": {
+        "freelance": {
+          "period": "2019 — Present",
+          "role": "Freelance Full-Stack Developer",
+          "company": "Independent · B2B contracts",
+          "location": "Remote — EU & US clients",
+          "bullets": [
+            "Design and build React/Next.js frontends and Node.js services for clients in fintech, e-commerce and SaaS.",
+            "Own features end to end: architecture, implementation, testing with Jest and Playwright, CI/CD and production monitoring.",
+            "Help teams raise their quality bar through code reviews, refactoring plans and mentoring."
+          ]
+        },
+        "senior": {
+          "period": "2016 — 2019",
+          "role": "Senior Frontend Developer",
+          "company": "SaaS product company",
+          "location": "Sofia, Bulgaria",
+          "bullets": [
+            "Led the incremental migration of a large legacy UI to React and TypeScript with zero downtime for customers.",
+            "Built the shared component library and design system used by three product teams.",
+            "Introduced unit and end-to-end test suites that cut regression bugs to a fraction."
+          ]
+        },
+        "fullstack": {
+          "period": "2013 — 2016",
+          "role": "Full-Stack Developer",
+          "company": "Digital agency",
+          "location": "Sofia, Bulgaria",
+          "bullets": [
+            "Delivered dozens of client projects — marketing sites, booking platforms, internal tools — on tight deadlines.",
+            "Worked across the stack: JavaScript frontends, Node.js and PHP backends, MySQL and PostgreSQL."
+          ]
+        },
+        "junior": {
+          "period": "2011 — 2013",
+          "role": "Junior Developer",
+          "company": "Software services company",
+          "location": "Sofia, Bulgaria",
+          "bullets": [
+            "Maintained backend services and internal tools — and fell in love with the web platform for good."
+          ]
+        }
+      }
+    },
+    "education": {
+      "title": "Education",
+      "degree": "B.Sc. Computer Science",
+      "school": "Technical University of Sofia",
+      "period": "2007 — 2011"
+    },
+    "languages": {
+      "title": "Languages",
+      "bulgarian": { "name": "Bulgarian", "level": "Native" },
+      "english": { "name": "English", "level": "Fluent — C1" }
+    },
+    "beyond": {
+      "title": "Beyond the code",
+      "text": "When I'm not shipping features I tinker with my homelab, contribute fixes to open-source libraries I rely on, and mentor junior developers. Coffee-fueled refactoring is my idea of a good morning."
+    },
+    "skillsTitle": "Core skills",
+    "skillsNote": "The tools I reach for daily — see the full toolbox on the home page.",
+    "cta": {
+      "title": "Sound like a fit?",
+      "text": "I'm currently taking on new projects.",
+      "button": "Let's talk"
+    }
+  },
+  "contact": {
+    "eyebrow": "Contact",
+    "title": "Let's build something",
+    "lead": "Tell me about your project — scope, timeline, what success looks like. Or just say hi. I reply to every message within 24 hours on business days.",
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "company": "Company (optional)",
+      "engagement": "I'm interested in",
+      "engagementOptions": {
+        "b2b": "B2B contract",
+        "fulltime": "Full-time role",
+        "other": "Something else"
+      },
+      "message": "Your message",
+      "messagePlaceholder": "What are you building, and where can I help?",
+      "submit": "Send message",
+      "sending": "Sending…",
+      "errors": {
+        "nameRequired": "Please tell me your name.",
+        "emailRequired": "Please enter your email.",
+        "emailInvalid": "That email address doesn't look right.",
+        "messageRequired": "Please write a short message.",
+        "messageTooShort": "A few more words, please — at least {min} characters.",
+        "rateLimited": "Too many messages in a short time. Please wait a few minutes and try again.",
+        "generic": "Something went wrong and your message wasn't sent. Please try again or email me directly at {email}."
+      },
+      "success": {
+        "title": "Message sent!",
+        "text": "Thanks for reaching out — I'll get back to you within 24 hours.",
+        "again": "Send another message"
+      }
+    },
+    "direct": {
+      "title": "Direct contact",
+      "emailLabel": "Email",
+      "phoneLabel": "Phone",
+      "locationLabel": "Location",
+      "map": "View on map",
+      "copy": "Copy email",
+      "copied": "Copied!"
+    },
+    "availability": {
+      "title": "Availability",
+      "status": "Available for new projects",
+      "note": "Based in Sofia (EET) — I work European hours and overlap with US mornings, so calls are easy to schedule."
+    },
+    "socials": {
+      "title": "Elsewhere"
+    }
+  },
+  "footer": {
+    "tagline": "Freelance full-stack developer crafting fast, polished React products.",
+    "nav": "Navigate",
+    "contact": "Contact",
+    "rights": "© {year} Hristo Hristov. All rights reserved.",
+    "madeWith": "Built with Next.js, TypeScript & Material UI."
+  },
+  "notFound": {
+    "code": "404",
+    "title": "Page not found",
+    "text": "The page you're looking for doesn't exist or has been moved.",
+    "cta": "Back to home"
+  },
+  "error": {
+    "title": "Something went wrong",
+    "text": "An unexpected error occurred. You can try again, or head back to the home page.",
+    "retry": "Try again",
+    "home": "Back to home"
+  }
+}

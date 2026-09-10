@@ -1,38 +1,37 @@
-name: Build
+name: CI
 
 on:
   push:
-    branches:
-      - master
+    branches: [master]
+  pull_request:
 
 jobs:
-  build:
+  quality:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v4
 
-      - name: Use Node.js 12.x
-        uses: actions/setup-node@v1
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: 12.x
-          
-      - name: Prepare
-        run: npm install
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Check formatting
+        run: npm run format:check
 
       - name: Build
         run: npm run build
         env:
-          CI: true
+          NEXT_TELEMETRY_DISABLED: 1
 
-      - name: Deploy
-        uses: garygrossgarten/github-action-scp@release
-        with:
-          local: dist
-          remote: ${{ secrets.SSH_DEPLOY_PATH }}
-          host: ${{ secrets.SSH_HOST }}
-          port: ${{ secrets.SSH_PORT }}
-          username: ${{ secrets.SSH_USER }}
-          privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
-          passphrase: ${{ secrets.SSH_PRIVATE_KEY_PASSPHRASE }}
+      - name: Typecheck
+        run: npm run typecheck

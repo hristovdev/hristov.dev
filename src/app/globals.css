@@ -1,0 +1,170 @@
+:root {
+  --font-sans-fallback:
+    system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono-fallback: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --accent: #872bff;
+  --accent-grad: linear-gradient(94deg, #6a1fd0 0%, #872bff 55%, #a35bff 100%);
+  --hero-glow: radial-gradient(closest-side, rgba(135, 43, 255, 0.2), transparent);
+  --dot-color: rgba(23, 21, 34, 0.14);
+}
+
+html.dark {
+  --accent-grad: linear-gradient(94deg, #9d5bff 0%, #b388ff 60%, #d9c2ff 100%);
+  --hero-glow: radial-gradient(closest-side, rgba(135, 43, 255, 0.3), transparent);
+  --dot-color: rgba(244, 242, 250, 0.12);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  text-rendering: optimizelegibility;
+  transition: background-color 0.25s ease;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+::selection {
+  background: rgba(135, 43, 255, 0.3);
+}
+
+/* Subtle brand scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(135, 43, 255, 0.35) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: rgba(135, 43, 255, 0.3);
+  border-radius: 999px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(135, 43, 255, 0.5);
+}
+
+/* Gradient accent text */
+.gradient-text {
+  background: var(--accent-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* Route enter transition (replayed by template.tsx on navigation) */
+.page-enter {
+  animation: page-enter 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Above-the-fold entrance (no JS required) */
+.anim-fade-up {
+  animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--anim-delay, 0ms);
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Slow vertical float for decorative chips */
+.anim-float {
+  animation: float 5.5s ease-in-out infinite;
+  animation-delay: var(--anim-delay, 0ms);
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Pulsing "available" dot */
+.pulse-dot {
+  position: relative;
+}
+
+.pulse-dot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: inherit;
+  animation: pulse-ring 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+
+  70%,
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .page-enter,
+  .anim-fade-up,
+  .anim-float,
+  .pulse-dot::after {
+    animation: none !important;
+  }
+}
+
+/* The About page doubles as a printable CV */
+@media print {
+  .site-header,
+  .site-footer,
+  .no-print {
+    display: none !important;
+  }
+
+  body {
+    background: #fff !important;
+  }
+}
