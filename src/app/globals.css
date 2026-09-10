@@ -1,170 +1,122 @@
-:root {
-  --font-sans-fallback:
-    system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  --font-mono-fallback: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+@import '../styles/tokens.css';
 
-  --accent: #872bff;
-  --accent-grad: linear-gradient(94deg, #6a1fd0 0%, #872bff 55%, #a35bff 100%);
-  --hero-glow: radial-gradient(closest-side, rgba(135, 43, 255, 0.2), transparent);
-  --dot-color: rgba(23, 21, 34, 0.14);
-}
-
-html.dark {
-  --accent-grad: linear-gradient(94deg, #9d5bff 0%, #b388ff 60%, #d9c2ff 100%);
-  --hero-glow: radial-gradient(closest-side, rgba(135, 43, 255, 0.3), transparent);
-  --dot-color: rgba(244, 242, 250, 0.12);
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 html {
-  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  text-rendering: optimizelegibility;
-  transition: background-color 0.25s ease;
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-ui);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  transition:
+    background var(--duration-theme) var(--ease),
+    color var(--duration-theme) var(--ease);
 }
 
-main {
-  flex: 1 0 auto;
+a {
+  color: var(--accent-ink);
+  text-decoration: none;
+  transition: color var(--duration-fast) var(--ease);
+}
+
+a:hover {
+  color: var(--accent);
+}
+
+input,
+textarea,
+select,
+button {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+img,
+svg {
+  max-width: 100%;
+}
+
+p {
+  text-wrap: pretty;
 }
 
 ::selection {
-  background: rgba(135, 43, 255, 0.3);
+  background: var(--accent);
+  color: var(--on-accent);
 }
 
-/* Subtle brand scrollbar */
-* {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(135, 43, 255, 0.35) transparent;
+:focus-visible {
+  outline: var(--border-active) solid var(--accent);
+  outline-offset: var(--space-1);
+  border-radius: var(--space-2);
 }
 
-*::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+/* Three large, fixed, low-opacity colour fields behind the whole page. */
+.pageField {
+  min-height: 100vh;
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(75% 48% at 86% -8%, var(--glow) 0%, transparent 62%),
+    radial-gradient(62% 42% at 2% 96%, var(--glow2) 0%, transparent 64%),
+    radial-gradient(58% 40% at 72% 108%, var(--glow3) 0%, transparent 66%);
+  background-attachment: fixed, fixed, fixed;
+  overflow-x: clip;
+  transition: background-color var(--duration-theme) var(--ease);
 }
 
-*::-webkit-scrollbar-thumb {
-  background: rgba(135, 43, 255, 0.3);
-  border-radius: 999px;
-}
+/*
+ * Keyframes deliberately live in the modules that use them: CSS Modules
+ * rewrites `animation: name` to a module-scoped identifier, so a definition
+ * here would never resolve from inside a *.module.css file.
+ */
 
-*::-webkit-scrollbar-thumb:hover {
-  background: rgba(135, 43, 255, 0.5);
-}
+/* ------------------------------------------------------------- utilities */
 
-/* Gradient accent text */
-.gradient-text {
-  background: var(--accent-grad);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-}
-
-/* Route enter transition (replayed by template.tsx on navigation) */
-.page-enter {
-  animation: page-enter 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-@keyframes page-enter {
-  from {
-    opacity: 0;
-    transform: translateY(14px);
-  }
-
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-/* Above-the-fold entrance (no JS required) */
-.anim-fade-up {
-  animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
-  animation-delay: var(--anim-delay, 0ms);
-}
-
-@keyframes fade-up {
-  from {
-    opacity: 0;
-    transform: translateY(22px);
-  }
-
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-/* Slow vertical float for decorative chips */
-.anim-float {
-  animation: float 5.5s ease-in-out infinite;
-  animation-delay: var(--anim-delay, 0ms);
-}
-
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-/* Pulsing "available" dot */
-.pulse-dot {
-  position: relative;
-}
-
-.pulse-dot::after {
-  content: '';
+/* Screen-reader-only, but focusable (skip link). */
+.srOnly {
   position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: inherit;
-  animation: pulse-ring 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  width: var(--space-hair);
+  height: var(--space-hair);
+  padding: 0;
+  margin: calc(var(--space-hair) * -1);
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
-@keyframes pulse-ring {
-  0% {
-    transform: scale(1);
-    opacity: 0.7;
-  }
-
-  70%,
-  100% {
-    transform: scale(2.4);
-    opacity: 0;
-  }
+.srOnly:focus-visible {
+  position: fixed;
+  top: var(--space-11);
+  left: var(--space-11);
+  z-index: var(--z-skip);
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: var(--space-9) var(--space-14);
+  clip-path: none;
+  background: var(--accent);
+  color: var(--on-accent);
+  border-radius: var(--radius-input);
+  font: var(--type-nav);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
-  .page-enter,
-  .anim-fade-up,
-  .anim-float,
-  .pulse-dot::after {
-    animation: none !important;
-  }
-}
-
-/* The About page doubles as a printable CV */
-@media print {
-  .site-header,
-  .site-footer,
-  .no-print {
-    display: none !important;
-  }
-
-  body {
-    background: #fff !important;
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
   }
 }

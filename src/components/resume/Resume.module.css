@@ -1,0 +1,35 @@
+.layout {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: var(--resume-pad-top) var(--page-pad) var(--page-pad-bottom);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-column-gap);
+  align-items: start;
+}
+
+@media (min-width: 820px) {
+  .layout {
+    grid-template-columns: minmax(var(--track-sidebar), 0.8fr) minmax(0, 2.2fr);
+  }
+}
+
+.main {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-stack-gap);
+}
+
+.aboutTitle {
+  margin: 0 0 var(--space-6);
+  font: var(--type-h2-sm);
+  letter-spacing: var(--ls-h2);
+}
+
+.aboutBody {
+  margin: var(--space-12) 0 0;
+  max-width: var(--measure-prose);
+  font: var(--type-body-lg);
+  color: var(--muted);
+}

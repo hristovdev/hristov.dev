@@ -22,6 +22,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # TypeScript 7 (native) — also runs as part of `next build`, but running
+      # it first gives a faster, clearer failure.
+      - name: Typecheck
+        run: npm run typecheck
+
       - name: Lint
         run: npm run lint
 
@@ -33,5 +38,23 @@ jobs:
         env:
           NEXT_TELEMETRY_DISABLED: 1
 
-      - name: Typecheck
-        run: npm run typecheck
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build production image
+        run: docker build --target runner -t hristov-dev:ci .
+
+      - name: Smoke test the container
+        run: |
+          docker run -d --name ci-web -p 3000:3000 hristov-dev:ci
+          for i in $(seq 1 30); do
+            if curl -fsS http://localhost:3000/ >/dev/null; then break; fi
+            sleep 2
+          done
+          curl -fsS http://localhost:3000/ >/dev/null
+          curl -fsS http://localhost:3000/bg/resume >/dev/null
+          curl -fsS http://localhost:3000/contact >/dev/null
+          docker rm -f ci-web

@@ -1,3 +1,4 @@
+import { Resend } from 'resend';
 import { site } from '@/data/site';
 import type { EngagementType } from '@/lib/contact';
 
@@ -7,67 +8,96 @@ export type ContactEmailInput = {
   company?: string;
   engagement?: EngagementType;
   message: string;
+  locale: string;
 };
-
-const WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit';
 
 const ENGAGEMENT_LABELS: Record<EngagementType, string> = {
   b2b: 'B2B contract',
   fulltime: 'Full-time role',
+  short: 'Short engagement',
   other: 'Something else',
 };
 
-type Web3FormsResponse = {
-  success?: boolean;
-  message?: string;
-};
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+function renderRows(rows: readonly (readonly [string, string])[]): string {
+  return rows
+    .map(
+      ([label, value]) =>
+        `<tr>
+           <td style="padding:6px 16px 6px 0;color:#6a6478;font:500 12px/1.4 -apple-system,sans-serif;text-transform:uppercase;letter-spacing:.08em;vertical-align:top;white-space:nowrap">${escapeHtml(label)}</td>
+           <td style="padding:6px 0;color:#171520;font:400 14px/1.5 -apple-system,sans-serif">${escapeHtml(value)}</td>
+         </tr>`,
+    )
+    .join('');
+}
 
 /**
- * Delivers a contact form submission via Web3Forms.
+ * Delivers a contact form submission through Resend.
  *
- * The access key stays server-side (`WEB3FORMS_ACCESS_KEY`, no NEXT_PUBLIC
- * prefix), so it is never shipped to the browser — the form talks to our
- * `/api/contact` route, which validates and rate-limits before forwarding.
+ * `RESEND_API_KEY` is server-only (no NEXT_PUBLIC prefix), so it never reaches
+ * the browser — the form posts to /api/contact, which validates and
+ * rate-limits before calling this.
+ *
+ * In development, a missing key logs the submission instead of throwing, so
+ * the form can be exercised without secrets.
  */
 export async function sendContactEmail(input: ContactEmailInput): Promise<void> {
-  const accessKey = process.env.WEB3FORMS_ACCESS_KEY;
+  const apiKey = process.env.RESEND_API_KEY;
 
-  if (!accessKey) {
+  if (!apiKey) {
     if (process.env.NODE_ENV !== 'production') {
-      console.info(
-        '[contact] WEB3FORMS_ACCESS_KEY is not set — logging the message instead:',
-        input,
-      );
+      console.info('[contact] RESEND_API_KEY is not set — logging the message instead:', input);
       return;
     }
-    throw new Error('WEB3FORMS_ACCESS_KEY is not configured');
+    throw new Error('RESEND_API_KEY is not configured');
   }
 
-  const response = await fetch(WEB3FORMS_ENDPOINT, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-    },
-    body: JSON.stringify({
-      access_key: accessKey,
-      subject: `[${site.domain}] New inquiry from ${input.name}`,
-      from_name: site.domain,
-      name: input.name,
-      email: input.email,
-      company: input.company ?? '—',
-      engagement: input.engagement ? ENGAGEMENT_LABELS[input.engagement] : '—',
-      message: input.message,
-    }),
+  // Compose passes unconfigured optionals through as empty strings, so fall
+  // back on falsy rather than nullish.
+  const from = process.env.CONTACT_FROM_EMAIL || `${site.domain} <website@${site.domain}>`;
+  const to = process.env.CONTACT_TO_EMAIL || site.email;
+
+  const rows = [
+    ['Name', input.name],
+    ['Email', input.email],
+    ['Company', input.company?.trim() || '—'],
+    ['About', input.engagement ? ENGAGEMENT_LABELS[input.engagement] : '—'],
+    ['Locale', input.locale],
+  ] as const;
+
+  const text = [...rows.map(([label, value]) => `${label}: ${value}`), '', input.message].join(
+    '\n',
+  );
+
+  const html = `
+    <div style="background:#f6f4f9;padding:24px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+      <div style="max-width:600px;margin:0 auto;background:#fffdff;border:1px solid rgba(60,45,90,.13);border-radius:14px;padding:28px">
+        <p style="margin:0 0 4px;color:#ff3650;font:500 11px/1 monospace;text-transform:uppercase;letter-spacing:.12em">New enquiry</p>
+        <h1 style="margin:0 0 20px;color:#171520;font:600 20px/1.25 -apple-system,sans-serif;letter-spacing:-.02em">${escapeHtml(input.name)} got in touch</h1>
+        <table style="border-collapse:collapse;margin-bottom:20px">${renderRows(rows)}</table>
+        <div style="border-top:1px solid rgba(60,45,90,.13);padding-top:18px;color:#171520;font:400 15px/1.65 -apple-system,sans-serif;white-space:pre-wrap">${escapeHtml(input.message)}</div>
+      </div>
+    </div>`;
+
+  const resend = new Resend(apiKey);
+
+  const { error } = await resend.emails.send({
+    from,
+    to,
+    replyTo: input.email,
+    subject: `[${site.domain}] ${ENGAGEMENT_LABELS[input.engagement ?? 'other']} — ${input.name}`,
+    text,
+    html,
   });
 
-  const data = (await response.json().catch(() => null)) as Web3FormsResponse | null;
-
-  if (!response.ok || !data?.success) {
-    throw new Error(
-      `Web3Forms request failed with status ${response.status}${
-        data?.message ? `: ${data.message}` : ''
-      }`,
-    );
+  if (error) {
+    throw new Error(`Resend rejected the message: ${error.name} — ${error.message}`);
   }
 }

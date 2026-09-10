@@ -1,0 +1,5 @@
+# Binds this directory to a Doppler project/config so `doppler run` works
+# without flags. Run `doppler setup` once to confirm the selection.
+setup:
+  project: hristov-dev
+  config: dev

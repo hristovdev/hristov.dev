@@ -1,0 +1,117 @@
+.band {
+  background: var(--surface);
+  border-top: var(--border-width) solid var(--line);
+  border-bottom: var(--border-width) solid var(--line);
+  transition: background var(--duration-theme) var(--ease);
+}
+
+.grid {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 0 var(--page-pad);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(var(--track-fact), 100%), 1fr));
+}
+
+.cell {
+  padding: var(--space-fact-pad-y) var(--space-fact-pad-x);
+  border-left: var(--border-width) solid var(--line);
+  border-right: var(--border-width) solid var(--line);
+  /* Pull the right edge onto the next cell's left edge so interior lines
+     don't double, while the last cell still closes the row. */
+  margin-right: calc(var(--border-width) * -1);
+}
+
+.key {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+  font: var(--type-fact);
+  letter-spacing: var(--ls-wordmark);
+  color: var(--fg);
+}
+
+.iconItem {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-7);
+}
+
+.stackIcon {
+  width: var(--icon-inline);
+  height: var(--icon-inline);
+  flex: none;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  filter: var(--icon-filter);
+}
+
+.value {
+  margin: var(--space-9) 0 0;
+  max-width: var(--measure-fact);
+  font: var(--type-fact-value);
+  color: var(--muted);
+}
+
+/* --- industry ticker --- */
+
+.ticker {
+  height: var(--ticker-row-height);
+  overflow: hidden;
+  mask-image: linear-gradient(180deg, transparent 0, #000 38%, #000 62%, transparent 100%);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 38%, #000 62%, transparent 100%);
+}
+
+.tickerInner {
+  animation: vroll var(--duration-vroll) var(--ease-roll) infinite;
+}
+
+.tickerRow {
+  height: var(--ticker-row-height);
+  display: flex;
+  align-items: center;
+  gap: var(--space-7);
+  font: var(--type-fact);
+  line-height: var(--ticker-row-height);
+  letter-spacing: var(--ls-wordmark);
+  color: var(--fg);
+}
+
+.tickerIcon {
+  width: var(--icon-inline);
+  height: var(--icon-inline);
+  flex: none;
+  color: var(--accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tickerInner {
+    animation: none;
+  }
+}
+
+/* Kept local: CSS Modules scopes keyframe references.
+   Steps through five rows, holding each for ~17% of the cycle. */
+@keyframes vroll {
+  0%,
+  17% {
+    transform: translateY(0);
+  }
+  25%,
+  42% {
+    transform: translateY(calc(var(--ticker-row-height) * -1));
+  }
+  50%,
+  67% {
+    transform: translateY(calc(var(--ticker-row-height) * -2));
+  }
+  75%,
+  92% {
+    transform: translateY(calc(var(--ticker-row-height) * -3));
+  }
+  100% {
+    transform: translateY(calc(var(--ticker-row-height) * -4));
+  }
+}

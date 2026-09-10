@@ -1,90 +1,66 @@
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
 import type { Metadata } from 'next';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
-import ContactAside from '@/components/contact/ContactAside';
-import ContactForm from '@/components/contact/ContactForm';
+import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server';
+import { NextIntlClientProvider, useTranslations } from 'next-intl';
 import { routing } from '@/i18n/routing';
+import { Kicker } from '@/components/shared/Section';
+import { Channels } from '@/components/contact/Channels';
+import { ContactForm } from '@/components/contact/ContactForm';
+import styles from '@/components/contact/Contact.module.css';
 
-const MONO = 'var(--font-mono), var(--font-mono-fallback)';
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
 
-type PageProps = {
+export async function generateMetadata({
+  params,
+}: {
   params: Promise<{ locale: string }>;
-};
-
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+}): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'meta' });
-  const prefix = locale === routing.defaultLocale ? '' : `/${locale}`;
+  const t = await getTranslations({ locale, namespace: 'meta.contact' });
 
   return {
-    title: t('contact.title'),
-    description: t('contact.description'),
+    title: t('title'),
+    description: t('description'),
     alternates: {
-      canonical: `${prefix}/contact`,
+      canonical: locale === routing.defaultLocale ? '/contact' : `/${locale}/contact`,
       languages: { en: '/contact', bg: '/bg/contact' },
     },
   };
 }
 
-export default async function ContactPage({ params }: PageProps) {
-  const { locale } = await params;
-  setRequestLocale(locale);
-  const t = await getTranslations({ locale, namespace: 'contact' });
+function Intro() {
+  const t = useTranslations('contact');
+  const common = useTranslations('common');
 
   return (
-    <Box component="section" sx={{ position: 'relative', overflow: 'hidden' }}>
-      <Box
-        aria-hidden
-        sx={{
-          position: 'absolute',
-          inset: 0,
-          zIndex: -1,
-          background:
-            'radial-gradient(560px circle at 90% -10%, rgba(135, 43, 255, 0.1), transparent 60%)',
-        }}
-      />
-      <Container maxWidth="lg" sx={{ py: { xs: 6, md: 9 } }}>
-        <Box className="anim-fade-up" sx={{ maxWidth: 640 }}>
-          <Typography
-            component="p"
-            sx={{
-              fontFamily: MONO,
-              color: 'primary.main',
-              fontSize: '0.8rem',
-              fontWeight: 600,
-              letterSpacing: '0.14em',
-              textTransform: 'uppercase',
-              mb: 1.5,
-            }}
-          >
-            {'// '}
-            {t('eyebrow')}
-          </Typography>
-          <Typography variant="h2" component="h1">
-            {t('title')}
-          </Typography>
-          <Typography variant="body1" color="text.secondary" sx={{ mt: 1.5, fontSize: '1.05rem' }}>
-            {t('lead')}
-          </Typography>
-        </Box>
+    <div className={styles.intro}>
+      <Kicker>{common('availability')}</Kicker>
+      <h1 className={styles.title}>{t('title')}</h1>
+      <p className={styles.lead}>{t('lead')}</p>
+    </div>
+  );
+}
 
-        <Box
-          className="anim-fade-up"
-          sx={{
-            '--anim-delay': '150ms',
-            display: 'grid',
-            gridTemplateColumns: { xs: '1fr', md: 'minmax(0, 1.7fr) minmax(0, 1fr)' },
-            gap: { xs: 4, md: 5 },
-            alignItems: 'start',
-            mt: { xs: 4, md: 6 },
-          }}
-        >
+export default async function ContactPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
+  // The form is the only Client Component on this page, so it gets its own
+  // narrow provider rather than widening the one in the layout.
+  const messages = await getMessages();
+  const formMessages = { contact: { form: (messages.contact as { form: unknown }).form } };
+
+  return (
+    <div className={styles.wrap}>
+      <Intro />
+
+      <div className={styles.columns}>
+        <Channels />
+        <NextIntlClientProvider messages={formMessages}>
           <ContactForm />
-          <ContactAside />
-        </Box>
-      </Container>
-    </Box>
+        </NextIntlClientProvider>
+      </div>
+    </div>
   );
 }

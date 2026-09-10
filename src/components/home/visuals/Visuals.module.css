@@ -1,0 +1,485 @@
+/*
+ * Every case-study visual is built from plain elements — no images, no SVG —
+ * so they inherit the theme tokens and stay crisp at any zoom.
+ */
+
+.stage {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-10);
+  padding: var(--space-visual-pad);
+  min-height: var(--visual-min-height);
+  justify-content: center;
+}
+
+.label {
+  font: var(--type-label-sm);
+  font-weight: 400;
+  letter-spacing: var(--ls-label);
+  color: var(--muted);
+}
+
+.labelAccent {
+  font: var(--type-label-sm);
+  letter-spacing: var(--ls-label);
+  color: var(--accent-ink);
+}
+
+.miniChip {
+  border: var(--border-width) solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: var(--space-5) var(--space-8);
+  font: var(--type-micro);
+  letter-spacing: var(--ls-chip);
+  color: var(--muted);
+  background: var(--surface);
+  white-space: nowrap;
+}
+
+.miniChipAccent {
+  border: var(--border-width) solid var(--accent);
+  border-radius: var(--radius-sm);
+  padding: var(--space-5) var(--space-8);
+  font: var(--type-micro);
+  letter-spacing: var(--ls-chip);
+  color: var(--accent-ink);
+  background: var(--accent-soft);
+  white-space: nowrap;
+}
+
+.rowChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+/* --- 1. host + sub-apps + shared library --- */
+
+.hostGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-9);
+}
+
+.hostBar {
+  border: var(--border-width) solid var(--strong);
+  border-radius: var(--radius-input);
+  background: var(--raise);
+  padding: var(--space-11) var(--space-13);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+}
+
+.hostTitle {
+  font: var(--type-label);
+  letter-spacing: var(--ls-label);
+  color: var(--fg);
+}
+
+.hostDetail {
+  font: var(--type-chip-sm);
+  color: var(--muted);
+}
+
+/* Three short rules linking the host bar down to the sub-app grid. */
+.ticks {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-5);
+}
+
+.tickLine,
+.tickStrong {
+  width: var(--border-width);
+  height: var(--tick-height);
+}
+
+.tickLine {
+  background: var(--line);
+}
+
+.tickStrong {
+  background: var(--strong);
+}
+
+.appGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-6);
+}
+
+.appCell {
+  border: var(--border-width) solid var(--line);
+  border-radius: var(--radius-tile);
+  padding: var(--space-9) var(--space-7);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.appName {
+  font: var(--type-app-name);
+  color: var(--muted);
+}
+
+.appBar {
+  height: var(--app-bar-height);
+  border-radius: var(--radius-hair);
+  background: var(--strong);
+}
+
+.appCellWide {
+  grid-column: span 2;
+  border: var(--border-width) solid var(--accent);
+  border-radius: var(--radius-tile);
+  padding: var(--space-9);
+  background: var(--accent-soft);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-7);
+}
+
+.appNameAccent {
+  font: var(--type-app-name);
+  color: var(--accent-ink);
+}
+
+.widgetRow {
+  display: flex;
+  gap: var(--space-4);
+}
+
+.widget {
+  flex: 1;
+  border: var(--border-width) solid var(--accent);
+  border-radius: var(--radius-xs);
+  padding: var(--space-5) var(--space-4);
+  font: var(--type-tiny);
+  color: var(--accent-ink);
+  text-align: center;
+}
+
+.appNote {
+  font: var(--type-micro);
+  color: var(--muted);
+}
+
+.libBar {
+  border: var(--border-width) dashed var(--strong);
+  border-radius: var(--radius-input);
+  padding: var(--space-10) var(--space-12);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-8);
+}
+
+.libTitle {
+  font: var(--type-lib-title);
+  color: var(--fg);
+}
+
+.libChips {
+  display: flex;
+  gap: var(--space-4);
+}
+
+.libChip {
+  font: var(--type-micro);
+  color: var(--muted);
+  border: var(--border-width) solid var(--line);
+  border-radius: var(--radius-xs);
+  padding: var(--space-5) var(--space-6);
+}
+
+/* --- 2. production line + drill-down dashboard --- */
+
+.flow {
+  display: flex;
+  align-items: stretch;
+  gap: var(--space-5);
+}
+
+.arrow {
+  align-self: center;
+  color: var(--muted);
+  font: var(--type-arrow);
+  flex: none;
+}
+
+.arrowAccent {
+  align-self: center;
+  color: var(--accent);
+  font: var(--type-arrow);
+  flex: none;
+}
+
+.station {
+  flex: 1;
+  min-width: 0;
+  border: var(--border-width) solid var(--line);
+  border-radius: var(--radius-tile);
+  padding: var(--space-8) var(--space-7);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.stationActive {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.stationName {
+  font: var(--type-micro-strong);
+  color: var(--muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.stationActive .stationName {
+  color: var(--accent-ink);
+}
+
+.stat {
+  font: var(--type-stat);
+  color: var(--fg);
+}
+
+.statUnit {
+  font-size: var(--type-stat-unit);
+  color: var(--muted);
+}
+
+.spark {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-1);
+  height: var(--spark-height);
+}
+
+.sparkBar {
+  flex: 1;
+  background: var(--strong);
+  border-radius: var(--radius-hair);
+}
+
+.stationActive .sparkBar {
+  background: var(--accent);
+}
+
+.dash {
+  border: var(--border-width) solid var(--accent);
+  border-radius: var(--radius-input);
+  background: var(--accent-soft);
+  padding: var(--space-12);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-10);
+}
+
+.dashHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-8);
+}
+
+.dashNote {
+  font: var(--type-micro);
+  font-size: var(--type-stat-unit-lg);
+  color: var(--muted);
+}
+
+.dashTiles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-7);
+}
+
+.dashTile {
+  border: var(--border-width) solid var(--line);
+  border-radius: var(--radius-tile);
+  background: var(--bg);
+  padding: var(--space-9);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.dashValue {
+  font: var(--type-stat-lg);
+  color: var(--fg);
+}
+
+.dashUnit {
+  font-size: var(--type-stat-unit-lg);
+  color: var(--muted);
+}
+
+.outputChart {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-3);
+  height: var(--chart-height);
+}
+
+.outputBar {
+  flex: 1;
+  background: var(--strong);
+  border-radius: var(--radius-hair);
+}
+
+.outputBarPeak {
+  background: var(--accent);
+}
+
+/* --- 3. embeddable chat --- */
+
+.chat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-9);
+  align-items: stretch;
+}
+
+.bubbleIn,
+.bubbleOut {
+  max-width: var(--bubble-max);
+  border: var(--border-width) solid var(--line);
+  padding: var(--space-11) var(--space-13);
+  font: var(--type-bubble);
+}
+
+.bubbleIn {
+  align-self: flex-start;
+  border-radius: var(--radius-bubble-in);
+  background: var(--surface);
+  color: var(--muted);
+}
+
+.bubbleOut {
+  align-self: flex-end;
+  border-radius: var(--radius-bubble-out);
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--fg);
+}
+
+.inputRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-9);
+  border: var(--border-width) solid var(--line);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  padding: var(--space-10) var(--space-12);
+  margin-top: var(--space-3);
+}
+
+.inputText {
+  flex: 1;
+  font: var(--type-input-hint);
+  color: var(--muted);
+}
+
+.sendDot {
+  flex: none;
+  width: var(--send-dot);
+  height: var(--send-dot);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.chatChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-6);
+  margin-top: var(--space-6);
+}
+
+.chatChip {
+  font: var(--type-chip-sm);
+  color: var(--muted);
+  background: var(--bg);
+  border: var(--border-width) solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: var(--space-6) var(--space-8);
+}
+
+/* --- 4. graph nodes --- */
+
+.graph {
+  display: flex;
+  align-items: center;
+}
+
+.graphColRoot,
+.graphColMid,
+.graphColLeaf {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Gaps tighten toward the leaves, which reads as depth without labels. */
+.graphColRoot {
+  gap: var(--space-22);
+}
+
+.graphColMid {
+  gap: var(--space-16);
+}
+
+.graphColLeaf {
+  gap: var(--space-11);
+}
+
+.edgeStrong,
+.edgeLine {
+  flex: 1;
+  height: var(--border-width);
+}
+
+.edgeStrong {
+  background: var(--strong);
+}
+
+.edgeLine {
+  background: var(--line);
+}
+
+.nodeRoot,
+.nodeMid,
+.nodeLeaf {
+  border: var(--border-width) solid;
+}
+
+.nodeRoot {
+  width: var(--node-lg);
+  height: var(--node-lg);
+  border-radius: var(--radius-node);
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.nodeMid {
+  width: var(--node-md);
+  height: var(--node-md);
+  border-radius: var(--radius-node);
+  border-color: var(--strong);
+  background: var(--surface);
+}
+
+.nodeLeaf {
+  width: var(--node-sm);
+  height: var(--node-sm);
+  border-radius: var(--radius-input);
+  border-color: var(--line);
+  background: var(--surface);
+}

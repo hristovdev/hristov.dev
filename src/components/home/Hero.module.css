@@ -1,0 +1,42 @@
+.hero {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: var(--hero-pad-top) var(--page-pad) var(--hero-pad-bottom);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Sit above the code watermark. */
+.title,
+.lead,
+.actions {
+  position: relative;
+  z-index: 1;
+}
+
+.title {
+  margin: 0;
+  max-width: var(--measure-hero);
+  font: var(--type-hero);
+  letter-spacing: var(--ls-hero);
+  text-wrap: balance;
+}
+
+.title em {
+  font-style: normal;
+  color: var(--accent);
+}
+
+.lead {
+  margin: var(--space-26) 0 0;
+  max-width: var(--measure-lead);
+  font: var(--type-lead);
+  color: var(--muted);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-12);
+  margin-top: var(--space-34);
+}

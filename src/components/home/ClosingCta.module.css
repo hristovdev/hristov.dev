@@ -1,0 +1,26 @@
+.wrap {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-16);
+}
+
+.title {
+  margin: 0;
+  max-width: var(--measure-cta);
+  font: var(--type-h2);
+  letter-spacing: var(--ls-h2);
+  text-wrap: balance;
+}
+
+.body {
+  margin: 0;
+  max-width: var(--measure-lead);
+  font: var(--type-lead-sm);
+  color: var(--muted);
+}
+
+.action {
+  margin-top: var(--space-10);
+}

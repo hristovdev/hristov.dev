@@ -1,14 +1,23 @@
 import { ImageResponse } from 'next/og';
-import bg from '../../../messages/bg.json';
-import en from '../../../messages/en.json';
+import { site } from '@/data/site';
+import { routing } from '@/i18n/routing';
+
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
 
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
-export const alt = 'Hristo Hristov — Freelance Full-Stack Developer';
+export const alt = 'Hristo Hristov — Senior full-stack developer';
+
+const ROLE = {
+  en: 'Senior full-stack developer · React & TypeScript',
+  bg: 'Старши full-stack разработчик · React и TypeScript',
+} as const;
 
 export default async function OpenGraphImage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  const role = locale === 'bg' ? bg.meta.ogRole : en.meta.ogRole;
+  const role = locale === 'bg' ? ROLE.bg : ROLE.en;
 
   return new ImageResponse(
     <div
@@ -19,57 +28,43 @@ export default async function OpenGraphImage({ params }: { params: Promise<{ loc
         flexDirection: 'column',
         justifyContent: 'center',
         padding: 88,
-        background: '#0a0910',
+        background: '#0c0a0e',
         backgroundImage:
-          'radial-gradient(640px circle at 12% -5%, rgba(135, 43, 255, 0.4), transparent 60%), radial-gradient(720px circle at 105% 105%, rgba(135, 43, 255, 0.3), transparent 60%)',
-        color: '#f4f2fa',
+          'radial-gradient(760px circle at 88% -10%, rgba(255, 54, 80, 0.30), transparent 62%), radial-gradient(620px circle at 2% 106%, rgba(176, 64, 196, 0.22), transparent 64%)',
+        color: '#f4f1f7',
       }}
     >
-      <div
-        style={{
-          display: 'flex',
-          fontSize: 26,
-          color: '#b388ff',
-          letterSpacing: 6,
-          textTransform: 'uppercase',
-        }}
-      >
-        hristov.dev
+      <div style={{ display: 'flex', fontSize: 27, letterSpacing: 2, color: '#a29caf' }}>
+        hristov<span style={{ color: '#ff3650' }}>.dev</span>
       </div>
       <div
         style={{
           display: 'flex',
-          marginTop: 20,
-          fontSize: 92,
-          fontWeight: 800,
+          marginTop: 22,
+          fontSize: 88,
+          fontWeight: 600,
           letterSpacing: -3,
         }}
       >
-        Hristo Hristov
+        {site.name}
       </div>
-      <div style={{ display: 'flex', marginTop: 18, fontSize: 38, color: '#b7b2cc' }}>{role}</div>
+      <div style={{ display: 'flex', marginTop: 20, fontSize: 36, color: '#a29caf' }}>{role}</div>
       <div
         style={{
           display: 'flex',
           alignItems: 'center',
           gap: 14,
-          marginTop: 64,
-          fontSize: 26,
-          color: 'rgba(244, 242, 250, 0.65)',
+          marginTop: 60,
+          fontSize: 25,
+          color: 'rgba(244, 241, 247, 0.62)',
         }}
       >
         <div
-          style={{
-            display: 'flex',
-            width: 14,
-            height: 14,
-            borderRadius: 99,
-            background: '#22c55e',
-          }}
+          style={{ display: 'flex', width: 12, height: 12, borderRadius: 6, background: '#ff3650' }}
         />
-        Sofia, Bulgaria · EET (UTC+2)
+        {site.location.city}, {site.location.country}
       </div>
     </div>,
-    { ...size },
+    size,
   );
 }

@@ -1,63 +1,71 @@
 'use client';
 
-import Box from '@mui/material/Box';
-import type { SxProps, Theme } from '@mui/material/styles';
-import { useEffect, useRef, useState } from 'react';
+import { useLayoutEffect, useRef } from 'react';
+import styles from './Reveal.module.css';
 
 type RevealProps = {
   children: React.ReactNode;
-  /** Transition delay in ms, for staggering siblings. */
+  /** Seconds to stagger this element behind its neighbours. */
   delay?: number;
-  sx?: SxProps<Theme>;
+  /** Element to render. Defaults to a plain div. */
+  as?: 'div' | 'section' | 'li' | 'article';
+  className?: string;
 };
 
 /**
- * Fades and slides content in when it scrolls into the viewport.
- * With reduced motion the transition is disabled via CSS, so content
- * simply appears as soon as the observer fires.
+ * Plays the design's `rise` entrance once, when the element scrolls into view.
+ *
+ * The markup renders visible. This hides it only after mount — in a layout
+ * effect, so it happens before paint and never flashes — which means a
+ * visitor whose JavaScript fails still sees every section. State lives on the
+ * DOM node rather than in React, so revealing costs no re-render.
  */
-export default function Reveal({ children, delay = 0, sx }: RevealProps) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
+export function Reveal({ children, delay = 0, as: Tag = 'div', className }: RevealProps) {
+  const ref = useRef<HTMLElement>(null);
 
-  useEffect(() => {
-    const element = ref.current;
-    if (!element) {
-      return;
-    }
+  useLayoutEffect(() => {
+    const node = ref.current;
+    if (!node) return;
 
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    node.dataset.reveal = 'pending';
+
+    const reveal = () => {
+      node.dataset.reveal = 'in';
+    };
+
+    // Anything already on screen reveals on the next frame rather than
+    // waiting for a scroll that may never come.
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0]?.isIntersecting) {
-          setVisible(true);
+        if (entries.some((entry) => entry.isIntersecting)) {
+          reveal();
           observer.disconnect();
         }
       },
-      { threshold: 0.15, rootMargin: '0px 0px -40px 0px' },
+      { rootMargin: '0px 0px -10% 0px', threshold: 0.05 },
     );
-    observer.observe(element);
 
-    return () => observer.disconnect();
+    observer.observe(node);
+
+    // Failsafe: if the observer never reports (a hidden tab, say), show the
+    // content anyway rather than leaving the page blank.
+    const failsafe = setTimeout(reveal, 2000);
+
+    return () => {
+      observer.disconnect();
+      clearTimeout(failsafe);
+    };
   }, []);
 
   return (
-    <Box
-      ref={ref}
-      sx={[
-        {
-          height: '100%',
-          opacity: visible ? 1 : 0,
-          transform: visible ? 'none' : 'translateY(24px)',
-          transition: 'opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1)',
-          transitionDelay: `${delay}ms`,
-          '@media (prefers-reduced-motion: reduce)': {
-            transition: 'none',
-          },
-        },
-        ...(Array.isArray(sx) ? sx : [sx]),
-      ]}
+    <Tag
+      ref={ref as never}
+      className={`${styles.reveal} ${className ?? ''}`.trim()}
+      style={delay ? ({ '--reveal-delay': `${delay}s` } as React.CSSProperties) : undefined}
     >
       {children}
-    </Box>
+    </Tag>
   );
 }

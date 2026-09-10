@@ -1,278 +1,466 @@
 {
-  "meta": {
-    "home": {
-      "title": "Hristo Hristov — Freelance Full-Stack Developer",
-      "description": "Freelance full-stack developer based in Sofia, Bulgaria, specializing in React and TypeScript. Clean code, close collaboration and pixel-level polish for product teams across Europe and the US."
+  "nav": {
+    "home": "Home",
+    "resume": "Résumé",
+    "contact": "Contact"
+  },
+  "theme": {
+    "toLight": "Light",
+    "toDark": "Dark",
+    "aria": "Switch theme"
+  },
+  "locale": {
+    "label": "Language"
+  },
+  "common": {
+    "availability": "Open for Q4 engagements",
+    "skipToContent": "Skip to content"
+  },
+  "home": {
+    "hero": {
+      "a": "Senior developer who ",
+      "b": "finishes things",
+      "c": " properly.",
+      "lead": "I'm Hristo — a full-stack developer with 10+ years of experience, working mostly in the frontend with React and TypeScript. I've built and maintained large web applications for clients in banking, air travel, manufacturing and property rental, usually as the senior person the team leans on for the hard parts and the last mile of polish."
+    },
+    "cta": {
+      "primary": "Start a conversation",
+      "secondary": "Read the résumé"
+    },
+    "facts": {
+      "years": {
+        "k": "10+ yrs",
+        "v": "Building production web software, without a gap"
+      },
+      "industries": {
+        "k": "Many industries",
+        "v": "…and more",
+        "items": ["Banking", "Air travel", "Manufacturing", "Property rental"]
+      },
+      "stack": {
+        "k": "React · TypeScript",
+        "v": "My daily stack — plus the tooling"
+      },
+      "start": {
+        "k": "2009",
+        "v": "First paid work: business sites, right out of high school"
+      }
+    },
+    "work": {
+      "kicker": "Selected work",
+      "title": "Four projects that show how I work",
+      "note": "Client names stay confidential — most of this ran through a consultancy. Happy to walk through the detail on a call.",
+      "more": "// more detail, screenshots and code walkthroughs available on request",
+      "cases": {
+        "platform": {
+          "kicker": "Enterprise cloud platform · Netherlands",
+          "title": "One host, seven sub-apps, one shared component library",
+          "body": "One host application carrying the infrastructure — auth, routing, theming — and seven sub-applications taking their dependencies from it. I helped set this up and kept building inside it.",
+          "points": [
+            "Seven sub-apps on one host, each shipped by its own team without breaking the others",
+            "The client-facing app composed from federated widget modules loaded at runtime",
+            "A shared component library of atoms, molecules and organisms used by every app",
+            "Playwright and Jest coverage plus CI checks that keep independent deploys safe"
+          ],
+          "shot": "// how the pieces fit together"
+        },
+        "manufacturing": {
+          "kicker": "Industrial manufacturing · Global",
+          "title": "A dashboard per machine, across the whole production line",
+          "body": "Every machine in the production flow gets its own dashboard, fed live from the floor and read by operators mid-shift. Widgets, data sources and layouts are all configurable, so a new line, plant or customer is setup work rather than a new codebase.",
+          "points": [
+            "One data-source-driven app replaced separate dashboard builds per client",
+            "Station-by-station view of the line, plus a drill-down dashboard per machine",
+            "Built for the floor: glanceable, high contrast, tolerant of gaps in the data feed",
+            "Heavy tables and charts kept fast with ag-Grid and ag-Charts"
+          ],
+          "shot": "// schematic line view, not client data"
+        },
+        "chat": {
+          "kicker": "Embeddable chat client · SaaS product",
+          "title": "A support chat widget small enough to drop into any page",
+          "body": "A client-facing chat client written in Preact and injected on demand, so the host page pays nothing until a user opens it. It talks to the page through custom HTML events instead of a shared framework, which kept dependencies at zero and the bundle tiny.",
+          "points": [
+            "Preact instead of React, loaded lazily on first interaction",
+            "Custom DOM events as the public API — no coupling to the host app's stack",
+            "Isolated styling so it can't be broken by whatever CSS the host page ships"
+          ],
+          "shot": "// representative UI, not a client screenshot"
+        },
+        "graph": {
+          "kicker": "Internal tooling · Developer platform",
+          "title": "React wrapper around a graph visualisation engine",
+          "body": "A reusable React layer over a graph rendering engine: nodes and labels authored as ordinary React components, with configurable options and several switchable layout algorithms behind one API.",
+          "points": [
+            "Nodes, edges and labels rendered as React components instead of engine templates",
+            "Layout algorithms — hierarchic, organic, radial, tree — swappable at runtime",
+            "Configuration-first API so product teams use it without learning the engine"
+          ],
+          "shot": "// hierarchic layout, schematic"
+        }
+      }
+    },
+    "process": {
+      "kicker": "The process",
+      "title": "How a project runs with me, start to finish",
+      "steps": [
+        {
+          "title": "Communication & planning",
+          "body": "Understanding what the release actually needs, breaking it down, estimating honestly and agreeing scope with whoever owns the outcome."
+        },
+        {
+          "title": "Setup & structure",
+          "body": "Project foundations: build tooling (webpack, rsbuild, esbuild), TypeScript and ESLint config, folder and module boundaries, the MUI or design-system layer."
+        },
+        {
+          "title": "Implementation",
+          "body": "The bulk of the work — complex stateful React interfaces: data grids, dashboards, configurators, long forms, and the polish that makes them feel finished."
+        },
+        {
+          "title": "Testing",
+          "body": "Playwright end-to-end flows, Jest unit and integration tests, review standards — written as the feature lands, not bolted on before release."
+        },
+        {
+          "title": "Deployment",
+          "body": "CI/CD pipelines, preview and staging environments, release checks and monitoring after the deploy — plus the handover notes for whoever runs it next."
+        }
+      ]
+    },
+    "principles": {
+      "kicker": "How I work",
+      "title": "Polish where it pays. Pragmatism everywhere else.",
+      "items": [
+        {
+          "title": "Detail is the deliverable",
+          "body": "The last 10% — empty states, focus rings, loading behaviour, the pixel that's one off — is what makes software feel expensive. I don't hand over work that needs a second pass."
+        },
+        {
+          "title": "But not polish at all costs",
+          "body": "I ask what the release actually needs. Some screens deserve a week; some deserve a day and a note in the backlog. Knowing which is which is most of the job."
+        },
+        {
+          "title": "Easy to pick up after me",
+          "body": "I write code, conventions and notes assuming a developer who has never met me will extend it under deadline. Clear structure, no clever tricks that only I can maintain."
+        },
+        {
+          "title": "Direct, low-drama communication",
+          "body": "Estimates I stand behind, risks flagged early, no surprises at the demo. I work in English and Bulgarian, remote-first, inside your process and rituals."
+        }
+      ]
+    },
+    "engagement": {
+      "title": "Ways we can work together",
+      "items": [
+        {
+          "tag": "B2B contract",
+          "title": "Contract via my own company",
+          "body": "Invoiced company to company, hourly or monthly rate. Full-time or part-time capacity, fixed for a quarter or rolling."
+        },
+        {
+          "tag": "Employment",
+          "title": "Full-time senior role",
+          "body": "The right product and team is worth joining properly. Remote or hybrid, senior or lead track."
+        },
+        {
+          "tag": "Focused scope",
+          "title": "Setup or clean-up work",
+          "body": "A few weeks to start a greenfield frontend, modernise the build and tooling of an existing one, or review test coverage before you grow the team."
+        }
+      ],
+      "note": "Based in Sofia, Bulgaria — a full working-day overlap with the rest of Europe and a comfortable morning or evening overlap with the US. Registered company, VAT-ready invoicing, standard NDAs and MSAs no problem. Comfortable as the only frontend developer on a product or as one senior among many on a large programme."
+    },
+    "final": {
+      "title": "Have a frontend that needs a steady pair of hands?",
+      "body": "Send a paragraph about the product and the team. You'll get an honest read on scope, risk and fit — usually within a day."
+    }
+  },
+  "resume": {
+    "name": "Hristo Hristov",
+    "role": "Senior Full-Stack Developer · React & TypeScript",
+    "cv": {
+      "en": "Download CV — English",
+      "bg": "Download CV — Bulgarian",
+      "downloading": "Downloading"
+    },
+    "meta": {
+      "based": {
+        "k": "based",
+        "v": "Sofia, Bulgaria"
+      },
+      "languages": {
+        "k": "languages",
+        "v": "EN, BG"
+      },
+      "availability": {
+        "k": "availability",
+        "v": "Q4 2026"
+      },
+      "engagement": {
+        "k": "engagement",
+        "v": "B2B / full-time"
+      }
     },
     "about": {
       "title": "About",
-      "description": "Resume of Hristo Hristov — 10+ years of building web products with React, TypeScript and Node.js. Experience, skills, education and how I like to work."
+      "p1": "Senior full-stack developer with over 10 years of professional experience, focused on the frontend. My daily stack is React, TypeScript, ESLint, rsbuild and MUI. I've delivered large web applications for enterprise clients in banking, air travel, manufacturing and property rental — mostly through a consultancy, working directly with client teams.",
+      "p2": "I like the parts of the job other people avoid: heavy data grids, configurable screens, build and tooling setup, flaky tests, the final 10% of polish. Alongside development I've trained and mentored developers, run technical interviews, communicated with customers and organised work for the team. I started programming in high school and haven't stopped since — which means a long list of technologies behind me and no trouble picking up the next one."
     },
-    "contact": {
-      "title": "Contact",
-      "description": "Start a project with Hristo Hristov — freelance full-stack developer in Sofia, Bulgaria. B2B contracts or full-time roles, working across European and US time zones."
-    },
-    "ogRole": "Freelance Full-Stack Developer"
-  },
-  "nav": {
-    "home": "Home",
-    "about": "About",
-    "contact": "Contact",
-    "openMenu": "Open menu",
-    "menuTitle": "Menu"
-  },
-  "theme": {
-    "label": "Theme",
-    "light": "Light",
-    "dark": "Dark",
-    "system": "System"
-  },
-  "locale": {
-    "label": "Language",
-    "en": "English",
-    "bg": "Български"
-  },
-  "hero": {
-    "availability": "Available for new projects",
-    "eyebrow": "Freelance full-stack developer",
-    "tagline": "I build fast, polished React apps that work as good as they look.",
-    "intro": "Full-stack developer from Sofia with 10+ years of experience and a frontend heart. I help product teams ship clean, maintainable TypeScript — working closely with you and sweating every detail until it feels right.",
-    "ctaContact": "Start a project",
-    "ctaAbout": "More about me",
-    "photoAlt": "Portrait of Hristo Hristov",
-    "location": "Sofia, Bulgaria · EET (UTC+2)"
-  },
-  "stats": {
-    "years": "Years of experience",
-    "projects": "Projects delivered",
-    "industries": "Industries served",
-    "response": "Typical reply time"
-  },
-  "skills": {
-    "eyebrow": "Toolbox",
-    "title": "What I work with",
-    "subtitle": "A modern, dependable stack — mastered in depth, not just listed on a CV.",
-    "groups": {
-      "frontend": {
-        "title": "Frontend",
-        "description": "My home turf — component architecture, state management, performance and pixel-perfect UI."
+    "skills": {
+      "title": "Skills",
+      "legend": "expert · advanced · working · past",
+      "levels": {
+        "expert": "expert",
+        "advanced": "advanced",
+        "working": "working",
+        "past": "past experience"
       },
-      "backend": {
-        "title": "Backend",
-        "description": "Solid APIs and data layers that keep the frontend honest."
-      },
-      "devops": {
-        "title": "DevOps & Tooling",
-        "description": "From git push to production — containers, pipelines, monitoring."
-      },
-      "testing": {
-        "title": "Testing & Quality",
-        "description": "Confidence to ship — from unit to end-to-end, automated in CI."
-      }
-    }
-  },
-  "approach": {
-    "eyebrow": "Principles",
-    "title": "How I work",
-    "subtitle": "Four habits that quietly decide whether software is a joy or a liability.",
-    "items": {
-      "clean": {
-        "title": "Clean code, always",
-        "text": "Readable, tested, maintainable TypeScript — the kind of codebase your next developer will thank you for."
-      },
-      "collab": {
-        "title": "Close collaboration",
-        "text": "Short feedback loops, honest estimates and proactive communication. You always know where things stand."
-      },
-      "polish": {
-        "title": "Polish in every detail",
-        "text": "Micro-interactions, loading states, empty states, edge cases — the last 10% that separates good from great."
-      },
-      "ownership": {
-        "title": "Ownership, end to end",
-        "text": "From architecture to deployment and monitoring, I take responsibility for making it work in production."
-      }
-    }
-  },
-  "engagement": {
-    "eyebrow": "Availability",
-    "title": "Let's work together",
-    "subtitle": "Two simple ways to engage — pick what fits your team.",
-    "b2b": {
-      "title": "B2B contract",
-      "text": "Flexible hours through my registered Bulgarian company — ideal for product teams that want senior help without hiring overhead."
-    },
-    "fulltime": {
-      "title": "Full-time role",
-      "text": "Open to joining a product team I can grow with — remote-first, with occasional on-site visits."
-    },
-    "timezone": {
-      "title": "Time zones are not a problem",
-      "text": "Based in Sofia, Bulgaria — my working day matches the whole of Europe and comfortably overlaps with US mornings for calls, planning and pair programming.",
-      "chips": ["EET (UTC+2)", "Europe: full overlap", "US East: mornings"]
-    }
-  },
-  "cta": {
-    "title": "Have a project in mind?",
-    "text": "Tell me what you're building — I reply within 24 hours.",
-    "button": "Get in touch",
-    "or": "or email me directly at"
-  },
-  "about": {
-    "eyebrow": "About me",
-    "role": "Freelance full-stack developer — React & TypeScript",
-    "downloadCv": "Download CV",
-    "summary": [
-      "I'm Hristo — a full-stack developer from Sofia with more than a decade of shipping web software, the last several years as an independent contractor for product companies across Europe and the US. My center of gravity is the frontend: React, TypeScript and the craft of interfaces that are fast, accessible and pleasant to use.",
-      "What sets my work apart is the combination of engineering depth and product care. I have built and operated APIs, databases, CI/CD pipelines and test suites, so the frontends I deliver are not just pretty — they are observable, testable and cheap to change. I work best embedded in a team, communicating openly and often.",
-      "If you are looking for someone who treats your product like their own — from the architecture diagram to the last hover state — we will get along great."
-    ],
-    "facts": {
-      "title": "Quick facts",
-      "location": { "label": "Location", "value": "Sofia, Bulgaria" },
-      "timezone": { "label": "Time zone", "value": "EET (UTC+2)" },
-      "experience": { "label": "Experience", "value": "10+ years" },
-      "availability": { "label": "Availability", "value": "Open to new projects" },
-      "engagement": { "label": "Engagement", "value": "B2B contract or full-time" },
-      "languages": { "label": "Languages", "value": "Bulgarian, English" }
-    },
-    "experience": {
-      "title": "Experience",
-      "items": {
-        "freelance": {
-          "period": "2019 — Present",
-          "role": "Freelance Full-Stack Developer",
-          "company": "Independent · B2B contracts",
-          "location": "Remote — EU & US clients",
-          "bullets": [
-            "Design and build React/Next.js frontends and Node.js services for clients in fintech, e-commerce and SaaS.",
-            "Own features end to end: architecture, implementation, testing with Jest and Playwright, CI/CD and production monitoring.",
-            "Help teams raise their quality bar through code reviews, refactoring plans and mentoring."
+      "groups": {
+        "daily": {
+          "title": "Daily stack",
+          "items": [
+            "React",
+            "TypeScript / JavaScript",
+            "CSS / Less / Sass",
+            "ESLint & code standards"
           ]
         },
-        "senior": {
-          "period": "2016 — 2019",
-          "role": "Senior Frontend Developer",
-          "company": "SaaS product company",
-          "location": "Sofia, Bulgaria",
-          "bullets": [
-            "Led the incremental migration of a large legacy UI to React and TypeScript with zero downtime for customers.",
-            "Built the shared component library and design system used by three product teams.",
-            "Introduced unit and end-to-end test suites that cut regression bugs to a fraction."
+        "tooling": {
+          "title": "Build & tooling",
+          "items": [
+            "rsbuild",
+            "webpack",
+            "esbuild",
+            "GitHub / Actions",
+            "Azure DevOps",
+            "CI/CD pipelines"
           ]
         },
-        "fullstack": {
-          "period": "2013 — 2016",
-          "role": "Full-Stack Developer",
-          "company": "Digital agency",
-          "location": "Sofia, Bulgaria",
-          "bullets": [
-            "Delivered dozens of client projects — marketing sites, booking platforms, internal tools — on tight deadlines.",
-            "Worked across the stack: JavaScript frontends, Node.js and PHP backends, MySQL and PostgreSQL."
+        "backend": {
+          "title": "Beyond the frontend",
+          "items": [
+            "Node.js / REST APIs",
+            "SQL & schema design",
+            "C# / PHP / Python",
+            "VBA automation"
           ]
         },
-        "junior": {
-          "period": "2011 — 2013",
-          "role": "Junior Developer",
-          "company": "Software services company",
-          "location": "Sofia, Bulgaria",
-          "bullets": [
-            "Maintained backend services and internal tools — and fell in love with the web platform for good."
+        "testing": {
+          "title": "Testing & quality",
+          "items": [
+            "Playwright (E2E)",
+            "Jest / unit & integration",
+            "Code review",
+            "Performance profiling"
+          ]
+        },
+        "people": {
+          "title": "Working with people",
+          "items": [
+            "Client communication",
+            "Mentoring & training",
+            "Technical interviewing",
+            "Estimation & planning"
           ]
         }
       }
     },
+    "tech": {
+      "label": "Also worked with",
+      "list": "Also worked with: emotion · styled-components · Sass · Less · TanStack · MobX · Yjs · ag-Grid · ag-Charts · ag-Studio · yFiles · Axios · Lodash · Luxon — and jQuery, PHP, C#, Python and VBA earlier on. Whatever the project runs on, I'll get productive in it."
+    },
+    "experience": {
+      "title": "Experience",
+      "items": [
+        {
+          "when": "2021 — now",
+          "where": "IT consultancy · enterprise clients (NDA)",
+          "title": "Senior Frontend Developer",
+          "body": "Senior developer on large web applications for European enterprise clients, working directly with client engineering and product teams.",
+          "points": [
+            "Built and maintained React + TypeScript applications for clients in banking, air travel, manufacturing and property rental",
+            "Set up project foundations: build tooling (webpack, rsbuild), ESLint and TypeScript config, MUI-based component layers, CI checks",
+            "Developed a configurable dashboard product reading live data from factory machinery, with heavy ag-Grid and ag-Charts views",
+            "Ran technical interviews, onboarded and mentored developers, and organised work inside the team",
+            "Point of contact for clients: estimates, scoping and demos"
+          ]
+        },
+        {
+          "when": "2017 — 2021",
+          "where": "Product & outsourcing teams",
+          "title": "Full-Stack Developer",
+          "body": "Feature delivery across the stack on long-running web products: React frontends, REST services, relational data.",
+          "points": [
+            "Owned complex stateful UI — data tables, configurators, reporting screens",
+            "Took features from ticket to production, including API and schema work",
+            "Worked in C#, PHP and Python alongside JavaScript depending on the project"
+          ]
+        },
+        {
+          "when": "2014 — 2017",
+          "where": "Web development agencies",
+          "title": "Frontend Developer",
+          "body": "Client web applications and marketing platforms — the years where the CSS, cross-browser and hand-off instincts were built.",
+          "points": [
+            "Delivered a high volume of client projects against fixed deadlines",
+            "Moved from jQuery-era templates into component-driven frontends"
+          ]
+        },
+        {
+          "when": "2009 — 2014",
+          "where": "Independent · small businesses",
+          "title": "Freelance Web Developer",
+          "body": "My first paid work, straight out of high school: websites for small businesses, sold and built solo.",
+          "points": [
+            "Full cycle — talking to the owner, building the site, maintaining it",
+            "Set up hosting, domains and email for clients who had none of it"
+          ]
+        },
+        {
+          "when": "high school",
+          "where": "Where it started",
+          "title": "First projects",
+          "body": "I started programming in high school and built real things from the beginning, in PHP and jQuery.",
+          "points": [
+            "A website for my school with a CMS so teachers could publish news and blog posts themselves",
+            "Management panels for private World of Warcraft servers — accounts, characters, server data"
+          ]
+        }
+      ]
+    },
     "education": {
-      "title": "Education",
-      "degree": "B.Sc. Computer Science",
-      "school": "Technical University of Sofia",
-      "period": "2007 — 2011"
-    },
-    "languages": {
-      "title": "Languages",
-      "bulgarian": { "name": "Bulgarian", "level": "Native" },
-      "english": { "name": "English", "level": "Fluent — C1" }
-    },
-    "beyond": {
-      "title": "Beyond the code",
-      "text": "When I'm not shipping features I tinker with my homelab, contribute fixes to open-source libraries I rely on, and mentor junior developers. Coffee-fueled refactoring is my idea of a good morning."
-    },
-    "skillsTitle": "Core skills",
-    "skillsNote": "The tools I reach for daily — see the full toolbox on the home page.",
-    "cta": {
-      "title": "Sound like a fit?",
-      "text": "I'm currently taking on new projects.",
-      "button": "Let's talk"
+      "title": "Education & languages",
+      "items": {
+        "telerik": {
+          "when": "training",
+          "title": "Telerik Academy — one-year program",
+          "body": "Completed the full one-year software engineering program: intensive, project-based, with a real drop-out rate. The formal foundation under everything I'd taught myself since high school."
+        },
+        "certs": {
+          "when": "certification",
+          "title": "Microsoft certificates",
+          "body": "Several Microsoft certifications covering platform and development fundamentals — the paperwork side of a decade of practice."
+        },
+        "languages": {
+          "when": "languages",
+          "title": "Bulgarian · English",
+          "body": "Bulgarian native. English fluent, used daily with Dutch and international client teams."
+        }
+      }
     }
   },
   "contact": {
-    "eyebrow": "Contact",
-    "title": "Let's build something",
-    "lead": "Tell me about your project — scope, timeline, what success looks like. Or just say hi. I reply to every message within 24 hours on business days.",
-    "form": {
-      "name": "Name",
-      "email": "Email",
-      "company": "Company (optional)",
-      "engagement": "I'm interested in",
-      "engagementOptions": {
-        "b2b": "B2B contract",
-        "fulltime": "Full-time role",
-        "other": "Something else"
+    "title": "Let's talk about your project.",
+    "lead": "Tell me what you're building, how the team is set up, and roughly when you need someone. I reply to everything, usually within a working day.",
+    "channels": {
+      "email": {
+        "label": "email",
+        "value": "hello@hristov.dev"
       },
-      "message": "Your message",
-      "messagePlaceholder": "What are you building, and where can I help?",
-      "submit": "Send message",
-      "sending": "Sending…",
-      "errors": {
-        "nameRequired": "Please tell me your name.",
-        "emailRequired": "Please enter your email.",
-        "emailInvalid": "That email address doesn't look right.",
-        "messageRequired": "Please write a short message.",
-        "messageTooShort": "A few more words, please — at least {min} characters.",
-        "rateLimited": "Too many messages in a short time. Please wait a few minutes and try again.",
-        "generic": "Something went wrong and your message wasn't sent. Please try again or email me directly at {email}."
+      "linkedin": {
+        "label": "linkedin",
+        "value": "linkedin.com/in/hristovdev"
       },
-      "success": {
-        "title": "Message sent!",
-        "text": "Thanks for reaching out — I'll get back to you within 24 hours.",
-        "again": "Send another message"
+      "github": {
+        "label": "github",
+        "value": "github.com/hristovdev"
+      },
+      "call": {
+        "label": "call",
+        "value": "Book a 30-minute intro call"
       }
     },
-    "direct": {
-      "title": "Direct contact",
-      "emailLabel": "Email",
-      "phoneLabel": "Phone",
-      "locationLabel": "Location",
-      "map": "View on map",
-      "copy": "Copy email",
-      "copied": "Copied!"
+    "availabilityNote": "Taking on one new engagement this quarter — full-time capacity or a part-time contract alongside current work. Based in Sofia (EET), so I share a full working day with the rest of Europe, and mornings or evenings overlap comfortably with the US.",
+    "entity": {
+      "title": "Contracting details",
+      "items": {
+        "entity": {
+          "k": "Entity",
+          "v": "Own registered company"
+        },
+        "invoicing": {
+          "k": "Invoicing",
+          "v": "B2B, VAT-ready"
+        },
+        "paperwork": {
+          "k": "Paperwork",
+          "v": "NDA / MSA welcome"
+        },
+        "hours": {
+          "k": "Working hours",
+          "v": "EET (UTC+2), flexible"
+        }
+      }
     },
-    "availability": {
-      "title": "Availability",
-      "status": "Available for new projects",
-      "note": "Based in Sofia (EET) — I work European hours and overlap with US mornings, so calls are easy to schedule."
+    "form": {
+      "title": "Send a message",
+      "label": {
+        "name": "NAME",
+        "company": "COMPANY",
+        "email": "EMAIL",
+        "kind": "WHAT'S THIS ABOUT?",
+        "message": "MESSAGE"
+      },
+      "placeholder": {
+        "name": "Your name",
+        "company": "Company (optional)",
+        "email": "you@company.com",
+        "message": "The product, the team, the timeline — a paragraph is plenty."
+      },
+      "kinds": {
+        "b2b": "B2B contract",
+        "fulltime": "Full-time role",
+        "short": "Short engagement",
+        "other": "Something else"
+      },
+      "submit": "Send message",
+      "sending": "Sending…",
+      "note": "Or just email me directly — whatever is faster for you.",
+      "sent": {
+        "title": "Message sent.",
+        "body": "Thanks — I've got it. You'll hear back from me within a working day, usually sooner.",
+        "again": "Send another"
+      },
+      "error": {
+        "title": "That didn't go through.",
+        "body": "Something went wrong on the way. Please try again, or email me directly.",
+        "retry": "Try again",
+        "nameRequired": "Please tell me your name.",
+        "emailRequired": "An email address is required.",
+        "emailInvalid": "That doesn't look like an email address.",
+        "messageRequired": "Please write a message.",
+        "messageTooShort": "A little more detail would help — 20 characters minimum.",
+        "rateLimited": "Too many messages just now. Please try again in a few minutes."
+      }
     },
-    "socials": {
-      "title": "Elsewhere"
-    }
+    "availabilityStatus": "Open for Q4 engagements"
   },
   "footer": {
-    "tagline": "Freelance full-stack developer crafting fast, polished React products.",
-    "nav": "Navigate",
-    "contact": "Contact",
-    "rights": "© {year} Hristo Hristov. All rights reserved.",
-    "madeWith": "Built with Next.js, TypeScript & Material UI."
+    "text": "© 2026 Hristo Hristov · Independent senior developer, operating through a registered company. Built and maintained by me."
+  },
+  "meta": {
+    "home": {
+      "title": "Hristo Hristov — Senior full-stack developer",
+      "description": "Senior full-stack developer in Sofia, Bulgaria. 10+ years building React and TypeScript applications for enterprise clients. Available for B2B contracts and full-time roles."
+    },
+    "resume": {
+      "title": "Résumé",
+      "description": "Experience, skills and education of Hristo Hristov — senior full-stack developer working in React, TypeScript and Node.js."
+    },
+    "contact": {
+      "title": "Contact",
+      "description": "Get in touch with Hristo Hristov about a B2B contract, a full-time role or a short engagement."
+    }
   },
   "notFound": {
     "code": "404",
-    "title": "Page not found",
-    "text": "The page you're looking for doesn't exist or has been moved.",
-    "cta": "Back to home"
+    "title": "That page does not exist.",
+    "text": "The link may be out of date, or the page moved. Everything else is still where it was.",
+    "cta": "Back to the home page"
   },
   "error": {
-    "title": "Something went wrong",
-    "text": "An unexpected error occurred. You can try again, or head back to the home page.",
+    "title": "Something broke on my side.",
+    "text": "An unexpected error stopped this page from rendering. Trying again usually clears it.",
     "retry": "Try again",
-    "home": "Back to home"
+    "home": "Back to the home page"
   }
 }

@@ -1,33 +1,47 @@
-import InitColorSchemeScript from '@mui/material/InitColorSchemeScript';
 import type { Metadata, Viewport } from 'next';
-import { hasLocale, NextIntlClientProvider } from 'next-intl';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { Inter, JetBrains_Mono } from 'next/font/google';
 import { notFound } from 'next/navigation';
-import JsonLd from '@/components/JsonLd';
-import Footer from '@/components/layout/Footer';
-import Header from '@/components/layout/Header';
-import ThemeRegistry from '@/components/ThemeRegistry';
-import { site } from '@/data/site';
+import { hasLocale, NextIntlClientProvider } from 'next-intl';
+import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server';
+import { Archivo, Inter, JetBrains_Mono } from 'next/font/google';
 import { routing } from '@/i18n/routing';
+import { site } from '@/data/site';
+import { Header } from '@/components/layout/Header';
+import { Footer } from '@/components/layout/Footer';
+import { ThemeScript } from '@/components/layout/ThemeScript';
+import { JsonLd } from '@/components/layout/JsonLd';
 import '../globals.css';
 
-const inter = Inter({
-  subsets: ['latin', 'cyrillic'],
-  variable: '--font-inter',
+const archivo = Archivo({
+  subsets: ['latin', 'latin-ext'],
+  weight: ['400', '500', '600', '700'],
   display: 'swap',
+  variable: '--font-archivo',
+});
+
+/**
+ * Archivo ships no Cyrillic, so Bulgarian needs a second face. Inter is the
+ * closest neo-grotesque on Google Fonts that covers it.
+ *
+ * Note this cannot be done by appending Inter to one shared stack: next/font
+ * inserts a metric-adjusted *local* fallback ("Archivo Fallback") directly
+ * after Archivo, and that local font does cover Cyrillic — so Bulgarian would
+ * resolve to it and never reach Inter. `adjustFontFallback: false` is ignored
+ * by the Turbopack font pipeline, so `tokens.css` selects the stack per locale
+ * with `:lang(bg)` instead.
+ */
+const interCyrillic = Inter({
+  subsets: ['cyrillic', 'cyrillic-ext'],
+  weight: ['400', '500', '600', '700'],
+  display: 'swap',
+  variable: '--font-cyrillic',
 });
 
 const jetbrainsMono = JetBrains_Mono({
-  subsets: ['latin', 'cyrillic'],
-  variable: '--font-mono',
+  subsets: ['latin', 'latin-ext', 'cyrillic'],
+  weight: ['400', '500'],
   display: 'swap',
+  variable: '--font-mono-src',
 });
-
-type LayoutProps = {
-  children: React.ReactNode;
-  params: Promise<{ locale: string }>;
-};
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -35,66 +49,89 @@ export function generateStaticParams() {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#fafafc' },
-    { media: '(prefers-color-scheme: dark)', color: '#0a0910' },
+    { media: '(prefers-color-scheme: dark)', color: '#0c0a0e' },
+    { media: '(prefers-color-scheme: light)', color: '#f6f4f9' },
   ],
 };
 
 export async function generateMetadata({
   params,
-}: Omit<LayoutProps, 'children'>): Promise<Metadata> {
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'meta' });
-  const prefix = locale === routing.defaultLocale ? '' : `/${locale}`;
 
   return {
     metadataBase: new URL(site.url),
-    title: {
-      default: t('home.title'),
-      template: `%s · ${site.name}`,
-    },
+    title: { default: t('home.title'), template: `%s · ${site.name}` },
     description: t('home.description'),
+    applicationName: site.domain,
+    authors: [{ name: site.name, url: site.url }],
+    creator: site.name,
     alternates: {
-      canonical: prefix || '/',
+      canonical: locale === routing.defaultLocale ? '/' : `/${locale}`,
       languages: { en: '/', bg: '/bg' },
     },
     openGraph: {
       type: 'website',
       siteName: site.domain,
+      locale: locale === 'bg' ? 'bg_BG' : 'en_GB',
       title: t('home.title'),
       description: t('home.description'),
-      locale: locale === 'bg' ? 'bg_BG' : 'en_US',
-      url: prefix || '/',
+      url: locale === routing.defaultLocale ? '/' : `/${locale}`,
     },
-    twitter: {
-      card: 'summary_large_image',
-    },
+    twitter: { card: 'summary_large_image' },
+    robots: { index: true, follow: true },
   };
 }
 
-export default async function LocaleLayout({ children, params }: LayoutProps) {
+export default async function LocaleLayout({
+  children,
+  params,
+}: {
+  children: React.ReactNode;
+  params: Promise<{ locale: string }>;
+}) {
   const { locale } = await params;
+
   if (!hasLocale(routing.locales, locale)) {
     notFound();
   }
+
+  // Opts every page under this layout into static rendering.
   setRequestLocale(locale);
+
+  const t = await getTranslations({ locale, namespace: 'common' });
+
+  // Server Components read messages straight from the request config, so the
+  // client provider only needs the namespaces used by Client Components —
+  // here, the header and the error boundary. Passing the whole catalogue would
+  // serialise every résumé and contact string into every page's payload.
+  const { nav, theme, locale: localeMessages, error } = await getMessages();
+  const clientMessages = { nav, theme, locale: localeMessages, error };
 
   return (
     <html
       lang={locale}
-      className={`${inter.variable} ${jetbrainsMono.variable}`}
+      className={`${archivo.variable} ${interCyrillic.variable} ${jetbrainsMono.variable}`}
       suppressHydrationWarning
     >
+      <head>
+        <ThemeScript />
+      </head>
       <body>
-        <InitColorSchemeScript attribute="class" defaultMode="system" />
-        <ThemeRegistry>
-          <NextIntlClientProvider>
-            <JsonLd locale={locale} />
+        <NextIntlClientProvider messages={clientMessages}>
+          <div className="pageField">
+            <a className="srOnly" href="#main">
+              {t('skipToContent')}
+            </a>
             <Header />
-            <main>{children}</main>
+            <main id="main">{children}</main>
             <Footer />
-          </NextIntlClientProvider>
-        </ThemeRegistry>
+          </div>
+        </NextIntlClientProvider>
+        <JsonLd locale={locale} />
       </body>
     </html>
   );

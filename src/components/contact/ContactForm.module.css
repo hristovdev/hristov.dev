@@ -1,0 +1,217 @@
+.card {
+  border: var(--border-width) solid var(--line);
+  border-radius: var(--radius-card);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  padding: var(--space-panel-pad);
+}
+
+.title {
+  margin: 0 0 var(--space-20);
+  font: var(--type-card-title);
+  letter-spacing: var(--ls-card);
+}
+
+.twoUp {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(var(--track-form), 100%), 1fr));
+  gap: var(--space-14);
+}
+
+.field {
+  display: block;
+  margin-bottom: var(--space-14);
+}
+
+.label {
+  display: block;
+  margin-bottom: var(--space-7);
+  font: var(--type-label);
+  letter-spacing: var(--ls-badge);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.input,
+.textarea {
+  width: 100%;
+  background: var(--bg);
+  border: var(--border-width) solid var(--line);
+  border-radius: var(--radius-input);
+  padding: var(--space-13) var(--space-14);
+  font: var(--type-input);
+  color: var(--fg);
+  transition:
+    border-color var(--duration-fast) var(--ease),
+    box-shadow var(--duration-fast) var(--ease);
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: var(--muted);
+  opacity: 0.75;
+}
+
+.input:focus,
+.textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 var(--space-3) var(--accent-soft);
+}
+
+.input:focus-visible,
+.textarea:focus-visible {
+  outline: none;
+}
+
+.textarea {
+  min-height: var(--textarea-min-height);
+  resize: vertical;
+}
+
+.invalid {
+  border-color: var(--accent);
+}
+
+.error {
+  margin: var(--space-7) 0 0;
+  font: var(--type-body-xs);
+  color: var(--accent-ink);
+  animation: rise var(--duration-fast) var(--ease-out) both;
+}
+
+/* pill radio group */
+.kinds {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-7);
+  border: 0;
+  padding: 0;
+  margin: 0 0 var(--space-14);
+}
+
+.legend {
+  padding: 0;
+  margin-bottom: var(--space-8);
+  font: var(--type-label);
+  letter-spacing: var(--ls-badge);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.kind {
+  position: relative;
+}
+
+.kindInput {
+  position: absolute;
+  opacity: 0;
+  width: var(--space-1);
+  height: var(--space-1);
+}
+
+.kindLabel {
+  display: inline-block;
+  border: var(--border-width) solid var(--line);
+  border-radius: var(--radius-pill);
+  background: var(--bg);
+  padding: var(--space-8) var(--space-14);
+  font: var(--type-body-xs);
+  color: var(--muted);
+  cursor: pointer;
+  transition:
+    background var(--duration-fast) var(--ease),
+    color var(--duration-fast) var(--ease),
+    border-color var(--duration-fast) var(--ease);
+}
+
+.kindLabel:hover {
+  border-color: var(--strong);
+  color: var(--fg);
+}
+
+.kindInput:checked + .kindLabel {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--on-accent);
+}
+
+.kindInput:focus-visible + .kindLabel {
+  outline: var(--border-active) solid var(--accent);
+  outline-offset: var(--space-1);
+}
+
+.honeypot {
+  position: absolute;
+  left: -9999px;
+  width: var(--space-1);
+  height: var(--space-1);
+  overflow: hidden;
+}
+
+.submit {
+  width: 100%;
+  margin-top: var(--space-3);
+}
+
+.note {
+  margin: var(--space-14) 0 0;
+  font: var(--type-body-xs);
+  color: var(--muted);
+}
+
+.formError {
+  margin: var(--space-14) 0 0;
+  border: var(--border-width) solid var(--accent);
+  border-radius: var(--radius-input);
+  background: var(--accent-soft);
+  padding: var(--space-12) var(--space-14);
+  font: var(--type-meta-value);
+  color: var(--accent-ink);
+  animation: rise var(--duration-toast) var(--ease-out) both;
+}
+
+/* success panel */
+.sent {
+  text-align: center;
+  padding: var(--space-14) 0;
+  animation: rise var(--duration-page) var(--ease-out) both;
+}
+
+.check {
+  width: var(--check-size);
+  height: var(--check-size);
+  margin: 0 auto var(--space-18);
+  border-radius: 50%;
+  background: var(--accent);
+  display: grid;
+  place-items: center;
+  color: var(--on-accent);
+  font: var(--type-card-title);
+}
+
+.sentTitle {
+  margin: 0;
+  font: var(--type-card-title);
+  letter-spacing: var(--ls-card);
+}
+
+.sentBody {
+  margin: var(--space-10) auto var(--space-20);
+  max-width: var(--measure-intro);
+  font: var(--type-body);
+  color: var(--muted);
+}
+
+/* Kept local: CSS Modules scopes keyframe references, so a definition in a
+   global stylesheet would never resolve from inside this module. */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(var(--space-12));
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}

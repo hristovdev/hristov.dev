@@ -1,3 +1,9 @@
+import styles from '@/components/layout/PageFade.module.css';
+
+/**
+ * A template (rather than a layout) re-mounts on navigation, which is what
+ * replays the fade between pages that the design calls for.
+ */
 export default function Template({ children }: { children: React.ReactNode }) {
-  return <div className="page-enter">{children}</div>;
+  return <div className={styles.fade}>{children}</div>;
 }

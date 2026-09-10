@@ -1,0 +1,96 @@
+.aside {
+  position: static;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-20);
+}
+
+@media (min-width: 820px) {
+  .aside {
+    position: sticky;
+    top: var(--sidebar-sticky-top);
+  }
+}
+
+.name {
+  margin: var(--space-13) 0 0;
+  font: var(--type-name);
+  letter-spacing: var(--ls-h2);
+}
+
+.role {
+  margin: var(--space-9) 0 0;
+  max-width: var(--measure-role);
+  font: var(--type-role);
+  color: var(--muted);
+}
+
+.portrait {
+  position: relative;
+  max-width: var(--portrait-resume-max);
+  aspect-ratio: 1 / 1;
+  border: var(--border-width) solid var(--line);
+  border-radius: var(--radius-panel);
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.portraitImage {
+  object-fit: cover;
+  object-position: 50% 20%;
+  filter: saturate(0.92) contrast(1.02);
+  transition: transform var(--duration-theme) var(--ease-out);
+}
+
+.portrait:hover .portraitImage {
+  transform: scale(1.03);
+}
+
+.cvList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  max-width: var(--aside-max);
+}
+
+.cvButton {
+  justify-content: space-between;
+  padding: var(--space-14) var(--space-18);
+  font: var(--type-button-sm);
+  width: 100%;
+}
+
+.pdfTag {
+  font: var(--type-toggle);
+  font-weight: 400;
+  opacity: 0.8;
+}
+
+.meta {
+  margin: 0;
+  padding: 0;
+  max-width: var(--aside-max);
+}
+
+.metaRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4) var(--space-12);
+  justify-content: space-between;
+  border-top: var(--border-width) solid var(--line);
+  padding: var(--space-11) 0;
+  margin: 0;
+}
+
+.metaKey {
+  font: var(--type-chip-sm);
+  letter-spacing: var(--ls-badge);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.metaValue {
+  margin: 0;
+  font: var(--type-meta-value);
+  color: var(--fg);
+}

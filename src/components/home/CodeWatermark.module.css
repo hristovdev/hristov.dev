@@ -1,0 +1,73 @@
+/*
+ * Two nested layers so each carries exactly one mask: the outer fades the
+ * field out toward the headline, the inner fades it top and bottom.
+ */
+.outer {
+  position: absolute;
+  inset: -8% 0;
+  z-index: 0;
+  pointer-events: none;
+  mask-image: linear-gradient(90deg, transparent 0%, transparent 44%, #000 78%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, transparent 44%, #000 78%);
+}
+
+.inner {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-gutter);
+  height: 100%;
+  mask-image: linear-gradient(180deg, transparent 0, #000 18%, #000 76%, transparent 100%);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 18%, #000 76%, transparent 100%);
+}
+
+.column {
+  overflow: hidden;
+}
+
+.scroll {
+  animation: codescroll linear infinite;
+  will-change: transform;
+}
+
+.column:nth-child(1) .scroll {
+  animation-duration: var(--duration-code-1);
+}
+
+.column:nth-child(2) .scroll {
+  animation-duration: var(--duration-code-2);
+  animation-direction: reverse;
+}
+
+.column:nth-child(3) .scroll {
+  animation-duration: var(--duration-code-3);
+}
+
+.code {
+  margin: 0;
+  white-space: pre;
+  font: var(--type-code);
+  color: var(--code-c);
+  opacity: var(--code-op);
+}
+
+@media (max-width: 900px) {
+  .outer {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll {
+    animation: none;
+  }
+}
+
+/* Kept local: CSS Modules scopes keyframe references. */
+@keyframes codescroll {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-50%);
+  }
+}

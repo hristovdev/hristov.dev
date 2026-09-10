@@ -1,0 +1,178 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-header);
+  /* Offset so the bar never touches the viewport edge. */
+  margin-top: var(--header-offset);
+  border-top: var(--border-width) solid var(--line);
+  border-bottom: var(--border-width) solid var(--line);
+  background: var(--surface);
+  box-shadow: var(--shadow-header);
+  backdrop-filter: blur(var(--space-8));
+  transition: background var(--duration-theme) var(--ease);
+}
+
+.row {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 0 var(--page-pad);
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  gap: var(--space-gutter);
+}
+
+.wordmark {
+  font: var(--type-wordmark);
+  letter-spacing: var(--ls-wordmark);
+  color: var(--fg);
+  transition: opacity var(--duration-fast) var(--ease);
+}
+
+.wordmark:hover {
+  color: var(--fg);
+  opacity: 0.85;
+}
+
+.wordmark span {
+  color: var(--accent);
+}
+
+.nav {
+  display: flex;
+  gap: var(--space-nav-gap);
+  margin-left: auto;
+}
+
+.navLink {
+  position: relative;
+  padding: var(--space-7) var(--space-2);
+  font: var(--type-nav);
+  color: var(--muted);
+  border-bottom: var(--border-active) solid transparent;
+  transition: color var(--duration-fast) var(--ease);
+}
+
+.navLink:hover {
+  color: var(--fg);
+}
+
+/*
+ * The active underline grows out from the centre rather than appearing at
+ * full width, which reads as movement between pages without shifting layout.
+ */
+.navLink::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(var(--border-active) * -1);
+  height: var(--border-active);
+  background: var(--accent);
+  transform: scaleX(0);
+  transition: transform var(--duration-fast) var(--ease-out);
+}
+
+.navLinkActive {
+  color: var(--fg);
+}
+
+.navLinkActive::after {
+  transform: scaleX(1);
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  padding-left: var(--space-nav-gap);
+  border-left: var(--border-width) solid var(--line);
+}
+
+.segmented {
+  display: flex;
+  border: var(--border-width) solid var(--line);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+}
+
+.segment {
+  background: none;
+  color: var(--muted);
+  border: 0;
+  padding: var(--space-6) var(--space-10);
+  cursor: pointer;
+  font: var(--type-toggle);
+  letter-spacing: var(--ls-toggle);
+  transition:
+    background var(--duration-fast) var(--ease),
+    color var(--duration-fast) var(--ease);
+}
+
+.segment:hover {
+  color: var(--fg);
+}
+
+.segmentActive,
+.segmentActive:hover {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+.themeButton {
+  background: none;
+  border: var(--border-width) solid var(--line);
+  border-radius: var(--radius-pill);
+  padding: var(--space-6) var(--space-12);
+  cursor: pointer;
+  font: var(--type-toggle);
+  letter-spacing: var(--ls-toggle);
+  color: var(--muted);
+  transition:
+    color var(--duration-fast) var(--ease),
+    border-color var(--duration-fast) var(--ease);
+}
+
+.themeButton:hover {
+  color: var(--fg);
+  border-color: var(--strong);
+}
+
+/*
+ * The button shows the theme you would switch *to*. Both labels render and
+ * CSS picks one, so the markup is identical on server and client.
+ */
+.whenLight {
+  display: none;
+}
+
+:global(html.lightmode) .whenDark {
+  display: none;
+}
+
+:global(html.lightmode) .whenLight {
+  display: inline;
+}
+
+/* Below 700px the row wraps: wordmark + controls on line 1, nav full-width. */
+@media (max-width: 700px) {
+  .row {
+    height: auto;
+    flex-wrap: wrap;
+    padding-block: var(--space-11);
+    row-gap: var(--space-9);
+  }
+
+  .nav {
+    order: 3;
+    width: 100%;
+    margin-left: 0;
+    justify-content: space-between;
+  }
+
+  .controls {
+    margin-left: auto;
+    padding-left: 0;
+    border-left: 0;
+  }
+}

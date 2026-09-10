@@ -1,83 +1,89 @@
-import { NextResponse, type NextRequest } from 'next/server';
+import { NextResponse } from 'next/server';
 import {
   CONTACT_LIMITS,
-  ENGAGEMENT_TYPES,
   getFieldErrors,
-  type EngagementType,
+  isEngagementType,
+  type ContactFieldErrors,
 } from '@/lib/contact';
 import { sendContactEmail } from '@/lib/email';
 
-export const runtime = 'nodejs';
+/** Always run on the server at request time; never prerendered. */
+export const dynamic = 'force-dynamic';
 
-const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
-const RATE_LIMIT_MAX_REQUESTS = 5;
-const MAX_TRACKED_IPS = 1000;
+const WINDOW_MS = 10 * 60 * 1000;
+const MAX_PER_WINDOW = 5;
 
-const requestLog = new Map<string, number[]>();
+/**
+ * In-memory rate limit. The site runs as a single container on one machine, so
+ * a process-local map is sufficient; it resets on restart, which is fine for
+ * spam control.
+ */
+const hits = new Map<string, number[]>();
 
-function isRateLimited(ip: string): boolean {
+function isRateLimited(key: string): boolean {
   const now = Date.now();
+  const recent = (hits.get(key) ?? []).filter((at) => now - at < WINDOW_MS);
+  recent.push(now);
+  hits.set(key, recent);
 
-  if (requestLog.size > MAX_TRACKED_IPS) {
-    for (const [key, timestamps] of requestLog) {
-      if (timestamps.every((timestamp) => now - timestamp >= RATE_LIMIT_WINDOW_MS)) {
-        requestLog.delete(key);
-      }
+  if (hits.size > 500) {
+    for (const [k, times] of hits) {
+      if (times.every((at) => now - at >= WINDOW_MS)) hits.delete(k);
     }
   }
 
-  const recent = (requestLog.get(ip) ?? []).filter(
-    (timestamp) => now - timestamp < RATE_LIMIT_WINDOW_MS,
-  );
-  if (recent.length >= RATE_LIMIT_MAX_REQUESTS) {
-    requestLog.set(ip, recent);
-    return true;
+  return recent.length > MAX_PER_WINDOW;
+}
+
+function clientKey(request: Request): string {
+  const forwarded = request.headers.get('x-forwarded-for');
+  return forwarded?.split(',')[0]?.trim() || request.headers.get('x-real-ip') || 'unknown';
+}
+
+function str(value: unknown, max: number): string {
+  return typeof value === 'string' ? value.trim().slice(0, max) : '';
+}
+
+export async function POST(request: Request) {
+  if (isRateLimited(clientKey(request))) {
+    return NextResponse.json({ error: 'rateLimited' }, { status: 429 });
   }
-  recent.push(now);
-  requestLog.set(ip, recent);
-  return false;
-}
 
-function asTrimmedString(value: unknown, maxLength: number): string {
-  return typeof value === 'string' ? value.trim().slice(0, maxLength) : '';
-}
-
-export async function POST(request: NextRequest) {
-  let body: Record<string, unknown>;
+  let body: unknown;
   try {
-    body = (await request.json()) as Record<string, unknown>;
+    body = await request.json();
   } catch {
-    return NextResponse.json({ ok: false, error: 'validation' }, { status: 400 });
+    return NextResponse.json({ error: 'invalidBody' }, { status: 400 });
   }
 
-  // Honeypot: bots fill the hidden "website" field — pretend everything went fine
-  if (typeof body.website === 'string' && body.website.trim() !== '') {
+  const payload = (body ?? {}) as Record<string, unknown>;
+
+  // Honeypot: a hidden field only a bot would fill. Accept and drop silently
+  // so the bot sees success and does not retry with a different shape.
+  if (str(payload.website, 100)) {
     return NextResponse.json({ ok: true });
   }
 
-  const name = asTrimmedString(body.name, CONTACT_LIMITS.name.max);
-  const email = asTrimmedString(body.email, CONTACT_LIMITS.email.max);
-  const company = asTrimmedString(body.company, CONTACT_LIMITS.company.max);
-  const message = asTrimmedString(body.message, CONTACT_LIMITS.message.max);
-  const engagement = ENGAGEMENT_TYPES.includes(body.engagement as EngagementType)
-    ? (body.engagement as EngagementType)
-    : undefined;
+  const fields = {
+    name: str(payload.name, CONTACT_LIMITS.name.max),
+    email: str(payload.email, CONTACT_LIMITS.email.max),
+    message: str(payload.message, CONTACT_LIMITS.message.max),
+  };
+  const company = str(payload.company, CONTACT_LIMITS.company.max);
+  const engagement = isEngagementType(payload.engagement) ? payload.engagement : undefined;
+  const locale = str(payload.locale, 5) || 'en';
 
-  const errors = getFieldErrors({ name, email, message });
+  const errors: ContactFieldErrors = getFieldErrors(fields);
   if (Object.keys(errors).length > 0) {
-    return NextResponse.json({ ok: false, error: 'validation', fields: errors }, { status: 400 });
-  }
-
-  const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
-  if (isRateLimited(ip)) {
-    return NextResponse.json({ ok: false, error: 'rate_limited' }, { status: 429 });
+    return NextResponse.json({ errors }, { status: 422 });
   }
 
   try {
-    await sendContactEmail({ name, email, company: company || undefined, engagement, message });
-    return NextResponse.json({ ok: true });
+    await sendContactEmail({ ...fields, company, engagement, locale });
   } catch (error) {
-    console.error('[contact] failed to send email:', error);
-    return NextResponse.json({ ok: false, error: 'send_failed' }, { status: 502 });
+    console.error('[contact] delivery failed:', error);
+    return NextResponse.json({ error: 'deliveryFailed' }, { status: 502 });
   }
+
+  return NextResponse.json({ ok: true });
 }

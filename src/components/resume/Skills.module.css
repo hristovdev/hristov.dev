@@ -1,0 +1,117 @@
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-10) var(--space-18);
+  margin-bottom: var(--space-22);
+}
+
+.title {
+  margin: 0;
+  font: var(--type-h2-sm);
+  letter-spacing: var(--ls-h2);
+}
+
+.legend {
+  font: var(--type-chip-sm);
+  letter-spacing: var(--ls-badge);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(var(--track-column), 100%), 1fr));
+  gap: var(--space-26) var(--space-32);
+}
+
+.groupTitle {
+  margin: 0 0 var(--space-12);
+  font: var(--type-label);
+  letter-spacing: var(--ls-caps);
+  text-transform: uppercase;
+  color: var(--accent-ink);
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* rated: icon | name | level badge — deliberately no progress bars. */
+.ratedRow {
+  display: grid;
+  grid-template-columns: var(--space-22) 1fr auto;
+  align-items: center;
+  gap: var(--space-10);
+  padding: var(--space-7) 0;
+}
+
+.icon {
+  width: var(--icon-lg);
+  height: var(--icon-lg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  filter: var(--icon-filter);
+}
+
+.monogram {
+  width: var(--icon-lg);
+  height: var(--icon-lg);
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-xs);
+  border: var(--border-width) solid var(--line);
+  background: var(--raise);
+  font: var(--type-tiny);
+  color: var(--muted);
+}
+
+.name {
+  font: var(--type-body);
+  color: var(--fg);
+}
+
+.badge {
+  border: var(--border-width) solid var(--line);
+  border-radius: var(--radius-pill);
+  padding: var(--space-4) var(--space-9);
+  font: var(--type-badge);
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+/* plain: a wrapping chip list, no level. */
+.plainList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-7);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.plainChip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-7);
+  border: var(--border-width) solid var(--line);
+  border-radius: var(--radius-chip);
+  background: var(--surface);
+  padding: var(--space-6) var(--space-10);
+  font: var(--type-body-xs);
+  color: var(--fg);
+  transition:
+    border-color var(--duration-fast) var(--ease),
+    background var(--duration-fast) var(--ease);
+}
+
+.plainChip:hover {
+  border-color: var(--strong);
+  background: var(--raise);
+}

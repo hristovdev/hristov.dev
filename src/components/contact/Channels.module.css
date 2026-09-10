@@ -1,0 +1,141 @@
+.card {
+  border: var(--border-width) solid var(--line);
+  border-radius: var(--radius-card);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-4) var(--space-14);
+  padding: var(--space-16) var(--space-18);
+  border-top: var(--border-width) solid var(--line);
+  color: var(--fg);
+  transition: background var(--duration-fast) var(--ease);
+}
+
+.row:first-child {
+  border-top: 0;
+}
+
+.row:hover {
+  background: var(--raise);
+  color: var(--fg);
+}
+
+.label {
+  flex: none;
+  min-width: var(--label-width);
+  font: var(--type-chip-sm);
+  letter-spacing: var(--ls-caps);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.value {
+  flex: 1;
+  min-width: 0;
+  font: var(--type-body);
+  overflow-wrap: anywhere;
+}
+
+.arrow {
+  flex: none;
+  color: var(--accent);
+  font: var(--type-arrow);
+  transition: transform var(--duration-fast) var(--ease-out);
+}
+
+.row:hover .arrow {
+  transform: translate(var(--space-2), calc(var(--space-2) * -1));
+}
+
+.rowInternal:hover .arrow {
+  transform: translateX(var(--space-3));
+}
+
+/* --- availability + contracting cards --- */
+
+.panel {
+  border: var(--border-width) solid var(--line);
+  border-radius: var(--radius-card);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  padding: var(--space-20);
+  margin-top: var(--space-14);
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  gap: var(--space-11);
+  margin: 0;
+  font: var(--type-label);
+  letter-spacing: var(--ls-caps);
+  text-transform: uppercase;
+  color: var(--fg);
+}
+
+.dot {
+  width: var(--status-dot);
+  height: var(--status-dot);
+  flex: none;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 var(--status-ring) var(--accent-soft);
+  animation: pulse var(--duration-pulse) var(--ease) infinite;
+}
+
+.note {
+  margin: var(--space-12) 0 0;
+  font: var(--type-body-sm);
+  color: var(--muted);
+}
+
+.panelTitle {
+  margin: 0 0 var(--space-4);
+  font: var(--type-label);
+  letter-spacing: var(--ls-caps);
+  text-transform: uppercase;
+  color: var(--accent-ink);
+}
+
+.detailRow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-4) var(--space-14);
+  border-top: var(--border-width) solid var(--line);
+  padding: var(--space-10) 0;
+  margin: 0;
+}
+
+.detailRow:first-of-type {
+  border-top: 0;
+  padding-top: var(--space-12);
+}
+
+.detailKey {
+  font: var(--type-meta-value);
+  color: var(--muted);
+}
+
+.detailValue {
+  margin: 0;
+  font: var(--type-meta-value);
+  color: var(--fg);
+}
+
+/* Kept local: CSS Modules scopes keyframe references. */
+@keyframes pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 var(--status-ring) var(--accent-soft);
+  }
+  50% {
+    box-shadow: 0 0 0 calc(var(--status-ring) * 2) transparent;
+  }
+}

@@ -1,250 +1,232 @@
 'use client';
 
-import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
-import SendRoundedIcon from '@mui/icons-material/SendRounded';
-import Alert from '@mui/material/Alert';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import CircularProgress from '@mui/material/CircularProgress';
-import MenuItem from '@mui/material/MenuItem';
-import Paper from '@mui/material/Paper';
-import Stack from '@mui/material/Stack';
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
-import { useTranslations } from 'next-intl';
-import { useState } from 'react';
-import { site } from '@/data/site';
+import { useId, useState } from 'react';
+import { useLocale, useTranslations } from 'next-intl';
+import { Button } from '@/components/shared/Button';
 import {
   CONTACT_LIMITS,
   ENGAGEMENT_TYPES,
   getFieldErrors,
+  type ContactFieldErrors,
   type EngagementType,
 } from '@/lib/contact';
+import styles from './ContactForm.module.css';
 
-type FieldKey = 'name' | 'email' | 'message';
-type Status = 'idle' | 'sending' | 'success';
+type Status = 'idle' | 'sending' | 'sent' | 'error';
 
-const INITIAL_VALUES = {
-  name: '',
-  email: '',
-  company: '',
-  engagement: 'b2b' as EngagementType,
-  message: '',
-  website: '', // honeypot — humans never see or fill this
-};
+const EMPTY = { name: '', company: '', email: '', message: '' };
 
-export default function ContactForm() {
+export function ContactForm() {
   const t = useTranslations('contact.form');
-  const [values, setValues] = useState(INITIAL_VALUES);
-  const [touched, setTouched] = useState<Partial<Record<FieldKey, boolean>>>({});
-  const [attempted, setAttempted] = useState(false);
+  const locale = useLocale();
+  const formId = useId();
+
+  const [values, setValues] = useState(EMPTY);
+  const [kind, setKind] = useState<EngagementType>('b2b');
+  const [errors, setErrors] = useState<ContactFieldErrors>({});
   const [status, setStatus] = useState<Status>('idle');
-  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [formError, setFormError] = useState<string | null>(null);
 
-  const errors = getFieldErrors(values);
-
-  const setValue =
-    (field: keyof typeof INITIAL_VALUES) => (event: React.ChangeEvent<HTMLInputElement>) => {
-      setValues((prev) => ({ ...prev, [field]: event.target.value }));
-    };
-
-  const markTouched = (field: FieldKey) => () => {
-    setTouched((prev) => ({ ...prev, [field]: true }));
-  };
-
-  const helperTextFor = (field: FieldKey): string | undefined => {
-    if (!attempted && !touched[field]) {
-      return undefined;
+  function update(field: keyof typeof EMPTY, value: string) {
+    setValues((prev) => ({ ...prev, [field]: value }));
+    // Clear a field's error as soon as the visitor starts fixing it.
+    if (field !== 'company' && errors[field]) {
+      setErrors((prev) => ({ ...prev, [field]: undefined }));
     }
-    const errorKey = errors[field];
-    return errorKey
-      ? t(`errors.${errorKey}`, { min: CONTACT_LIMITS.message.min, email: site.email })
-      : undefined;
-  };
+  }
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setAttempted(true);
-    setSubmitError(null);
-    if (Object.keys(errors).length > 0) {
-      return;
-    }
+    setFormError(null);
+
+    const found = getFieldErrors(values);
+    setErrors(found);
+    if (Object.keys(found).length > 0) return;
 
     setStatus('sending');
+
+    const honeypot = new FormData(event.currentTarget).get('website');
+
     try {
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(values),
+        body: JSON.stringify({ ...values, engagement: kind, locale, website: honeypot ?? '' }),
       });
-      const data = (await response.json().catch(() => null)) as {
-        ok?: boolean;
-        error?: string;
-      } | null;
 
-      if (response.ok && data?.ok) {
-        setStatus('success');
+      if (response.ok) {
+        setStatus('sent');
+        setValues(EMPTY);
         return;
       }
 
-      const errorKey = data?.error === 'rate_limited' ? 'rateLimited' : 'generic';
-      setSubmitError(t(`errors.${errorKey}`, { email: site.email }));
-      setStatus('idle');
+      if (response.status === 422) {
+        const data = (await response.json()) as { errors?: ContactFieldErrors };
+        setErrors(data.errors ?? {});
+        setStatus('idle');
+        return;
+      }
+
+      setFormError(t(response.status === 429 ? 'error.rateLimited' : 'error.body'));
+      setStatus('error');
     } catch {
-      setSubmitError(t('errors.generic', { email: site.email }));
-      setStatus('idle');
+      setFormError(t('error.body'));
+      setStatus('error');
     }
-  };
+  }
 
-  const reset = () => {
-    setValues(INITIAL_VALUES);
-    setTouched({});
-    setAttempted(false);
-    setSubmitError(null);
-    setStatus('idle');
-  };
-
-  if (status === 'success') {
+  if (status === 'sent') {
     return (
-      <Paper
-        variant="outlined"
-        sx={{
-          p: { xs: 4, md: 6 },
-          borderRadius: '22px',
-          textAlign: 'center',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: 1.5,
-        }}
-      >
-        <CheckCircleRoundedIcon sx={{ fontSize: 56, color: 'primary.main' }} />
-        <Typography variant="h5" component="p">
-          {t('success.title')}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {t('success.text')}
-        </Typography>
-        <Button variant="outlined" onClick={reset} sx={{ mt: 1.5 }}>
-          {t('success.again')}
-        </Button>
-      </Paper>
+      <div className={styles.card}>
+        <div className={styles.sent}>
+          <div className={styles.check} aria-hidden="true">
+            ✓
+          </div>
+          <h2 className={styles.sentTitle}>{t('sent.title')}</h2>
+          <p className={styles.sentBody}>{t('sent.body')}</p>
+          <Button type="button" variant="secondary" onClick={() => setStatus('idle')}>
+            {t('sent.again')}
+          </Button>
+        </div>
+      </div>
     );
   }
 
+  const sending = status === 'sending';
+
   return (
-    <Paper
-      component="form"
-      variant="outlined"
-      noValidate
-      onSubmit={handleSubmit}
-      sx={{ p: { xs: 3, md: 4 }, borderRadius: '22px' }}
-    >
-      <Stack spacing={2.5}>
-        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' }, gap: 2.5 }}>
-          <TextField
-            label={t('name')}
-            value={values.name}
-            onChange={setValue('name')}
-            onBlur={markTouched('name')}
-            error={Boolean(helperTextFor('name'))}
-            helperText={helperTextFor('name')}
-            required
-            fullWidth
-            autoComplete="name"
-          />
-          <TextField
-            label={t('email')}
+    <div className={styles.card}>
+      <h2 className={styles.title}>{t('title')}</h2>
+
+      <form onSubmit={onSubmit} noValidate>
+        <div className={styles.twoUp}>
+          <div className={styles.field}>
+            <label className={styles.label} htmlFor={`${formId}-name`}>
+              {t('label.name')}
+            </label>
+            <input
+              id={`${formId}-name`}
+              name="name"
+              value={values.name}
+              onChange={(e) => update('name', e.target.value)}
+              placeholder={t('placeholder.name')}
+              maxLength={CONTACT_LIMITS.name.max}
+              autoComplete="name"
+              required
+              aria-invalid={errors.name ? true : undefined}
+              aria-describedby={errors.name ? `${formId}-name-error` : undefined}
+              className={`${styles.input} ${errors.name ? styles.invalid : ''}`}
+            />
+            {errors.name ? (
+              <p id={`${formId}-name-error`} className={styles.error}>
+                {t(`error.${errors.name}`)}
+              </p>
+            ) : null}
+          </div>
+
+          <div className={styles.field}>
+            <label className={styles.label} htmlFor={`${formId}-company`}>
+              {t('label.company')}
+            </label>
+            <input
+              id={`${formId}-company`}
+              name="company"
+              value={values.company}
+              onChange={(e) => update('company', e.target.value)}
+              placeholder={t('placeholder.company')}
+              maxLength={CONTACT_LIMITS.company.max}
+              autoComplete="organization"
+              className={styles.input}
+            />
+          </div>
+        </div>
+
+        <div className={styles.field}>
+          <label className={styles.label} htmlFor={`${formId}-email`}>
+            {t('label.email')}
+          </label>
+          <input
+            id={`${formId}-email`}
+            name="email"
             type="email"
             value={values.email}
-            onChange={setValue('email')}
-            onBlur={markTouched('email')}
-            error={Boolean(helperTextFor('email'))}
-            helperText={helperTextFor('email')}
-            required
-            fullWidth
+            onChange={(e) => update('email', e.target.value)}
+            placeholder={t('placeholder.email')}
+            maxLength={CONTACT_LIMITS.email.max}
             autoComplete="email"
+            required
+            aria-invalid={errors.email ? true : undefined}
+            aria-describedby={errors.email ? `${formId}-email-error` : undefined}
+            className={`${styles.input} ${errors.email ? styles.invalid : ''}`}
           />
-        </Box>
+          {errors.email ? (
+            <p id={`${formId}-email-error`} className={styles.error}>
+              {t(`error.${errors.email}`)}
+            </p>
+          ) : null}
+        </div>
 
-        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' }, gap: 2.5 }}>
-          <TextField
-            label={t('company')}
-            value={values.company}
-            onChange={setValue('company')}
-            fullWidth
-            autoComplete="organization"
+        <fieldset className={styles.kinds}>
+          <legend className={styles.legend}>{t('label.kind')}</legend>
+          {ENGAGEMENT_TYPES.map((type) => (
+            <span key={type} className={styles.kind}>
+              <input
+                className={styles.kindInput}
+                type="radio"
+                name="engagement"
+                id={`${formId}-kind-${type}`}
+                value={type}
+                checked={kind === type}
+                onChange={() => setKind(type)}
+              />
+              <label className={styles.kindLabel} htmlFor={`${formId}-kind-${type}`}>
+                {t(`kinds.${type}`)}
+              </label>
+            </span>
+          ))}
+        </fieldset>
+
+        <div className={styles.field}>
+          <label className={styles.label} htmlFor={`${formId}-message`}>
+            {t('label.message')}
+          </label>
+          <textarea
+            id={`${formId}-message`}
+            name="message"
+            value={values.message}
+            onChange={(e) => update('message', e.target.value)}
+            placeholder={t('placeholder.message')}
+            maxLength={CONTACT_LIMITS.message.max}
+            required
+            aria-invalid={errors.message ? true : undefined}
+            aria-describedby={errors.message ? `${formId}-message-error` : undefined}
+            className={`${styles.textarea} ${errors.message ? styles.invalid : ''}`}
           />
-          <TextField
-            label={t('engagement')}
-            value={values.engagement}
-            onChange={setValue('engagement')}
-            select
-            fullWidth
-          >
-            {ENGAGEMENT_TYPES.map((type) => (
-              <MenuItem key={type} value={type}>
-                {t(`engagementOptions.${type}`)}
-              </MenuItem>
-            ))}
-          </TextField>
-        </Box>
+          {errors.message ? (
+            <p id={`${formId}-message-error`} className={styles.error}>
+              {t(`error.${errors.message}`)}
+            </p>
+          ) : null}
+        </div>
 
-        <TextField
-          label={t('message')}
-          placeholder={t('messagePlaceholder')}
-          value={values.message}
-          onChange={setValue('message')}
-          onBlur={markTouched('message')}
-          error={Boolean(helperTextFor('message'))}
-          helperText={helperTextFor('message')}
-          required
-          fullWidth
-          multiline
-          minRows={5}
-        />
+        {/* Honeypot — hidden from people, tempting to bots. */}
+        <div className={styles.honeypot} aria-hidden="true">
+          <label htmlFor={`${formId}-website`}>Website</label>
+          <input id={`${formId}-website`} name="website" tabIndex={-1} autoComplete="off" />
+        </div>
 
-        <input
-          type="text"
-          name="website"
-          value={values.website}
-          onChange={setValue('website')}
-          tabIndex={-1}
-          autoComplete="off"
-          aria-hidden="true"
-          style={{
-            position: 'absolute',
-            width: 1,
-            height: 1,
-            opacity: 0,
-            pointerEvents: 'none',
-          }}
-        />
+        <Button type="submit" className={styles.submit} disabled={sending}>
+          {sending ? t('sending') : t('submit')}
+        </Button>
 
-        {submitError && (
-          <Alert severity="error" sx={{ borderRadius: 3 }}>
-            {submitError}
-          </Alert>
-        )}
+        {formError ? (
+          <p className={styles.formError} role="alert">
+            {formError}
+          </p>
+        ) : null}
 
-        <Box>
-          <Button
-            type="submit"
-            variant="contained"
-            size="large"
-            disabled={status === 'sending'}
-            endIcon={
-              status === 'sending' ? (
-                <CircularProgress size={18} color="inherit" />
-              ) : (
-                <SendRoundedIcon />
-              )
-            }
-          >
-            {status === 'sending' ? t('sending') : t('submit')}
-          </Button>
-        </Box>
-      </Stack>
-    </Paper>
+        <p className={styles.note}>{t('note')}</p>
+      </form>
+    </div>
   );
 }

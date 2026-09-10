@@ -1,0 +1,331 @@
+/**
+ * Design tokens for hristov.dev.
+ *
+ * Every value in the stylesheets resolves to something declared here — no
+ * component defines a raw colour, size, spacing step, radius, or duration of
+ * its own. The scales below are transcribed from the Claude Design handoff
+ * (`hristov.dev.dc.html`), so the numbers are the design's, not invented.
+ *
+ * Dark is the default (`:root`); light is opted into with `.lightmode` on
+ * <html>, so switching themes is one class swap and no React re-render.
+ */
+
+:root {
+  /* ------------------------------------------------------ colour — dark */
+  --bg: #0c0a0e;
+  --surface: #17151b;
+  --raise: rgba(246, 240, 255, 0.05);
+  --fg: #f4f1f7;
+  --muted: #a29caf;
+  --line: rgba(238, 232, 255, 0.12);
+  --strong: rgba(238, 232, 255, 0.26);
+  --accent: #ff3650;
+  --accent-ink: #ff6076;
+  --accent-soft: rgba(255, 54, 80, 0.14);
+  --tint: rgba(255, 54, 80, 0.05);
+
+  /* Text that sits on top of an --accent fill. Fixed in both themes. */
+  --on-accent: #fff;
+
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-header: 0 6px 24px rgba(0, 0, 0, 0.1);
+  --shadow-button: 0 6px 20px var(--accent-soft);
+  --shadow-toast: 0 10px 30px rgba(0, 0, 0, 0.25);
+
+  /* The three fixed colour fields behind the page. */
+  --glow: rgba(255, 54, 80, 0.15);
+  --glow2: rgba(176, 64, 196, 0.11);
+  --glow3: rgba(255, 146, 72, 0.09);
+
+  /* Hero code watermark. */
+  --code-c: #f4f1f7;
+  --code-op: 0.075;
+
+  /* Renders tech/line icons as monochrome silhouettes. */
+  --icon-filter: grayscale(1) brightness(0) invert(1) opacity(0.82);
+
+  /* Scrim over the bottom of the portrait card. */
+  --scrim: linear-gradient(180deg, transparent, rgba(12, 10, 14, 0.82));
+  --scrim-fg: #f4f1f7;
+
+  color-scheme: dark;
+
+  /* ------------------------------------------------------------- fonts */
+  /* Injected by next/font in the root layout. */
+  --font-ui: var(--font-archivo), system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: var(--font-mono-src), ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* --------------------------------------------------- type: composites */
+  /* Each is a full `font:` shorthand — components set `font: var(--type-x)`. */
+  --type-wordmark: 600 19.5px / 1 var(--font-ui);
+  --type-hero: 600 clamp(36px, 6.2vw, 76px) / 1.02 var(--font-ui);
+  --type-page-title: 600 clamp(32px, 4.6vw, 54px) / 1.05 var(--font-ui);
+  --type-h2: 600 clamp(28px, 4vw, 44px) / 1.06 var(--font-ui);
+  --type-h2-sm: 600 clamp(22px, 2.4vw, 28px) / 1.15 var(--font-ui);
+  --type-name: 600 clamp(26px, 3.4vw, 38px) / 1.12 var(--font-ui);
+  --type-case-title: 600 clamp(20px, 2.2vw, 26px) / 1.22 var(--font-ui);
+  --type-card-title: 600 19px / 1.25 var(--font-ui);
+  --type-card-title-sm: 600 17px / 1.28 var(--font-ui);
+  --type-card-title-xs: 600 16.5px / 1.3 var(--font-ui);
+  --type-fact: 600 clamp(24px, 2.6vw, 32px) / 1 var(--font-ui);
+  --type-error-code: 500 clamp(64px, 14vw, 128px) / 1 var(--font-mono);
+
+  --type-lead: 400 clamp(16px, 1.5vw, 19px) / 1.62 var(--font-ui);
+  --type-lead-sm: 400 clamp(15.5px, 1.3vw, 17px) / 1.68 var(--font-ui);
+  --type-body-lg: 400 15px / 1.65 var(--font-ui);
+  --type-body: 400 14px / 1.6 var(--font-ui);
+  --type-body-sm: 400 13.5px / 1.55 var(--font-ui);
+  --type-body-xs: 400 12.5px / 1.5 var(--font-ui);
+  --type-bubble: 400 12.5px / 1.45 var(--font-ui);
+  --type-input-hint: 400 12px / 1 var(--font-ui);
+  --type-role: 500 15px / 1.5 var(--font-ui);
+  --type-meta-value: 400 13px / 1.4 var(--font-ui);
+  --type-fact-value: 400 13.5px / 1.45 var(--font-ui);
+
+  --type-nav: 500 14px / 1 var(--font-ui);
+  --type-button: 600 15px / 1 var(--font-ui);
+  --type-button-sm: 600 14px / 1 var(--font-ui);
+  --type-input: 400 14px / 1.5 var(--font-ui);
+
+  /* Mono roles. */
+  --type-kicker: 500 11px / 1 var(--font-mono);
+  --type-label: 500 10.5px / 1 var(--font-mono);
+  --type-label-sm: 500 9.5px / 1 var(--font-mono);
+  --type-badge: 500 9.5px / 1 var(--font-mono);
+  --type-toggle: 500 11px / 1 var(--font-mono);
+  --type-chip: 500 11.5px / 1 var(--font-mono);
+  --type-chip-sm: 400 10px / 1 var(--font-mono);
+  --type-note: 400 11.5px / 1.4 var(--font-mono);
+  --type-micro: 400 8.5px / 1 var(--font-mono);
+  --type-micro-strong: 500 8.5px / 1 var(--font-mono);
+  --type-app-name: 500 9px / 1 var(--font-mono);
+  --type-lib-title: 500 10px / 1 var(--font-mono);
+  --type-tiny: 400 8px / 1 var(--font-mono);
+  --type-arrow: 400 10px / 1 var(--font-mono);
+  --type-code: 400 10.5px / 1.5 var(--font-mono);
+
+  /* Numbers inside the case-study visuals. */
+  --type-stat: 600 13px / 1 var(--font-ui);
+  --type-stat-lg: 600 15px / 1 var(--font-ui);
+  --type-stat-unit: 8px;
+  --type-stat-unit-lg: 9px;
+
+  /* ------------------------------------------------------ letter-spacing */
+  --ls-hero: -0.035em;
+  --ls-h2: -0.03em;
+  --ls-wordmark: -0.025em;
+  --ls-title: -0.02em;
+  --ls-card: -0.015em;
+  --ls-nudge: -0.01em;
+  --ls-toggle: 0.06em;
+  --ls-label: 0.08em;
+  --ls-badge: 0.1em;
+  --ls-caps: 0.12em;
+  --ls-kicker: 0.14em;
+  --ls-chip: 0.02em;
+
+  /* -------------------------------------------------------------- space */
+  /*
+   * Keyed to the pixel value so the scale stays exact — the design uses a
+   * dense set of steps and snapping them to a t-shirt scale would quietly
+   * change the layout. `--space-15` is 15px, and so on.
+   */
+  --space-1: 1px;
+  --space-2: 2px;
+  --space-3: 3px;
+  --space-4: 4px;
+  --space-5: 5px;
+  --space-6: 6px;
+  --space-7: 7px;
+  --space-8: 8px;
+  --space-9: 9px;
+  --space-10: 10px;
+  --space-11: 11px;
+  --space-12: 12px;
+  --space-13: 13px;
+  --space-14: 14px;
+  --space-15: 15px;
+  --space-16: 16px;
+  --space-18: 18px;
+  --space-20: 20px;
+  --space-22: 22px;
+  --space-24: 24px;
+  --space-26: 26px;
+  --space-28: 28px;
+  --space-30: 30px;
+  --space-32: 32px;
+  --space-34: 34px;
+  --space-36: 36px;
+  --space-38: 38px;
+  --space-40: 40px;
+  --space-44: 44px;
+  --space-52: 52px;
+  --space-60: 60px;
+
+  /* Fluid steps. */
+  --space-gutter: clamp(14px, 3vw, 36px);
+  --space-nav-gap: clamp(8px, 2vw, 20px);
+  --space-card-pad: clamp(20px, 2.4vw, 28px);
+  --space-panel-pad: clamp(22px, 2.6vw, 32px);
+  --space-visual-pad: clamp(20px, 2.4vw, 30px);
+  --space-column-gap: clamp(28px, 4vw, 60px);
+  --space-grid-gap: clamp(18px, 2.5vw, 26px);
+  --space-stack-gap: clamp(34px, 4vw, 52px);
+  --space-fact-pad-y: clamp(24px, 3vw, 34px);
+  --space-fact-pad-x: clamp(16px, 2vw, 26px);
+
+  /* ------------------------------------------------------------ layout */
+  --page-max: 1200px;
+  --page-pad: clamp(18px, 4vw, 44px);
+  --section-y: clamp(54px, 7vw, 96px);
+  --hero-pad-top: clamp(40px, 7vw, 88px);
+  --hero-pad-bottom: clamp(38px, 5vw, 60px);
+  --page-pad-top: clamp(40px, 6vw, 80px);
+  --page-pad-bottom: clamp(52px, 7vw, 90px);
+  --resume-pad-top: clamp(36px, 5vw, 64px);
+  --header-height: 64px;
+  --header-offset: clamp(18px, 3vw, 32px);
+  --sidebar-sticky-top: 92px;
+
+  /* Component measures. */
+  --portrait-home-max: 290px;
+  --portrait-resume-max: 210px;
+  --aside-max: 260px;
+  --visual-min-height: 260px;
+  --ticker-row-height: 26px;
+  --textarea-min-height: 132px;
+
+  /*
+   * Grid track minimums and flex bases. Media-query breakpoints cannot use
+   * custom properties (a CSS limitation, not an oversight), so those remain
+   * literal — they are listed here for reference and kept in sync by hand:
+   * 700px header wrap · 820px résumé split · 860px principles split ·
+   * 900px code watermark cutoff.
+   */
+  --track-fact: 200px;
+  --track-form: 180px;
+  --track-experience: 220px;
+  --track-education: 260px;
+  --track-column: 300px;
+  --track-case: 330px;
+  --track-sidebar: 230px;
+  --basis-step: 250px;
+  --basis-card: 260px;
+  --basis-principles: 260px;
+  --label-width: 68px;
+
+  /* Measure caps (in ch, so they track the font). */
+  --measure-hero: 20ch;
+  --measure-lead: 60ch;
+  --measure-intro: 44ch;
+  --measure-body: 62ch;
+  --measure-prose: 72ch;
+  --measure-note: 78ch;
+  --measure-role: 26ch;
+  --measure-cta: 24ch;
+  --measure-title: 22ch;
+  --measure-fact: 25ch;
+
+  /* ------------------------------------------------------------ radius */
+  --radius-hair: 1px;
+  --radius-bar: 2px;
+  --radius-xs: 4px;
+  --radius-sm: 5px;
+  --radius-chip: 6px;
+  --radius-tile: 7px;
+  --radius-input: 8px;
+  --radius-node: 9px;
+  --radius-panel: 12px;
+  --radius-card: 14px;
+  --radius-pill: 999px;
+  --radius-bubble-in: 12px 12px 12px 4px;
+  --radius-bubble-out: 12px 12px 4px 12px;
+
+  /* ------------------------------------------------------------ borders */
+  --border-width: 1px;
+  --border-active: 2px;
+  --rule-width: 26px;
+  --rule-height: 2px;
+
+  /* ------------------------------------------------------------- motion */
+  --ease: ease;
+  --ease-roll: cubic-bezier(0.76, 0, 0.24, 1);
+  --ease-out: cubic-bezier(0.22, 0.8, 0.36, 1);
+
+  --duration-fast: 0.2s;
+  --duration-theme: 0.35s;
+  --duration-page: 0.35s;
+  --duration-toast: 0.25s;
+  --duration-reveal: 0.55s;
+
+  --duration-code-1: 68s;
+  --duration-code-2: 84s;
+  --duration-code-3: 96s;
+  --duration-marquee-1: 46s;
+  --duration-marquee-2: 54s;
+  --duration-vroll: 14s;
+  --duration-pulse: 2.4s;
+
+  --lift-hover: 1.08;
+
+  /* --------------------------------------------------------------- misc */
+  --z-header: 30;
+  --z-toast: 60;
+  --z-skip: 100;
+  --dot-size: 5px;
+  --status-dot: 6px;
+  --status-ring: 4px;
+  --icon-sm: 13px;
+  --icon-md: 15px;
+  --icon-lg: 18px;
+  --icon-inline: 0.72em;
+  --node-lg: 34px;
+  --node-md: 30px;
+  --node-sm: 26px;
+  --tick-height: 12px;
+  --app-bar-height: 2px;
+  --spark-height: 16px;
+  --chart-height: 44px;
+  --send-dot: 22px;
+  --check-size: 46px;
+  --bubble-max: 82%;
+}
+
+:root.lightmode {
+  --bg: #f6f4f9;
+  --surface: #fffdff;
+  --raise: rgba(60, 45, 90, 0.03);
+  --fg: #171520;
+  --muted: #6a6478;
+  --line: rgba(60, 45, 90, 0.13);
+  --strong: rgba(60, 45, 90, 0.3);
+  --accent: #ff3650;
+  --accent-ink: #d61b35;
+  --accent-soft: rgba(255, 54, 80, 0.1);
+  --tint: rgba(255, 54, 80, 0.035);
+
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-header: 0 6px 24px rgba(0, 0, 0, 0.1);
+  --shadow-toast: 0 10px 30px rgba(0, 0, 0, 0.12);
+
+  --glow: rgba(255, 54, 80, 0.1);
+  --glow2: rgba(176, 64, 196, 0.085);
+  --glow3: rgba(255, 150, 72, 0.085);
+
+  --code-c: #171520;
+  /* The handoff flags the prototype's .95 as an inconsistency; .07 matches dark. */
+  --code-op: 0.07;
+
+  --icon-filter: grayscale(1) brightness(0) opacity(0.78);
+
+  color-scheme: light;
+}
+
+/*
+ * Archivo has no Cyrillic. Bulgarian pages therefore run entirely on Inter,
+ * which covers both scripts, rather than mixing a second face mid-sentence.
+ * See the note in the root layout for why appending Inter to one stack fails.
+ */
+:root:lang(bg) {
+  --font-ui: var(--font-cyrillic), system-ui, -apple-system, 'Segoe UI', sans-serif;
+}

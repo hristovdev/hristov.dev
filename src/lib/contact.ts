@@ -5,8 +5,12 @@ export const CONTACT_LIMITS = {
   message: { min: 20, max: 5000 },
 } as const;
 
-export const ENGAGEMENT_TYPES = ['b2b', 'fulltime', 'other'] as const;
+export const ENGAGEMENT_TYPES = ['b2b', 'fulltime', 'short', 'other'] as const;
 export type EngagementType = (typeof ENGAGEMENT_TYPES)[number];
+
+export function isEngagementType(value: unknown): value is EngagementType {
+  return typeof value === 'string' && (ENGAGEMENT_TYPES as readonly string[]).includes(value);
+}
 
 export const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
@@ -19,11 +23,14 @@ export type ContactFields = {
 export type ContactFieldErrorKey =
   'nameRequired' | 'emailRequired' | 'emailInvalid' | 'messageRequired' | 'messageTooShort';
 
-/** Shared between the form (client) and the API route (server). */
-export function getFieldErrors(
-  fields: ContactFields,
-): Partial<Record<keyof ContactFields, ContactFieldErrorKey>> {
-  const errors: Partial<Record<keyof ContactFields, ContactFieldErrorKey>> = {};
+export type ContactFieldErrors = Partial<Record<keyof ContactFields, ContactFieldErrorKey>>;
+
+/**
+ * Validation shared by the form (client) and the route handler (server), so a
+ * submission can never pass in the browser and fail silently on the server.
+ */
+export function getFieldErrors(fields: ContactFields): ContactFieldErrors {
+  const errors: ContactFieldErrors = {};
 
   if (fields.name.trim().length < CONTACT_LIMITS.name.min) {
     errors.name = 'nameRequired';

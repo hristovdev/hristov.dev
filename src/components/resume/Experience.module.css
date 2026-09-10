@@ -1,0 +1,118 @@
+.title {
+  margin: 0 0 var(--space-6);
+  font: var(--type-h2-sm);
+  letter-spacing: var(--ls-h2);
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(var(--track-experience), 100%), 1fr));
+  gap: var(--space-8) var(--space-28);
+  border-top: var(--border-width) solid var(--line);
+  padding: var(--space-24) 0;
+}
+
+.when {
+  margin: 0;
+  font: var(--type-kicker);
+  letter-spacing: var(--ls-label);
+  color: var(--accent-ink);
+}
+
+.where {
+  margin: var(--space-7) 0 0;
+  font: var(--type-body-xs);
+  color: var(--muted);
+}
+
+.content {
+  grid-column: span 2;
+  min-width: 0;
+}
+
+.roleTitle {
+  margin: 0;
+  font: var(--type-card-title-xs);
+  letter-spacing: var(--ls-card);
+}
+
+.body {
+  margin: var(--space-9) 0 0;
+  font: var(--type-body);
+  color: var(--muted);
+}
+
+.points {
+  margin: var(--space-14) 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: var(--space-7);
+}
+
+.point {
+  display: grid;
+  grid-template-columns: var(--dot-size) 1fr;
+  gap: var(--space-10);
+  align-items: start;
+  font: var(--type-body-sm);
+  color: var(--muted);
+}
+
+.point::before {
+  content: '';
+  width: var(--dot-size);
+  height: var(--dot-size);
+  margin-top: 0.55em;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+/* --- education --- */
+
+.eduGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(var(--track-education), 100%), 1fr));
+  gap: var(--space-14);
+  margin-top: var(--space-22);
+}
+
+.eduCard {
+  border: var(--border-width) solid var(--line);
+  border-radius: var(--radius-panel);
+  background: var(--surface);
+  padding: var(--space-20);
+  transition:
+    border-color var(--duration-fast) var(--ease),
+    transform var(--duration-fast) var(--ease-out);
+}
+
+.eduCard:hover {
+  border-color: var(--strong);
+  transform: translateY(calc(var(--space-2) * -1));
+}
+
+.eduWhen {
+  font: var(--type-chip-sm);
+  letter-spacing: var(--ls-caps);
+  text-transform: uppercase;
+  color: var(--accent-ink);
+}
+
+.eduTitle {
+  margin: var(--space-10) 0 0;
+  font: var(--type-card-title-xs);
+  letter-spacing: var(--ls-nudge);
+}
+
+.eduBody {
+  margin: var(--space-8) 0 0;
+  font: var(--type-body-sm);
+  color: var(--muted);
+}

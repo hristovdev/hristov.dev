@@ -1,0 +1,6 @@
+Drop the two CV PDFs here for the résumé page download buttons:
+
+  Hristo-Hristov-CV-EN.pdf
+  Hristo-Hristov-CV-BG.pdf
+
+Filenames are referenced from src/data/content.ts (cvFiles).
