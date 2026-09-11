@@ -8,6 +8,8 @@
   flex-direction: column;
   gap: var(--space-10);
   padding: var(--space-visual-pad);
+  /* Room for the caption pinned to the card's bottom-left corner. */
+  padding-bottom: calc(var(--space-visual-pad) + var(--space-14));
   min-height: var(--visual-min-height);
   justify-content: center;
 }

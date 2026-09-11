@@ -154,25 +154,118 @@
   display: inline;
 }
 
-/* Below 700px the row wraps: wordmark + controls on line 1, nav full-width. */
+/* Hamburger: only rendered visibly below the breakpoint. */
+.menuButton {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: var(--space-40);
+  height: var(--space-40);
+  margin-left: auto;
+  margin-right: calc(var(--space-8) * -1);
+  padding: 0;
+  background: none;
+  border: 0;
+  border-radius: var(--radius-input);
+  color: var(--fg);
+  cursor: pointer;
+  transition: background var(--duration-fast) var(--ease);
+}
+
+.menuButton:hover {
+  background: var(--raise);
+}
+
+.menuIcon {
+  width: var(--space-22);
+  height: var(--space-22);
+}
+
+/* Wide screens: the wrapper is transparent to layout. */
+.menu {
+  display: contents;
+}
+
+/*
+ * Below 700px the row keeps its single-line height — wordmark left, menu
+ * button right — and the nav and controls move into a panel that drops
+ * down from the bar when the button is pressed.
+ */
 @media (max-width: 700px) {
+  .menuButton {
+    display: inline-flex;
+  }
+
+  .menu {
+    display: none;
+    order: 3;
+    width: 100%;
+    flex-direction: column;
+    gap: var(--space-16);
+    padding: var(--space-8) 0 var(--space-20);
+    border-top: var(--border-width) solid var(--line);
+  }
+
+  .menuOpen {
+    display: flex;
+    animation: menuIn var(--duration-fast) var(--ease-out) both;
+  }
+
   .row {
     height: auto;
+    min-height: var(--header-height);
     flex-wrap: wrap;
-    padding-block: var(--space-11);
-    row-gap: var(--space-9);
   }
 
   .nav {
-    order: 3;
-    width: 100%;
+    flex-direction: column;
+    gap: 0;
     margin-left: 0;
-    justify-content: space-between;
+  }
+
+  .navLink {
+    padding: var(--space-14) 0;
+    font: var(--type-card-title-sm);
+    letter-spacing: var(--ls-nudge);
+    border-bottom: var(--border-width) solid var(--line);
+  }
+
+  /* The growing underline is a wide-screen device; the list uses hairlines. */
+  .navLink::after {
+    display: none;
+  }
+
+  .navLinkActive {
+    color: var(--accent-ink);
   }
 
   .controls {
-    margin-left: auto;
+    justify-content: space-between;
     padding-left: 0;
     border-left: 0;
+  }
+
+  .segment,
+  .themeButton {
+    /* Comfortable tap targets. */
+    padding-block: var(--space-10);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .menuOpen {
+    animation: none;
+  }
+}
+
+/* Kept local: CSS Modules scopes keyframe references. */
+@keyframes menuIn {
+  from {
+    opacity: 0;
+    transform: translateY(calc(var(--space-6) * -1));
+  }
+  to {
+    opacity: 1;
+    transform: none;
   }
 }

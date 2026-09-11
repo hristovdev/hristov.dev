@@ -10,7 +10,9 @@
   margin: 0 auto;
   padding: 0 var(--page-pad);
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(var(--track-fact), 100%), 1fr));
+  /* `auto` rather than `1fr`: the industry ticker's longest label decides
+     that cell's width, and the free space is still shared out equally. */
+  grid-template-columns: repeat(auto-fit, minmax(min(var(--track-fact), 100%), auto));
 }
 
 .cell {
@@ -57,11 +59,21 @@
 
 /* --- industry ticker --- */
 
+/*
+ * The window is one row tall, and a row is taller than the type with the
+ * label centred in it. That puts the visible label in the solid middle of
+ * the mask and keeps the fade for the rows rolling in and out, rather than
+ * clipping the ascenders and descenders of the one on show. The negative
+ * block margin collapses the extra height so the label lines up with the
+ * other facts.
+ */
 .ticker {
+  font: var(--type-fact);
   height: var(--ticker-row-height);
+  margin-block: calc((var(--ticker-row-height) - 1em) / -2);
   overflow: hidden;
-  mask-image: linear-gradient(180deg, transparent 0, #000 38%, #000 62%, transparent 100%);
-  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 38%, #000 62%, transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0, #000 14%, #000 86%, transparent 100%);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 14%, #000 86%, transparent 100%);
 }
 
 .tickerInner {
@@ -73,10 +85,10 @@
   display: flex;
   align-items: center;
   gap: var(--space-7);
-  font: var(--type-fact);
-  line-height: var(--ticker-row-height);
+  line-height: 1;
   letter-spacing: var(--ls-wordmark);
   color: var(--fg);
+  white-space: nowrap;
 }
 
 .tickerIcon {

@@ -2,7 +2,10 @@
   "nav": {
     "home": "Home",
     "resume": "Résumé",
-    "contact": "Contact"
+    "contact": "Contact",
+    "label": "Main navigation",
+    "menu": "Open menu",
+    "close": "Close menu"
   },
   "theme": {
     "toLight": "Light",

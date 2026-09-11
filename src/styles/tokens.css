@@ -192,7 +192,10 @@
   --portrait-resume-max: 210px;
   --aside-max: 260px;
   --visual-min-height: 260px;
-  --ticker-row-height: 26px;
+  /* In em so the industry ticker's window tracks --type-fact. The extra
+     0.7em over the type size is the fade zone above and below the label;
+     any more and a rolling row would cross the "…and more" line beneath. */
+  --ticker-row-height: 1.7em;
   --textarea-min-height: 132px;
 
   /*
