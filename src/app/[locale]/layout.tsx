@@ -8,7 +8,6 @@ import { site } from '@/data/site';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { ThemeScript } from '@/components/layout/ThemeScript';
-import { JsonLd } from '@/components/layout/JsonLd';
 import '../globals.css';
 
 const archivo = Archivo({
@@ -62,6 +61,12 @@ export async function generateMetadata({
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'meta' });
 
+  /*
+   * Site-wide metadata only. Anything that names a particular page —
+   * canonical, hreflang, the whole openGraph and twitter blocks — is set by
+   * that page through `pageMetadata`, because Next replaces these objects
+   * wholesale on merge rather than deep-merging them.
+   */
   return {
     metadataBase: new URL(site.url),
     title: { default: t('home.title'), template: `%s · ${site.name}` },
@@ -69,20 +74,11 @@ export async function generateMetadata({
     applicationName: site.domain,
     authors: [{ name: site.name, url: site.url }],
     creator: site.name,
-    alternates: {
-      canonical: locale === routing.defaultLocale ? '/' : `/${locale}`,
-      languages: { en: '/', bg: '/bg' },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1 },
     },
-    openGraph: {
-      type: 'website',
-      siteName: site.domain,
-      locale: locale === 'bg' ? 'bg_BG' : 'en_GB',
-      title: t('home.title'),
-      description: t('home.description'),
-      url: locale === routing.defaultLocale ? '/' : `/${locale}`,
-    },
-    twitter: { card: 'summary_large_image' },
-    robots: { index: true, follow: true },
   };
 }
 
@@ -131,7 +127,6 @@ export default async function LocaleLayout({
             <Footer />
           </div>
         </NextIntlClientProvider>
-        <JsonLd locale={locale} />
       </body>
     </html>
   );

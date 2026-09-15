@@ -1,7 +1,9 @@
 import type { Metadata } from 'next';
-import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server';
+import { getMessages, setRequestLocale } from 'next-intl/server';
 import { NextIntlClientProvider, useTranslations } from 'next-intl';
 import { routing } from '@/i18n/routing';
+import { pageMetadata } from '@/lib/metadata';
+import { JsonLd } from '@/components/layout/JsonLd';
 import { Kicker } from '@/components/shared/Section';
 import { Channels } from '@/components/contact/Channels';
 import { ContactForm } from '@/components/contact/ContactForm';
@@ -17,16 +19,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'meta.contact' });
-
-  return {
-    title: t('title'),
-    description: t('description'),
-    alternates: {
-      canonical: locale === routing.defaultLocale ? '/contact' : `/${locale}/contact`,
-      languages: { en: '/contact', bg: '/bg/contact' },
-    },
-  };
+  return pageMetadata(locale, '/contact', 'contact');
 }
 
 function Intro() {
@@ -53,6 +46,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
 
   return (
     <div className={styles.wrap}>
+      <JsonLd locale={locale} route="/contact" />
       <Intro />
 
       <div className={styles.columns}>

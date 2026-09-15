@@ -1,7 +1,9 @@
 import type { Metadata } from 'next';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { setRequestLocale } from 'next-intl/server';
 import { useTranslations } from 'next-intl';
 import { routing } from '@/i18n/routing';
+import { pageMetadata } from '@/lib/metadata';
+import { JsonLd } from '@/components/layout/JsonLd';
 import { ResumeSidebar } from '@/components/resume/ResumeSidebar';
 import { Skills } from '@/components/resume/Skills';
 import { TechTicker } from '@/components/resume/TechTicker';
@@ -18,16 +20,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'meta.resume' });
-
-  return {
-    title: t('title'),
-    description: t('description'),
-    alternates: {
-      canonical: locale === routing.defaultLocale ? '/resume' : `/${locale}/resume`,
-      languages: { en: '/resume', bg: '/bg/resume' },
-    },
-  };
+  return pageMetadata(locale, '/resume', 'resume');
 }
 
 function About() {
@@ -48,6 +41,7 @@ export default async function ResumePage({ params }: { params: Promise<{ locale:
 
   return (
     <div className={styles.layout}>
+      <JsonLd locale={locale} route="/resume" />
       <ResumeSidebar />
 
       <div className={styles.main}>

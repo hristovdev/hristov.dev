@@ -18,6 +18,12 @@ export const site = {
   },
   /** Booking link for the "intro call" channel. Empty = row is hidden. */
   callUrl: '',
+  /**
+   * Last substantive change to the page content, for <lastmod> in the sitemap.
+   * Bump it by hand when the copy changes — a build timestamp would mark every
+   * page as modified on every deploy, which crawlers learn to discount.
+   */
+  contentUpdated: '2026-09-15',
 } as const;
 
 /** Display text for the contact channels, derived from the real values above. */
