@@ -8,18 +8,22 @@
 
 html {
   -webkit-text-size-adjust: 100%;
+  /*
+   * The page colour sits on the canvas element rather than on <body>, so the
+   * fixed glow layer below can paint behind every element on the page and
+   * still land on top of the flat background.
+   */
+  background: var(--bg);
+  transition: background var(--duration-theme) var(--ease);
 }
 
 body {
   margin: 0;
-  background: var(--bg);
   color: var(--fg);
   font-family: var(--font-ui);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  transition:
-    background var(--duration-theme) var(--ease),
-    color var(--duration-theme) var(--ease);
+  transition: color var(--duration-theme) var(--ease);
 }
 
 a {
@@ -61,17 +65,35 @@ p {
   border-radius: var(--space-2);
 }
 
-/* Three large, fixed, low-opacity colour fields behind the whole page. */
+/*
+ * Three large, low-opacity colour fields behind the whole page.
+ *
+ * A `position: fixed` layer, not `background-attachment: fixed` on this
+ * wrapper. A fixed *background* cannot be composited: the browser has to
+ * re-rasterise all three gradients against the new scroll offset on every
+ * frame, on the main thread, over a box as tall as the document. That is what
+ * made scrolling stutter and tear. A fixed *element* gets its own compositor
+ * layer, so scrolling leaves it alone entirely.
+ *
+ * `.pageField` deliberately establishes no stacking context, which puts the
+ * z-index: -1 layer behind the page's content but still above the canvas
+ * background on <html>.
+ */
 .pageField {
   min-height: 100vh;
-  background-color: var(--bg);
+  overflow-x: clip;
+}
+
+.pageField::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
   background-image:
     radial-gradient(75% 48% at 86% -8%, var(--glow) 0%, transparent 62%),
     radial-gradient(62% 42% at 2% 96%, var(--glow2) 0%, transparent 64%),
     radial-gradient(58% 40% at 72% 108%, var(--glow3) 0%, transparent 66%);
-  background-attachment: fixed, fixed, fixed;
-  overflow-x: clip;
-  transition: background-color var(--duration-theme) var(--ease);
 }
 
 /*

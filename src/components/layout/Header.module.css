@@ -6,9 +6,14 @@
   margin-top: var(--header-offset);
   border-top: var(--border-width) solid var(--line);
   border-bottom: var(--border-width) solid var(--line);
+  /*
+   * No backdrop-filter here. --surface is fully opaque in both themes, so a
+   * blur behind it was invisible — but it still cost the compositor a
+   * backdrop snapshot and a blur pass on every frame the bar moved against
+   * the content under it, which showed up as flicker while scrolling.
+   */
   background: var(--surface);
   box-shadow: var(--shadow-header);
-  backdrop-filter: blur(var(--space-8));
   transition: background var(--duration-theme) var(--ease);
 }
 
