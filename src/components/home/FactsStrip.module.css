@@ -10,9 +10,18 @@
   margin: 0 auto;
   padding: 0 var(--page-pad);
   display: grid;
-  /* `auto` rather than `1fr`: the industry ticker's longest label decides
-     that cell's width, and the free space is still shared out equally. */
-  grid-template-columns: repeat(auto-fit, minmax(min(var(--track-fact), 100%), auto));
+  /*
+   * Cells share the row equally, but none is squeezed below its own
+   * min-content. That matters for the industry ticker: its rows are `nowrap`
+   * inside an `overflow: hidden` window, so a track narrower than the longest
+   * label chops the label instead of wrapping it. Bulgarian needs the room —
+   * "Наем на имоти" is about 15% wider than an equal quarter of the row. The
+   * other three cells are paragraphs, so they give the width up and rewrap.
+   *
+   * `auto-fit` cannot express this: its repeat() requires a *definite* track
+   * minimum, which is why the column counts below are spelled out by hand.
+   */
+  grid-template-columns: repeat(4, minmax(min-content, 1fr));
 }
 
 .cell {
@@ -22,6 +31,22 @@
   /* Pull the right edge onto the next cell's left edge so interior lines
      don't double, while the last cell still closes the row. */
   margin-right: calc(var(--border-width) * -1);
+}
+
+/*
+ * Column counts, since auto-fit is out. Each threshold is where the four
+ * (resp. two) cells stop holding the longest ticker label at its type size.
+ */
+@media (max-width: 1000px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(min-content, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .grid {
+    grid-template-columns: minmax(min-content, 1fr);
+  }
 }
 
 .key {

@@ -203,9 +203,8 @@
    * custom properties (a CSS limitation, not an oversight), so those remain
    * literal — they are listed here for reference and kept in sync by hand:
    * 700px header wrap · 820px résumé split · 860px principles split ·
-   * 900px code watermark cutoff.
+   * 900px code watermark cutoff · 1000px/560px facts-strip column counts.
    */
-  --track-fact: 200px;
   --track-form: 180px;
   --track-experience: 220px;
   --track-education: 260px;
