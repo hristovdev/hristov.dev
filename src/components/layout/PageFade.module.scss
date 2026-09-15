@@ -1,9 +1,11 @@
+@use 'core' as *;
+
 /* Re-mounts on every navigation, so the animation replays per page. */
 .fade {
   animation: fadein 0.35s ease both;
 }
 
-@media (prefers-reduced-motion: reduce) {
+@include reduced-motion {
   .fade {
     animation: none;
   }

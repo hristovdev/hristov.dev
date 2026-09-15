@@ -1,7 +1,7 @@
 'use client';
 
 import { useLayoutEffect, useRef } from 'react';
-import styles from './Reveal.module.css';
+import styles from './Reveal.module.scss';
 
 type RevealProps = {
   children: React.ReactNode;

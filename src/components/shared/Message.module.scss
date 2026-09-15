@@ -1,7 +1,8 @@
+@use 'core' as *;
+
 .wrap {
-  max-width: var(--page-max);
-  margin: 0 auto;
-  padding: var(--page-pad-top) var(--page-pad) var(--page-pad-bottom);
+  @include page-column;
+  padding-block: var(--page-pad-top) var(--page-pad-bottom);
   text-align: center;
   display: flex;
   flex-direction: column;

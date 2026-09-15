@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
-import styles from './DownloadToast.module.css';
+import styles from './DownloadToast.module.scss';
 
 const DISMISS_AFTER = 2600;
 

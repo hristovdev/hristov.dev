@@ -1,0 +1,52 @@
+@use 'sass:map';
+
+/**
+ * Layout breakpoints.
+ *
+ * These have to be Sass variables: a media query cannot read a custom
+ * property. `tokens.css` used to carry them as a hand-maintained comment for
+ * exactly that reason — this is now the one real definition, and the values
+ * are the literals that comment listed.
+ */
+$breakpoints: (
+  // The facts strip drops to a single column.
+  'compact': 560px,
+  // The header folds into the menu button; case cards stop sitting side by side.
+  'narrow': 700px,
+  // The résumé sidebar moves alongside the body.
+  'resume': 820px,
+  // The principles portrait moves alongside the list.
+  'split': 860px,
+  // The hero code watermark appears.
+  'wide': 900px,
+  // The facts strip has room for all four cells.
+  'full': 1000px
+);
+
+@function bp($name) {
+  @if not map.has-key($breakpoints, $name) {
+    @error 'Unknown breakpoint `#{$name}`. Known: #{map.keys($breakpoints)}.';
+  }
+  @return map.get($breakpoints, $name);
+}
+
+/** Viewports at or below `$name`. */
+@mixin below($name) {
+  @media (max-width: bp($name)) {
+    @content;
+  }
+}
+
+/** Viewports at or above `$name`. */
+@mixin from($name) {
+  @media (min-width: bp($name)) {
+    @content;
+  }
+}
+
+/** Visitors who have asked for less movement. */
+@mixin reduced-motion {
+  @media (prefers-reduced-motion: reduce) {
+    @content;
+  }
+}

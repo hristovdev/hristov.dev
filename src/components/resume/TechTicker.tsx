@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 import { technologies } from '@/data/content';
 import { monogram } from '@/components/shared/Chip';
-import styles from './TechTicker.module.css';
+import styles from './TechTicker.module.scss';
 
 const HALF = Math.ceil(technologies.length / 2);
 const ROWS = [technologies.slice(0, HALF), technologies.slice(HALF)];

@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 import { Factory, House, Landmark, Plane, type LucideIcon } from 'lucide-react';
 import { industryIcons, stackIcons } from '@/data/content';
-import styles from './FactsStrip.module.css';
+import styles from './FactsStrip.module.scss';
 
 const ICONS: Record<string, LucideIcon> = {
   landmark: Landmark,

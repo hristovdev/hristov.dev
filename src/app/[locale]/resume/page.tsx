@@ -8,7 +8,7 @@ import { ResumeSidebar } from '@/components/resume/ResumeSidebar';
 import { Skills } from '@/components/resume/Skills';
 import { TechTicker } from '@/components/resume/TechTicker';
 import { Experience, Education } from '@/components/resume/Experience';
-import styles from '@/components/resume/Resume.module.css';
+import styles from '@/components/resume/Resume.module.scss';
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));

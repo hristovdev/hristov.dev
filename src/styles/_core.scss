@@ -1,0 +1,10 @@
+/**
+ * The single entry point for component stylesheets:
+ *
+ *   @use 'core' as *;
+ *
+ * `next.config.ts` puts `src/styles` on Sass's load path, so the specifier is
+ * the same from any depth.
+ */
+@forward 'breakpoints';
+@forward 'mixins';

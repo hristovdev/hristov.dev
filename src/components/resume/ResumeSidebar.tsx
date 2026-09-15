@@ -4,7 +4,7 @@ import { Kicker } from '@/components/shared/Section';
 import { site } from '@/data/site';
 import portrait from '@/../public/images/portrait.jpg';
 import { CvDownloads } from './CvDownloads';
-import styles from './ResumeSidebar.module.css';
+import styles from './ResumeSidebar.module.scss';
 
 const META_KEYS = ['based', 'languages', 'availability', 'engagement'] as const;
 

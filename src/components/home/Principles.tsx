@@ -3,7 +3,7 @@ import { useTranslations } from 'next-intl';
 import { Section, Kicker, SectionTitle } from '@/components/shared/Section';
 import { site } from '@/data/site';
 import portrait from '@/../public/images/portrait.jpg';
-import styles from './Principles.module.css';
+import styles from './Principles.module.scss';
 
 export function Principles() {
   const t = useTranslations('home.principles');

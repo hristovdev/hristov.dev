@@ -1,5 +1,5 @@
 import { Fragment } from 'react';
-import s from './Visuals.module.css';
+import s from './Visuals.module.scss';
 
 type Station = {
   name: string;

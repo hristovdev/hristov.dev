@@ -1,6 +1,6 @@
 import type { ComponentProps } from 'react';
 import { Link } from '@/i18n/navigation';
-import styles from './Button.module.css';
+import styles from './Button.module.scss';
 
 type Variant = 'primary' | 'secondary';
 

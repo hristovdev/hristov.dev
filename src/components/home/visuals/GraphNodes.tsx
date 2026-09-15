@@ -1,4 +1,4 @@
-import s from './Visuals.module.css';
+import s from './Visuals.module.scss';
 
 const LAYOUTS = ['hierarchic', 'organic', 'radial', 'tree'];
 

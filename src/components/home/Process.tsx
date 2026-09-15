@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 import { Section, Kicker, SectionTitle } from '@/components/shared/Section';
 import { processSteps } from '@/data/content';
-import styles from './Process.module.css';
+import styles from './Process.module.scss';
 
 export function Process() {
   const t = useTranslations('home.process');

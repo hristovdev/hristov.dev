@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl';
 import { ButtonLink } from '@/components/shared/Button';
-import styles from '@/components/shared/Message.module.css';
+import styles from '@/components/shared/Message.module.scss';
 
 export default function NotFound() {
   const t = useTranslations('notFound');

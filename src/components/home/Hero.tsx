@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 import { ButtonLink } from '@/components/shared/Button';
 import { CodeWatermark } from './CodeWatermark';
-import styles from './Hero.module.css';
+import styles from './Hero.module.scss';
 
 export function Hero() {
   const t = useTranslations('home');

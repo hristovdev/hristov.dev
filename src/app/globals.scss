@@ -1,4 +1,5 @@
-@import '../styles/tokens.css';
+@use 'tokens';
+@use 'core' as *;
 
 *,
 *::before,
@@ -106,14 +107,7 @@ p {
 
 /* Screen-reader-only, but focusable (skip link). */
 .srOnly {
-  position: absolute;
-  width: var(--space-hair);
-  height: var(--space-hair);
-  padding: 0;
-  margin: calc(var(--space-hair) * -1);
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
+  @include visually-hidden;
 }
 
 .srOnly:focus-visible {
@@ -132,7 +126,7 @@ p {
   font: var(--type-nav);
 }
 
-@media (prefers-reduced-motion: reduce) {
+@include reduced-motion {
   *,
   *::before,
   *::after {

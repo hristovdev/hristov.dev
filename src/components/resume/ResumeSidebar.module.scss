@@ -1,3 +1,5 @@
+@use 'core' as *;
+
 .aside {
   position: static;
   display: flex;
@@ -5,7 +7,7 @@
   gap: var(--space-20);
 }
 
-@media (min-width: 820px) {
+@include from('resume') {
   .aside {
     position: sticky;
     top: var(--sidebar-sticky-top);

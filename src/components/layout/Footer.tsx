@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl';
 import { site } from '@/data/site';
-import styles from './Footer.module.css';
+import styles from './Footer.module.scss';
 
 export function Footer() {
   const t = useTranslations('footer');

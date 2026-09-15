@@ -1,0 +1,55 @@
+/**
+ * The page column.
+ *
+ * One measure, centred, with the gutter every section, band and full-bleed
+ * strip shares. Callers supply their own `padding-block`, which is why this
+ * sets `padding-inline` rather than the shorthand.
+ */
+@mixin page-column {
+  max-width: var(--page-max);
+  margin-inline: auto;
+  padding-inline: var(--page-pad);
+}
+
+/**
+ * Fades an element's own edges out.
+ *
+ * Declared twice because Safari still wants the prefixed property, and
+ * keeping the two in step by hand across five components is exactly the kind
+ * of thing that drifts.
+ */
+@mixin fade-mask($gradient) {
+  mask-image: $gradient;
+  -webkit-mask-image: $gradient;
+}
+
+/** Removes a fade-mask again (reduced motion turns the tickers into lists). */
+@mixin no-fade-mask {
+  mask-image: none;
+  -webkit-mask-image: none;
+}
+
+/**
+ * Off-screen for sighted visitors, still read aloud and still focusable.
+ *
+ * The sizes were `var(--space-hair)`, a token that is not defined anywhere —
+ * so width and height fell back to `auto` and the element stayed hidden only
+ * because of the clip-path. `--space-1` is the 1px step that was meant.
+ */
+@mixin visually-hidden {
+  position: absolute;
+  width: var(--space-1);
+  height: var(--space-1);
+  padding: 0;
+  margin: calc(var(--space-1) * -1);
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/** The bordered panel shared by cards, channel rows and the form. */
+@mixin surface($radius: var(--radius-card)) {
+  background: var(--surface);
+  border: var(--border-width) solid var(--line);
+  border-radius: $radius;
+}

@@ -1,3 +1,5 @@
+@use 'core' as *;
+
 /*
  * Two nested layers so each carries exactly one mask: the outer fades the
  * field out toward the headline, the inner fades it top and bottom.
@@ -7,8 +9,7 @@
   inset: -8% 0;
   z-index: 0;
   pointer-events: none;
-  mask-image: linear-gradient(90deg, transparent 0%, transparent 44%, #000 78%);
-  -webkit-mask-image: linear-gradient(90deg, transparent 0%, transparent 44%, #000 78%);
+  @include fade-mask(linear-gradient(90deg, transparent 0%, transparent 44%, #000 78%));
 }
 
 .inner {
@@ -16,8 +17,7 @@
   grid-template-columns: repeat(3, 1fr);
   gap: var(--space-gutter);
   height: 100%;
-  mask-image: linear-gradient(180deg, transparent 0, #000 18%, #000 76%, transparent 100%);
-  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 18%, #000 76%, transparent 100%);
+  @include fade-mask(linear-gradient(180deg, transparent 0, #000 18%, #000 76%, transparent 100%));
 }
 
 .column {
@@ -50,13 +50,13 @@
   opacity: var(--code-op);
 }
 
-@media (max-width: 900px) {
+@include below('wide') {
   .outer {
     display: none;
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
+@include reduced-motion {
   .scroll {
     animation: none;
   }

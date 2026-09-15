@@ -1,4 +1,4 @@
-import s from './Visuals.module.css';
+import s from './Visuals.module.scss';
 
 /** Relative "maturity" bars on each sub-app, transcribed from the design. */
 const APPS = [

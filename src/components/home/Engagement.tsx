@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 import { Section, SectionTitle } from '@/components/shared/Section';
 import { Reveal } from '@/components/shared/Reveal';
-import styles from './Engagement.module.css';
+import styles from './Engagement.module.scss';
 
 export function Engagement() {
   const t = useTranslations('home.engagement');

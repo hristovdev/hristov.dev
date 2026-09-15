@@ -1,4 +1,4 @@
-import styles from './Section.module.css';
+import styles from './Section.module.scss';
 
 type SectionProps = {
   children: React.ReactNode;

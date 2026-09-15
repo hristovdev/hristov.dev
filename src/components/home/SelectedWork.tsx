@@ -4,7 +4,7 @@ import { Chip, ChipList } from '@/components/shared/Chip';
 import { Reveal } from '@/components/shared/Reveal';
 import { caseKeys, caseStacks, caseVisuals, type CaseKey } from '@/data/content';
 import { ChatWidget, GraphNodes, LineFlow, PlatformDiagram } from './visuals';
-import styles from './SelectedWork.module.css';
+import styles from './SelectedWork.module.scss';
 
 const VISUALS = {
   diagram: PlatformDiagram,

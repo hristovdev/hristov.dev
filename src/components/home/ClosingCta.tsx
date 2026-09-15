@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 import { Band } from '@/components/shared/Section';
 import { ButtonLink } from '@/components/shared/Button';
-import styles from './ClosingCta.module.css';
+import styles from './ClosingCta.module.scss';
 
 export function ClosingCta() {
   const t = useTranslations('home');

@@ -1,3 +1,5 @@
+@use 'core' as *;
+
 .head {
   display: flex;
   flex-wrap: wrap;
@@ -113,7 +115,7 @@
 }
 
 /* Once the card stacks, the divider belongs on top, not on the side. */
-@media (max-width: 700px) {
+@include below('narrow') {
   .visual {
     border-left: 0;
     border-top: var(--border-width) solid var(--line);

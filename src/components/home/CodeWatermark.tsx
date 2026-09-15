@@ -1,4 +1,4 @@
-import styles from './CodeWatermark.module.css';
+import styles from './CodeWatermark.module.scss';
 
 /**
  * Three columns of real code drifting behind the hero at very low opacity.

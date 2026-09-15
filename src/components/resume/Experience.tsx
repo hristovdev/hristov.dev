@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl';
 import { educationKeys } from '@/data/content';
-import styles from './Experience.module.css';
+import styles from './Experience.module.scss';
 
 type Entry = {
   when: string;

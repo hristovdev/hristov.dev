@@ -1,4 +1,4 @@
-import s from './Visuals.module.css';
+import s from './Visuals.module.scss';
 
 /** Representative UI for the embeddable support chat — not a client screenshot. */
 export function ChatWidget() {

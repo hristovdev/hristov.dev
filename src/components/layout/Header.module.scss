@@ -1,3 +1,5 @@
+@use 'core' as *;
+
 .header {
   position: sticky;
   top: 0;
@@ -18,9 +20,7 @@
 }
 
 .row {
-  max-width: var(--page-max);
-  margin: 0 auto;
-  padding: 0 var(--page-pad);
+  @include page-column;
   height: var(--header-height);
   display: flex;
   align-items: center;
@@ -196,7 +196,7 @@
  * button right — and the nav and controls move into a panel that drops
  * down from the bar when the button is pressed.
  */
-@media (max-width: 700px) {
+@include below('narrow') {
   .menuButton {
     display: inline-flex;
   }
@@ -257,7 +257,7 @@
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
+@include reduced-motion {
   .menuOpen {
     animation: none;
   }

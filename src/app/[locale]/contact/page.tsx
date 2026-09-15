@@ -7,7 +7,7 @@ import { JsonLd } from '@/components/layout/JsonLd';
 import { Kicker } from '@/components/shared/Section';
 import { Channels } from '@/components/contact/Channels';
 import { ContactForm } from '@/components/contact/ContactForm';
-import styles from '@/components/contact/Contact.module.css';
+import styles from '@/components/contact/Contact.module.scss';
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));

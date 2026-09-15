@@ -1,7 +1,8 @@
+@use 'core' as *;
+
 .hero {
-  max-width: var(--page-max);
-  margin: 0 auto;
-  padding: var(--hero-pad-top) var(--page-pad) var(--hero-pad-bottom);
+  @include page-column;
+  padding-block: var(--hero-pad-top) var(--hero-pad-bottom);
   position: relative;
   overflow: hidden;
 }

@@ -1,3 +1,5 @@
+@use 'core' as *;
+
 .band {
   background: var(--surface);
   border-top: var(--border-width) solid var(--line);
@@ -6,9 +8,7 @@
 }
 
 .grid {
-  max-width: var(--page-max);
-  margin: 0 auto;
-  padding: 0 var(--page-pad);
+  @include page-column;
   display: grid;
   /*
    * Cells share the row equally, but none is squeezed below its own
@@ -37,13 +37,13 @@
  * Column counts, since auto-fit is out. Each threshold is where the four
  * (resp. two) cells stop holding the longest ticker label at its type size.
  */
-@media (max-width: 1000px) {
+@include below('full') {
   .grid {
     grid-template-columns: repeat(2, minmax(min-content, 1fr));
   }
 }
 
-@media (max-width: 560px) {
+@include below('compact') {
   .grid {
     grid-template-columns: minmax(min-content, 1fr);
   }
@@ -97,8 +97,7 @@
   height: var(--ticker-row-height);
   margin-block: calc((var(--ticker-row-height) - 1em) / -2);
   overflow: hidden;
-  mask-image: linear-gradient(180deg, transparent 0, #000 14%, #000 86%, transparent 100%);
-  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 14%, #000 86%, transparent 100%);
+  @include fade-mask(linear-gradient(180deg, transparent 0, #000 14%, #000 86%, transparent 100%));
 }
 
 .tickerInner {
@@ -123,7 +122,7 @@
   color: var(--accent);
 }
 
-@media (prefers-reduced-motion: reduce) {
+@include reduced-motion {
   .tickerInner {
     animation: none;
   }

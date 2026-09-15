@@ -8,7 +8,7 @@ import { site } from '@/data/site';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { ThemeScript } from '@/components/layout/ThemeScript';
-import '../globals.css';
+import '../globals.scss';
 
 const archivo = Archivo({
   subsets: ['latin', 'latin-ext'],

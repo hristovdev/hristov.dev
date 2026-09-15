@@ -10,7 +10,7 @@ import {
   type ContactFieldErrors,
   type EngagementType,
 } from '@/lib/contact';
-import styles from './ContactForm.module.css';
+import styles from './ContactForm.module.scss';
 
 type Status = 'idle' | 'sending' | 'sent' | 'error';
 

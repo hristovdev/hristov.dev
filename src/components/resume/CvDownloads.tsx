@@ -3,7 +3,7 @@
 import { ExternalButtonLink } from '@/components/shared/Button';
 import { cvFiles } from '@/data/content';
 import { DownloadToast, useDownloadToast } from './DownloadToast';
-import styles from './ResumeSidebar.module.css';
+import styles from './ResumeSidebar.module.scss';
 
 /**
  * The only interactive part of the sidebar, so it is the only part that ships

@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { Button, ButtonLink } from '@/components/shared/Button';
-import styles from '@/components/shared/Message.module.css';
+import styles from '@/components/shared/Message.module.scss';
 
 export default function ErrorPage({
   error,

@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 import { entityKeys } from '@/data/content';
 import { channelValues, site } from '@/data/site';
-import styles from './Channels.module.css';
+import styles from './Channels.module.scss';
 
 type Channel = { key: string; href: string; value: string; external: boolean };
 

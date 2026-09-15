@@ -1,14 +1,15 @@
+@use 'core' as *;
+
 .layout {
-  max-width: var(--page-max);
-  margin: 0 auto;
-  padding: var(--resume-pad-top) var(--page-pad) var(--page-pad-bottom);
+  @include page-column;
+  padding-block: var(--resume-pad-top) var(--page-pad-bottom);
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: var(--space-column-gap);
   align-items: start;
 }
 
-@media (min-width: 820px) {
+@include from('resume') {
   .layout {
     grid-template-columns: minmax(var(--track-sidebar), 0.8fr) minmax(0, 2.2fr);
   }

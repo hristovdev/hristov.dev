@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 import { skillGroups } from '@/data/content';
 import { monogram } from '@/components/shared/Chip';
-import styles from './Skills.module.css';
+import styles from './Skills.module.scss';
 
 function Icon({ icon, name, className }: { icon: string; name: string; className: string }) {
   if (!icon) {

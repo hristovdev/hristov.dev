@@ -1,4 +1,4 @@
-import styles from './Chip.module.css';
+import styles from './Chip.module.scss';
 
 /** Two-letter fallback tile for technologies without a vendored logo. */
 export function monogram(name: string): string {

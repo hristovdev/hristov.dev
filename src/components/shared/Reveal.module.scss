@@ -1,3 +1,5 @@
+@use 'core' as *;
+
 /*
  * Progressive enhancement: the element is visible as rendered. Only once the
  * component has mounted does it mark itself `pending`, which hides it just
@@ -13,7 +15,7 @@
   animation-delay: var(--reveal-delay, 0s);
 }
 
-@media (prefers-reduced-motion: reduce) {
+@include reduced-motion {
   .reveal[data-reveal='pending'] {
     opacity: 1;
   }
