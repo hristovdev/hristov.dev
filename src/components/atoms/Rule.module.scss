@@ -1,0 +1,8 @@
+.rule {
+  width: var(--rule-width);
+  height: var(--rule-height);
+  background: var(--accent);
+  margin: var(--space-12) 0 var(--space-14);
+  transform-origin: left center;
+  transition: transform var(--duration-fast) var(--ease-out);
+}

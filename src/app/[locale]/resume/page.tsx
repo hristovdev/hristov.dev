@@ -4,11 +4,11 @@ import { useTranslations } from 'next-intl';
 import { routing } from '@/i18n/routing';
 import { pageMetadata } from '@/lib/metadata';
 import { JsonLd } from '@/components/layout/JsonLd';
-import { ResumeSidebar } from '@/components/resume/ResumeSidebar';
-import { Skills } from '@/components/resume/Skills';
-import { TechTicker } from '@/components/resume/TechTicker';
-import { Experience, Education } from '@/components/resume/Experience';
-import styles from '@/components/resume/Resume.module.scss';
+import { ResumeSidebar } from '@/components/organisms/ResumeSidebar';
+import { Skills } from '@/components/organisms/Skills';
+import { TechTicker } from '@/components/organisms/TechTicker';
+import { Experience, Education } from '@/components/organisms/Experience';
+import styles from '@/components/organisms/ResumePage.module.scss';
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));

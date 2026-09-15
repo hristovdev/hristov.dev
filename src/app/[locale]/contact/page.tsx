@@ -4,10 +4,10 @@ import { NextIntlClientProvider, useTranslations } from 'next-intl';
 import { routing } from '@/i18n/routing';
 import { pageMetadata } from '@/lib/metadata';
 import { JsonLd } from '@/components/layout/JsonLd';
-import { Kicker } from '@/components/shared/Section';
-import { Channels } from '@/components/contact/Channels';
-import { ContactForm } from '@/components/contact/ContactForm';
-import styles from '@/components/contact/Contact.module.scss';
+import { Label } from '@/components/atoms';
+import { Channels } from '@/components/organisms/Channels';
+import { ContactForm } from '@/components/organisms/ContactForm';
+import styles from '@/components/organisms/ContactPage.module.scss';
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -28,7 +28,9 @@ function Intro() {
 
   return (
     <div className={styles.intro}>
-      <Kicker>{common('availability')}</Kicker>
+      <Label as="p" size="md" tone="accent">
+        {common('availability')}
+      </Label>
       <h1 className={styles.title}>{t('title')}</h1>
       <p className={styles.lead}>{t('lead')}</p>
     </div>

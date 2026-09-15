@@ -1,0 +1,28 @@
+.label {
+  display: block;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.md {
+  font: var(--type-kicker);
+  letter-spacing: var(--ls-kicker);
+}
+
+.sm {
+  font: var(--type-label);
+  letter-spacing: var(--ls-caps);
+}
+
+.xs {
+  font: var(--type-label-sm);
+  letter-spacing: var(--ls-caps);
+}
+
+.accent {
+  color: var(--accent-ink);
+}
+
+.muted {
+  color: var(--muted);
+}

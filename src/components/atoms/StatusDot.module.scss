@@ -1,0 +1,39 @@
+@use 'core' as *;
+
+.dot {
+  flex: none;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 var(--status-ring) var(--accent-soft);
+}
+
+.sm {
+  width: var(--status-dot);
+  height: var(--status-dot);
+}
+
+.md {
+  width: var(--space-7);
+  height: var(--space-7);
+}
+
+.pulse {
+  animation: pulse var(--duration-pulse) var(--ease) infinite;
+}
+
+@include reduced-motion {
+  .pulse {
+    animation: none;
+  }
+}
+
+/* Kept local: CSS Modules scopes keyframe references. */
+@keyframes pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 var(--status-ring) var(--accent-soft);
+  }
+  50% {
+    box-shadow: 0 0 0 calc(var(--status-ring) * 2) transparent;
+  }
+}

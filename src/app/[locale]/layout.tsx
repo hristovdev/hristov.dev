@@ -5,8 +5,8 @@ import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server
 import { Archivo, Inter, JetBrains_Mono } from 'next/font/google';
 import { routing } from '@/i18n/routing';
 import { site } from '@/data/site';
-import { Header } from '@/components/layout/Header';
-import { Footer } from '@/components/layout/Footer';
+import { Header } from '@/components/organisms/Header';
+import { Footer } from '@/components/organisms/Footer';
 import { ThemeScript } from '@/components/layout/ThemeScript';
 import '../globals.scss';
 

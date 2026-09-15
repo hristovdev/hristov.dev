@@ -1,0 +1,68 @@
+@use 'core' as *;
+
+.wrap {
+  margin-top: var(--space-34);
+}
+
+.label {
+  margin-bottom: var(--space-12);
+}
+
+.row {
+  overflow: hidden;
+  @include fade-mask(linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%));
+}
+
+.row + .row {
+  margin-top: var(--space-8);
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  gap: var(--space-8);
+  animation: marquee linear infinite;
+  will-change: transform;
+}
+
+/* The label is the first child, so the two rows are children 2 and 3. */
+.row:nth-child(2) .track {
+  animation-duration: var(--duration-marquee-1);
+}
+
+.row:nth-child(3) .track {
+  animation-duration: var(--duration-marquee-2);
+  animation-direction: reverse;
+}
+
+/* Pausing on hover lets a visitor actually read a logo they spotted. */
+.row:hover .track {
+  animation-play-state: paused;
+}
+
+.note {
+  margin-top: var(--space-16);
+}
+
+@include reduced-motion {
+  .row {
+    overflow: visible;
+    @include no-fade-mask;
+  }
+
+  .track {
+    animation: none;
+    flex-wrap: wrap;
+    width: auto;
+  }
+}
+
+/* Kept local: CSS Modules scopes keyframe references. */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}

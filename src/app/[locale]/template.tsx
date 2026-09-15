@@ -1,4 +1,4 @@
-import styles from '@/components/layout/PageFade.module.scss';
+import styles from '@/components/molecules/PageFade.module.scss';
 
 /**
  * A template (rather than a layout) re-mounts on navigation, which is what

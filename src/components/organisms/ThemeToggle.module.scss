@@ -1,0 +1,39 @@
+@use 'core' as *;
+
+.button {
+  background: none;
+  border: var(--border-width) solid var(--line);
+  border-radius: var(--radius-pill);
+  padding: var(--space-6) var(--space-12);
+  cursor: pointer;
+  font: var(--type-toggle);
+  letter-spacing: var(--ls-toggle);
+  color: var(--muted);
+  transition:
+    color var(--duration-fast) var(--ease),
+    border-color var(--duration-fast) var(--ease);
+}
+
+.button[data-hovered] {
+  color: var(--fg);
+  border-color: var(--strong);
+}
+
+.whenLight {
+  display: none;
+}
+
+:global(html.lightmode) .whenDark {
+  display: none;
+}
+
+:global(html.lightmode) .whenLight {
+  display: inline;
+}
+
+/* Comfortable tap targets once the header folds into its menu panel. */
+@include below('narrow') {
+  .button {
+    padding-block: var(--space-10);
+  }
+}

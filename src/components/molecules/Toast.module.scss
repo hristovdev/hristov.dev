@@ -1,0 +1,48 @@
+@use 'core' as *;
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: var(--space-24);
+  z-index: var(--z-toast);
+  display: flex;
+  align-items: center;
+  gap: var(--space-10);
+  border: var(--border-width) solid var(--line);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  box-shadow: var(--shadow-toast);
+  padding: var(--space-11) var(--space-18);
+  font: var(--type-body-xs);
+  color: var(--fg);
+  animation: toastin var(--duration-toast) var(--ease) both;
+  max-width: calc(100% - var(--space-32));
+}
+
+.detail {
+  font: var(--type-chip-sm);
+  color: var(--muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@include reduced-motion {
+  .toast {
+    animation: none;
+    /* The keyframes carry the -50% centring, so it has to be restated. */
+    transform: translateX(-50%);
+  }
+}
+
+/* Kept local: CSS Modules scopes keyframe references. */
+@keyframes toastin {
+  from {
+    opacity: 0;
+    transform: translate(-50%, var(--space-10));
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}

@@ -1,0 +1,5 @@
+@use 'core' as *;
+
+.hidden {
+  @include visually-hidden;
+}

@@ -1,0 +1,74 @@
+@use 'core' as *;
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+  gap: var(--space-18);
+  margin-bottom: var(--space-34);
+}
+
+/* One card per row; each card then splits into text + visual columns. */
+.grid {
+  display: grid;
+  gap: var(--space-18);
+}
+
+.card {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(var(--track-case), 100%), 1fr));
+}
+
+.text {
+  padding: var(--space-card-pad);
+}
+
+.kicker {
+  margin-bottom: var(--space-10);
+}
+
+.body {
+  margin-top: var(--space-12);
+}
+
+.points {
+  margin-top: var(--space-16);
+}
+
+.stack {
+  margin-top: var(--space-18);
+}
+
+/* The visual column carries its own --bg so the page fields never show through. */
+.visual {
+  border-left: var(--border-width) solid var(--line);
+  background: var(--bg);
+  min-height: var(--visual-min-height);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+}
+
+.shot {
+  position: absolute;
+  left: var(--space-visual-pad);
+  bottom: var(--space-12);
+  font: var(--type-micro);
+  font-size: var(--type-stat-unit-lg);
+  color: var(--muted);
+  opacity: 0.75;
+}
+
+/* Once the card stacks, the divider belongs on top, not on the side. */
+@include below('narrow') {
+  .visual {
+    border-left: 0;
+    border-top: var(--border-width) solid var(--line);
+  }
+}
+
+.more {
+  margin-top: var(--space-26);
+}

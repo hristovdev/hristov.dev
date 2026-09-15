@@ -1,0 +1,76 @@
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-4) var(--space-14);
+  padding: var(--space-16) var(--space-18);
+  border-top: var(--border-width) solid var(--line);
+  color: var(--fg);
+  transition: background var(--duration-fast) var(--ease);
+}
+
+.row:first-child {
+  border-top: 0;
+}
+
+.row:hover {
+  background: var(--raise);
+  color: var(--fg);
+}
+
+.label {
+  flex: none;
+  min-width: var(--label-width);
+}
+
+.value {
+  flex: 1;
+  min-width: 0;
+  font: var(--type-body);
+  overflow-wrap: anywhere;
+}
+
+.arrow {
+  flex: none;
+  color: var(--accent);
+  font: var(--type-arrow);
+  transition: transform var(--duration-fast) var(--ease-out);
+}
+
+.row:hover .arrow {
+  transform: translate(var(--space-2), calc(var(--space-2) * -1));
+}
+
+.rowInternal:hover .arrow {
+  transform: translateX(var(--space-3));
+}
+
+/* --- availability + contracting cards --- */
+
+.panel {
+  border: var(--border-width) solid var(--line);
+  border-radius: var(--radius-card);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  padding: var(--space-20);
+  margin-top: var(--space-14);
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  gap: var(--space-11);
+  margin: 0;
+  font: var(--type-label);
+  letter-spacing: var(--ls-caps);
+  text-transform: uppercase;
+  color: var(--fg);
+}
+
+.note {
+  margin-top: var(--space-12);
+}
+
+.panelTitle {
+  margin-bottom: var(--space-4);
+}

@@ -1,0 +1,23 @@
+@use 'core' as *;
+
+.footer {
+  background: var(--surface);
+  border-top: var(--border-width) solid var(--line);
+  transition: background var(--duration-theme) var(--ease);
+}
+
+.inner {
+  @include page-column;
+  padding-block: var(--space-30);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-12);
+}
+
+.mark {
+  font: var(--type-chip-sm);
+  letter-spacing: var(--ls-toggle);
+  color: var(--muted);
+}

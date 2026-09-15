@@ -1,0 +1,38 @@
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-10) var(--space-18);
+  margin-bottom: var(--space-22);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(var(--track-column), 100%), 1fr));
+  gap: var(--space-26) var(--space-32);
+}
+
+.groupTitle {
+  margin-bottom: var(--space-12);
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* rated: icon | name | level badge — deliberately no progress bars. */
+.ratedRow {
+  display: grid;
+  grid-template-columns: var(--space-22) 1fr auto;
+  align-items: center;
+  gap: var(--space-10);
+  padding: var(--space-7) 0;
+}
+
+.name {
+  font: var(--type-body);
+  color: var(--fg);
+}

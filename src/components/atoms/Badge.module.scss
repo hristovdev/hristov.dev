@@ -1,0 +1,21 @@
+.badge {
+  display: inline-block;
+  border: var(--border-width) solid var(--line);
+  border-radius: var(--radius-pill);
+  font: var(--type-badge);
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.accent {
+  padding: var(--space-5) var(--space-10);
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+
+.neutral {
+  padding: var(--space-4) var(--space-9);
+  color: var(--muted);
+}

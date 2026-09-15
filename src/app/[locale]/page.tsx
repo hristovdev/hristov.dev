@@ -2,14 +2,14 @@ import type { Metadata } from 'next';
 import { setRequestLocale } from 'next-intl/server';
 import { pageMetadata } from '@/lib/metadata';
 import { JsonLd } from '@/components/layout/JsonLd';
-import { Reveal } from '@/components/shared/Reveal';
-import { Hero } from '@/components/home/Hero';
-import { FactsStrip } from '@/components/home/FactsStrip';
-import { SelectedWork } from '@/components/home/SelectedWork';
-import { Process } from '@/components/home/Process';
-import { Principles } from '@/components/home/Principles';
-import { Engagement } from '@/components/home/Engagement';
-import { ClosingCta } from '@/components/home/ClosingCta';
+import { Reveal } from '@/components/molecules';
+import { Hero } from '@/components/organisms/Hero';
+import { FactsStrip } from '@/components/organisms/FactsStrip';
+import { SelectedWork } from '@/components/organisms/SelectedWork';
+import { Process } from '@/components/organisms/Process';
+import { Principles } from '@/components/organisms/Principles';
+import { Engagement } from '@/components/organisms/Engagement';
+import { ClosingCta } from '@/components/organisms/ClosingCta';
 
 export async function generateMetadata({
   params,

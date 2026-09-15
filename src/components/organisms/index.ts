@@ -1,0 +1,16 @@
+export { Channels } from './Channels';
+export { ClosingCta } from './ClosingCta';
+export { CodeWatermark } from './CodeWatermark';
+export { ContactForm } from './ContactForm';
+export { Education, Experience } from './Experience';
+export { Engagement } from './Engagement';
+export { FactsStrip } from './FactsStrip';
+export { Footer } from './Footer';
+export { Header } from './Header';
+export { Hero } from './Hero';
+export { Principles } from './Principles';
+export { Process } from './Process';
+export { ResumeSidebar } from './ResumeSidebar';
+export { SelectedWork } from './SelectedWork';
+export { Skills } from './Skills';
+export { TechTicker } from './TechTicker';

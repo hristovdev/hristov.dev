@@ -1,0 +1,55 @@
+.title {
+  margin-bottom: var(--space-6);
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(var(--track-experience), 100%), 1fr));
+  gap: var(--space-8) var(--space-28);
+  border-top: var(--border-width) solid var(--line);
+  padding: var(--space-24) 0;
+}
+
+.where {
+  margin-top: var(--space-7);
+}
+
+.content {
+  grid-column: span 2;
+  min-width: 0;
+}
+
+.body {
+  margin-top: var(--space-9);
+}
+
+.points {
+  margin-top: var(--space-14);
+}
+
+/* --- education --- */
+
+.eduGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(var(--track-education), 100%), 1fr));
+  gap: var(--space-14);
+  margin-top: var(--space-22);
+}
+
+.eduCard {
+  padding: var(--space-20);
+}
+
+.eduTitle {
+  margin-top: var(--space-10);
+}
+
+.eduBody {
+  margin-top: var(--space-8);
+}

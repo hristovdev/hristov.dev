@@ -1,0 +1,52 @@
+.heading {
+  margin: 0;
+}
+
+.balance {
+  text-wrap: balance;
+}
+
+.hero {
+  font: var(--type-hero);
+  letter-spacing: var(--ls-hero);
+}
+
+.page {
+  font: var(--type-page-title);
+  letter-spacing: var(--ls-h2);
+}
+
+.section {
+  font: var(--type-h2);
+  letter-spacing: var(--ls-h2);
+}
+
+.sub {
+  font: var(--type-h2-sm);
+  letter-spacing: var(--ls-h2);
+}
+
+.name {
+  font: var(--type-name);
+  letter-spacing: var(--ls-h2);
+}
+
+.case {
+  font: var(--type-case-title);
+  letter-spacing: var(--ls-title);
+}
+
+.card {
+  font: var(--type-card-title);
+  letter-spacing: var(--ls-card);
+}
+
+.cardSm {
+  font: var(--type-card-title-sm);
+  letter-spacing: var(--ls-nudge);
+}
+
+.cardXs {
+  font: var(--type-card-title-xs);
+  letter-spacing: var(--ls-card);
+}

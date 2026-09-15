@@ -1,0 +1,71 @@
+.text {
+  margin: 0;
+}
+
+.lead {
+  font: var(--type-lead);
+}
+
+.leadSm {
+  font: var(--type-lead-sm);
+}
+
+.bodyLg {
+  font: var(--type-body-lg);
+}
+
+.body {
+  font: var(--type-body);
+}
+
+.bodySm {
+  font: var(--type-body-sm);
+}
+
+.bodyXs {
+  font: var(--type-body-xs);
+}
+
+.meta {
+  font: var(--type-meta-value);
+}
+
+.note {
+  font: var(--type-note);
+}
+
+.default {
+  color: var(--fg);
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.measure-lead {
+  max-width: var(--measure-lead);
+}
+
+.measure-intro {
+  max-width: var(--measure-intro);
+}
+
+.measure-body {
+  max-width: var(--measure-body);
+}
+
+.measure-prose {
+  max-width: var(--measure-prose);
+}
+
+.measure-note {
+  max-width: var(--measure-note);
+}
+
+.measure-role {
+  max-width: var(--measure-role);
+}
+
+.measure-fact {
+  max-width: var(--measure-fact);
+}

@@ -1,0 +1,33 @@
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+}
+
+.md {
+  gap: var(--space-8);
+}
+
+.sm {
+  gap: var(--space-7);
+}
+
+.point {
+  display: grid;
+  grid-template-columns: var(--dot-size) 1fr;
+  gap: var(--space-10);
+  align-items: start;
+  font: var(--type-body-sm);
+  color: var(--muted);
+}
+
+.point::before {
+  content: '';
+  width: var(--dot-size);
+  height: var(--dot-size);
+  /* Sits on the first line's baseline rather than the top of the box. */
+  margin-top: 0.55em;
+  border-radius: 50%;
+  background: var(--accent);
+}

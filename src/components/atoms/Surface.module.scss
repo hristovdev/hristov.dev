@@ -1,0 +1,34 @@
+.surface {
+  background: var(--surface);
+  border: var(--border-width) solid var(--line);
+  transition:
+    border-color var(--duration-fast) var(--ease),
+    transform var(--duration-fast) var(--ease-out);
+}
+
+.card {
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow);
+}
+
+.panel {
+  border-radius: var(--radius-panel);
+}
+
+.clip {
+  overflow: hidden;
+}
+
+.edge:hover {
+  border-color: var(--strong);
+}
+
+.lift:hover {
+  border-color: var(--strong);
+  transform: translateY(calc(var(--space-2) * -1));
+}
+
+.accent:hover {
+  border-color: var(--accent);
+  transform: translateY(calc(var(--space-2) * -1));
+}

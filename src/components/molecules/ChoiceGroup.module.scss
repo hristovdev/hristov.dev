@@ -1,0 +1,54 @@
+.group {
+  display: block;
+  margin-bottom: var(--space-14);
+}
+
+.legend {
+  display: block;
+  margin-bottom: var(--space-7);
+  font: var(--type-label);
+  letter-spacing: var(--ls-caps);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+}
+
+.option {
+  border: var(--border-width) solid var(--line);
+  border-radius: var(--radius-pill);
+  background: var(--bg);
+  color: var(--muted);
+  padding: var(--space-8) var(--space-14);
+  font: var(--type-body-xs);
+  cursor: pointer;
+  transition:
+    border-color var(--duration-fast) var(--ease),
+    background var(--duration-fast) var(--ease),
+    color var(--duration-fast) var(--ease);
+}
+
+.option[data-hovered] {
+  border-color: var(--strong);
+  color: var(--fg);
+}
+
+.option[data-selected] {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+
+/*
+ * The real input is hidden inside React Aria's Radio, so the ring has to be
+ * drawn on the pill. `data-focus-visible` is keyboard-only, matching what
+ * :focus-visible does for the rest of the site.
+ */
+.option[data-focus-visible] {
+  outline: var(--border-active) solid var(--accent);
+  outline-offset: var(--space-1);
+}

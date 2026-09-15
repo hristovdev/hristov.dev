@@ -1,0 +1,42 @@
+.icon,
+.monogram {
+  flex: none;
+}
+
+.icon {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  filter: var(--icon-filter);
+}
+
+.monogram {
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-xs);
+  border: var(--border-width) solid var(--line);
+  background: var(--raise);
+  font: var(--type-tiny);
+  color: var(--muted);
+}
+
+/* Tracks the surrounding type, for logos set inside a line of text. */
+.inline {
+  width: var(--icon-inline);
+  height: var(--icon-inline);
+}
+
+.sm {
+  width: var(--icon-sm);
+  height: var(--icon-sm);
+}
+
+.md {
+  width: var(--icon-md);
+  height: var(--icon-md);
+}
+
+.lg {
+  width: var(--icon-lg);
+  height: var(--icon-lg);
+}

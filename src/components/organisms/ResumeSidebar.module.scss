@@ -1,0 +1,70 @@
+@use 'core' as *;
+
+.aside {
+  position: static;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-20);
+}
+
+@include from('resume') {
+  .aside {
+    position: sticky;
+    top: var(--sidebar-sticky-top);
+  }
+}
+
+.name {
+  margin-top: var(--space-13);
+}
+
+.role {
+  margin-top: var(--space-9);
+  /* --type-role is a shade heavier than the body step the atom provides. */
+  font: var(--type-role);
+}
+
+.portrait {
+  position: relative;
+  max-width: var(--portrait-resume-max);
+  aspect-ratio: 1 / 1;
+  border: var(--border-width) solid var(--line);
+  border-radius: var(--radius-panel);
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.portraitImage {
+  object-fit: cover;
+  object-position: 50% 20%;
+  filter: saturate(0.92) contrast(1.02);
+  transition: transform var(--duration-theme) var(--ease-out);
+}
+
+.portrait:hover .portraitImage {
+  transform: scale(1.03);
+}
+
+.cvList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  max-width: var(--aside-max);
+}
+
+.cvButton {
+  justify-content: space-between;
+  padding: var(--space-14) var(--space-18);
+  font: var(--type-button-sm);
+  width: 100%;
+}
+
+.pdfTag {
+  font: var(--type-toggle);
+  font-weight: 400;
+  opacity: 0.8;
+}
+
+.meta {
+  max-width: var(--aside-max);
+}

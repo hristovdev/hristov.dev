@@ -1,0 +1,52 @@
+@use 'core' as *;
+
+.group {
+  display: flex;
+  border: var(--border-width) solid var(--line);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+}
+
+.segment {
+  display: inline-flex;
+  align-items: center;
+  background: none;
+  color: var(--muted);
+  border: 0;
+  padding: var(--space-6) var(--space-10);
+  cursor: pointer;
+  font: var(--type-toggle);
+  letter-spacing: var(--ls-toggle);
+  transition:
+    background var(--duration-fast) var(--ease),
+    color var(--duration-fast) var(--ease);
+}
+
+.segment[data-hovered] {
+  color: var(--fg);
+}
+
+.segment[data-selected] {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+.segment[data-disabled] {
+  cursor: not-allowed;
+}
+
+/*
+ * The real input is hidden inside React Aria's Radio, so the ring is drawn on
+ * the pill. Inset, because the group clips its children to the rounded edge.
+ */
+.segment[data-focus-visible] {
+  outline: var(--border-active) solid var(--accent);
+  outline-offset: calc(var(--space-2) * -1);
+}
+
+/* Comfortable tap targets once the header folds into its menu panel. */
+@include below('narrow') {
+  .segment {
+    padding-block: var(--space-10);
+  }
+}

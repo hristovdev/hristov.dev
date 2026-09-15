@@ -1,0 +1,39 @@
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-16);
+  margin-top: var(--space-34);
+}
+
+.cardWrap {
+  flex: 1 1 var(--basis-card);
+  display: flex;
+}
+
+.card {
+  flex: 1;
+  border: var(--border-width) solid var(--line);
+  border-radius: var(--radius-panel);
+  background: var(--surface);
+  padding: var(--space-card-pad);
+  transition:
+    border-color var(--duration-fast) var(--ease),
+    transform var(--duration-fast) var(--ease-out);
+}
+
+.card:hover {
+  border-color: var(--accent);
+  transform: translateY(calc(var(--space-2) * -1));
+}
+
+.tag {
+  margin-bottom: var(--space-14);
+}
+
+.body {
+  margin-top: var(--space-9);
+}
+
+.note {
+  margin-top: var(--space-26);
+}

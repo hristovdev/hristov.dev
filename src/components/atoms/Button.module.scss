@@ -1,0 +1,74 @@
+/*
+ * Shared by the Button atom (a React Aria <button>) and the ActionLink atom
+ * (a plain anchor, so it can stay server-rendered). One stylesheet, because
+ * the two are the same object in the design and only differ in what happens
+ * when you activate them.
+ *
+ * React Aria reports interaction as data attributes and deliberately withholds
+ * `data-hovered` on touch, where :hover sticks after a tap. Anchors have no
+ * such reporting, so they opt into :hover through the `.link` modifier rather
+ * than the button giving up the better behaviour.
+ */
+.base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-8);
+  border-radius: var(--radius-input);
+  font: var(--type-button);
+  cursor: pointer;
+  border: var(--border-width) solid transparent;
+  text-align: center;
+  transition:
+    filter var(--duration-fast) var(--ease),
+    border-color var(--duration-fast) var(--ease),
+    color var(--duration-fast) var(--ease),
+    background var(--duration-fast) var(--ease),
+    transform var(--duration-fast) var(--ease-out);
+}
+
+.base[data-pressed],
+.link.base:active {
+  transform: translateY(var(--space-1));
+}
+
+.md {
+  /* Design: 15px 24px. */
+  padding: var(--space-15) var(--space-24);
+}
+
+.sm {
+  padding: var(--space-14) var(--space-18);
+  font: var(--type-button-sm);
+}
+
+.primary {
+  background: var(--accent);
+  color: var(--on-accent);
+  box-shadow: var(--shadow-button);
+}
+
+.primary[data-hovered],
+.link.primary:hover {
+  filter: brightness(var(--lift-hover));
+  color: var(--on-accent);
+}
+
+.secondary {
+  background: transparent;
+  color: var(--fg);
+  border-color: var(--line);
+}
+
+.secondary[data-hovered],
+.link.secondary:hover {
+  border-color: var(--strong);
+  color: var(--fg);
+}
+
+.base[data-disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+  filter: none;
+  transform: none;
+}

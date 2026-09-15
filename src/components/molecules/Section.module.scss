@@ -1,0 +1,26 @@
+@use 'core' as *;
+
+.section {
+  @include page-column;
+  padding-block: var(--section-y);
+}
+
+.bordered {
+  border-top: var(--border-width) solid var(--line);
+}
+
+/* Full-bleed --surface band with hairlines above and below. */
+.band {
+  background: var(--surface);
+  border-top: var(--border-width) solid var(--line);
+  border-bottom: var(--border-width) solid var(--line);
+}
+
+.bandInner {
+  @include page-column;
+  padding-block: var(--section-y);
+}
+
+.kicker {
+  margin-bottom: var(--space-14);
+}

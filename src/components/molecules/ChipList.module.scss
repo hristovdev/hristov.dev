@@ -1,0 +1,15 @@
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.md {
+  gap: var(--space-6);
+}
+
+.sm {
+  gap: var(--space-7);
+}
