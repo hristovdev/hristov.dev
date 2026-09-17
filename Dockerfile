@@ -19,7 +19,12 @@ FROM base AS dev
 ENV NODE_ENV=development
 COPY --from=deps /app/node_modules ./node_modules
 COPY package.json package-lock.json ./
+# The entrypoint reinstalls when this stamp drifts from package-lock.json.
+# Seeding it here keeps a freshly created volume from reinstalling on first run.
+RUN cp package-lock.json node_modules/.lockstamp
+COPY --chmod=0755 docker/dev-entrypoint.sh /usr/local/bin/dev-entrypoint.sh
 EXPOSE 3000
+ENTRYPOINT ["/usr/local/bin/dev-entrypoint.sh"]
 CMD ["npm", "run", "dev", "--", "--hostname", "0.0.0.0"]
 
 # --------------------------------------------------------------- build ----

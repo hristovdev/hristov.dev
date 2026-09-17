@@ -52,6 +52,8 @@ services:
     volumes:
       - .:/app
       # Keep container-built node_modules and .next out of the host tree.
+      # Docker seeds these only on creation, so they go stale when dependencies
+      # change; docker/dev-entrypoint.sh re-syncs both against the lockfile.
       - dev_node_modules:/app/node_modules
       - dev_next:/app/.next
 
